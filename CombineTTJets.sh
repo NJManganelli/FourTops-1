@@ -1,0 +1,26 @@
+hadd -f Craneens_MuMu/CurrentMerge/TTJetsPowheg_mtop_Run2_TopTree_Study.root Craneens_MuMu/Craneens6_4_2018/TTJetsPowheg_MuMu_mtop*_Run2_TopTree_Study.root;
+hadd -f Craneens_MuMu/CurrentMerge/TTJetsPowheg_width_Run2_TopTree_Study.root Craneens_MuMu/Craneens6_4_2018/TTJetsPowheg_MuMu_width*_Run2_TopTree_Study.root;
+hadd -f Craneens_MuMu/CurrentMerge/TTJetsPowheg_main_Run2_TopTree_Study.root Craneens_MuMu/Craneens6_4_2018/TTJetsPowheg_MuMu_main_*_Run2_TopTree_Study.root;
+hadd -f Craneens_MuMu/CurrentMerge/TTJetsPowheg_new_Run2_TopTree_Study.root Craneens_MuMu/Craneens6_4_2018/TTJetsPowheg_MuMu_new_*_Run2_TopTree_Study.root;
+
+
+hadd -f Craneens_MuEl/CurrentMerge/TTJetsPowheg_mtop_Run2_TopTree_Study.root Craneens_MuEl/Craneens6_4_2018/TTJetsPowheg_MuEl_mtop1755*_Run2_TopTree_Study.root;
+hadd -f Craneens_MuEl/CurrentMerge/TTJetsPowheg_width_Run2_TopTree_Study.root Craneens_MuEl/Craneens6_4_2018/TTJetsPowheg_MuEl_widthx8*_Run2_TopTree_Study.root;
+hadd -f Craneens_MuEl/CurrentMerge/TTJetsPowheg_main_Run2_TopTree_Study.root Craneens_MuEl/Craneens6_4_2018/TTJetsPowheg_MuEl_main_*_Run2_TopTree_Study.root;
+hadd -f Craneens_MuEl/CurrentMerge/TTJetsPowheg_new_Run2_TopTree_Study.root Craneens_MuEl/Craneens6_4_2018/TTJetsPowheg_MuEl_new_*_Run2_TopTree_Study.root;
+
+
+hadd -f Craneens_ElEl/CurrentMerge/TTJetsPowheg_mtop_Run2_TopTree_Study.root Craneens_ElEl/Craneens6_4_2018/TTJetsPowheg_ElEl_mtop1755*_Run2_TopTree_Study.root;
+hadd -f Craneens_ElEl/CurrentMerge/TTJetsPowheg_width_Run2_TopTree_Study.root Craneens_ElEl/Craneens6_4_2018/TTJetsPowheg_ElEl_widthx0p2*_Run2_TopTree_Study.root;
+hadd -f Craneens_ElEl/CurrentMerge/TTJetsPowheg_main_Run2_TopTree_Study.root Craneens_ElEl/Craneens6_4_2018/TTJetsPowheg_ElEl_main_*_Run2_TopTree_Study.root;
+hadd -f Craneens_ElEl/CurrentMerge/TTJetsPowheg_new_Run2_TopTree_Study.root Craneens_ElEl/Craneens6_4_2018/TTJetsPowheg_ElEl_new_*_Run2_TopTree_Study.root;
+
+
+hadd -f TTJetsPowheg_mtop_Run2_TopTree_Study.root Craneens_*/CurrentMerge/TTJetsPowheg_mtop_Run2_TopTree_Study.root;
+hadd -f TTJetsPowheg_width_Run2_TopTree_Study.root Craneens_*/CurrentMerge/TTJetsPowheg_width_Run2_TopTree_Study.root;
+hadd -f TTJetsPowheg_main_Run2_TopTree_Study.root Craneens_*/CurrentMerge/TTJetsPowheg_main_Run2_TopTree_Study.root;
+hadd -f TTJetsPowheg_new_Run2_TopTree_Study.root Craneens_*/CurrentMerge/TTJetsPowheg_new_Run2_TopTree_Study.root;
+
+
+
+
