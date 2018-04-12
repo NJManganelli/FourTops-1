@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<data>
+<datasets>
+
+
+
+
+
+<d name="TTJetsPowheg_MuMu_mtop1695"  title="TTJetsPowheg"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="1192910.07888" xsection="831.76"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_mtop1695_13TeV-powheg-pythia8/*/17*5_*0*/*/*.root"/>
+
+<d name="TTJetsPowheg_MuMu_mtop1715"  title="TTJetsPowheg"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="1192910.07888" xsection="831.76"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_mtop1715_13TeV-powheg-pythia8/crab_op171513TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab95/170417_052410/*/*.root"/>
+
+<d name="TTJetsPowheg_MuMu_mtop1735"  title="TTJetsPowheg"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="1192910.07888" xsection="831.76"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_mtop1735_13TeV-powheg-pythia8/crab_op173513TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab96/170415_154459/0000/*.root"/>
+
+<d name="TTJetsPowheg_MuMu_mtop1755"  title="TTJetsPowheg"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="1192910.07888" xsection="831.76"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_mtop1755_13TeV-powheg-pythia8/crab*crab1*/*/*/*.root"/>
+
+
+
+
+
+<d name="TTJetsPowheg_MuMu_widthx0p2"  title="TTJetsPowheg"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="1192910.07888" xsection="831.76"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_widthx0p2_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab1/170506_105336/0000/*.root"/>
+
+<d name="TTJetsPowheg_MuMu_widthx0p5"  title="TTJetsPowheg"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="1192910.07888" xsection="831.76"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_widthx0p5_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab2/170506_105419/0000/*.root"/>
+
+<d name="TTJetsPowheg_MuMu_widthx4"  title="TTJetsPowheg"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="1192910.07888" xsection="831.76"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_widthx4_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab91/170506_105503/0000/*.root"/>
+
+<d name="TTJetsPowheg_MuMu_widthx8"  title="TTJetsPowheg"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="1192910.07888" xsection="831.76"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_widthx8_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab3/170415_152603/0000/*.root"/>
+
+
+
+
+<d name="TTJetsPowheg_MuMu_main"  title="TTJetsPowheg"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="1192910.07888" xsection="831.76"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_13TeV-powheg-pythia8/*/170506_*/*/*.root"/>
+
+
+
+
+
+
+
+</datasets>
+
+
+<analysis>
+<a type="Collections" PVCollection="PrimaryVertex" JetType="2" JetCollection="PFJets_slimmedJets" METType="2" METCollection="PFMET_slimmedMETs" MuonCollection="Muons_slimmedMuons" ElectronCollection="Electrons_selectedElectrons" loadGenJetCollection="1" GenJetCollection="GenJets_slimmedGenJets" loadGenEventCollection="0" GenEventCollection="GenEvent" loadNPGenEventCollection="0" NPGenEventCollection="NPGenEvent" loadMCParticles="1" MCParticlesCollection="MCParticles" TrackMETCollection="" loadTrackMET="0"/>
+</analysis>
+</data>

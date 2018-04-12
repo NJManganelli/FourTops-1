@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<data>
+<datasets>
+
+
+
+
+<d name="TTJetsPowheg_f_ElEl"  title="TTJetsPowheg"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="6005912.2807" xsection="1.539"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v12/TTP-CMSSW_80X_v12--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TTTo2L2Nu_HT500Njet7_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab293/180403_184806/0000/*.root"/>
+
+<d name="TTJetsPowheg_f_JERUp_ElEl"  title="TTJetsPowheg_JERUp"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="6005912.2807" xsection="1.539"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v12/TTP-CMSSW_80X_v12--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TTTo2L2Nu_HT500Njet7_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab293/180403_184806/0000/*.root"/>
+
+<d name="TTJetsPowheg_f_JERDown_ElEl"  title="TTJetsPowheg_JERDown"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="6005912.2807" xsection="1.539"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v12/TTP-CMSSW_80X_v12--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TTTo2L2Nu_HT500Njet7_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab293/180403_184806/0000/*.root"/>
+
+<d name="TTJetsPowheg_f_JESUp_ElEl"  title="TTJetsPowheg_JESUp"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="6005912.2807" xsection="1.539"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v12/TTP-CMSSW_80X_v12--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TTTo2L2Nu_HT500Njet7_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab293/180403_184806/0000/*.root"/>
+
+<d name="TTJetsPowheg_f_JESDown_ElEl"  title="TTJetsPowheg_JESDown"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="6005912.2807" xsection="1.539"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v12/TTP-CMSSW_80X_v12--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TTTo2L2Nu_HT500Njet7_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab293/180403_184806/0000/*.root"/>
+
+<d name="TTJets_f_SubTotalPileUpUp_ElEl"  title="TTJets_Up"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="6005912.2807" xsection="1.539"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v12/TTP-CMSSW_80X_v12--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TTTo2L2Nu_HT500Njet7_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab293/180403_184806/0000/*.root"/>
+
+<d name="TTJets_f_SubTotalPileUpDown_ElEl"  title="TTJets_Down"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="6005912.2807" xsection="1.539"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v12/TTP-CMSSW_80X_v12--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TTTo2L2Nu_HT500Njet7_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab293/180403_184806/0000/*.root"/>
+
+<d name="TTJets_f_SubTotalRelativeUp_ElEl"  title="TTJets_Up"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="6005912.2807" xsection="1.539"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v12/TTP-CMSSW_80X_v12--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TTTo2L2Nu_HT500Njet7_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab293/180403_184806/0000/*.root"/>
+
+<d name="TTJets_f_SubTotalRelativeDown_ElEl"  title="TTJets_Down"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="6005912.2807" xsection="1.539"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v12/TTP-CMSSW_80X_v12--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TTTo2L2Nu_HT500Njet7_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab293/180403_184806/0000/*.root"/>
+
+<d name="TTJets_f_SubTotalPtUp_ElEl"  title="TTJets_Up"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="6005912.2807" xsection="1.539"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v12/TTP-CMSSW_80X_v12--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TTTo2L2Nu_HT500Njet7_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab293/180403_184806/0000/*.root"/>
+
+<d name="TTJets_f_SubTotalPtDown_ElEl"  title="TTJets_Down"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="6005912.2807" xsection="1.539"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v12/TTP-CMSSW_80X_v12--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TTTo2L2Nu_HT500Njet7_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab293/180403_184806/0000/*.root"/>
+
+<d name="TTJets_f_SubTotalScaleUp_ElEl"  title="TTJets_Up"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="6005912.2807" xsection="1.539"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v12/TTP-CMSSW_80X_v12--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TTTo2L2Nu_HT500Njet7_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab293/180403_184806/0000/*.root"/>
+
+<d name="TTJets_f_SubTotalScaleDown_ElEl"  title="TTJets_Down"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="6005912.2807" xsection="1.539"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v12/TTP-CMSSW_80X_v12--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TTTo2L2Nu_HT500Njet7_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab293/180403_184806/0000/*.root"/>
+
+<d name="TTJets_f_SubTotalFlavorUp_ElEl"  title="TTJets_Up"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="6005912.2807" xsection="1.539"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v12/TTP-CMSSW_80X_v12--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TTTo2L2Nu_HT500Njet7_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab293/180403_184806/0000/*.root"/>
+
+<d name="TTJets_f_SubTotalFlavorDown_ElEl"  title="TTJets_Down"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="6005912.2807" xsection="1.539"   PreselEff="0.0"
+   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v12/TTP-CMSSW_80X_v12--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TTTo2L2Nu_HT500Njet7_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab293/180403_184806/0000/*.root"/>
+
+
+
+
+
+
+
+</datasets>
+
+
+<analysis>
+<a type="Collections" PVCollection="PrimaryVertex" JetType="2" JetCollection="PFJets_slimmedJets" METType="2" METCollection="PFMET_slimmedMETs" MuonCollection="Muons_slimmedMuons" ElectronCollection="Electrons_selectedElectrons" loadGenJetCollection="1" GenJetCollection="GenJets_slimmedGenJets" loadGenEventCollection="0" GenEventCollection="GenEvent" loadNPGenEventCollection="0" NPGenEventCollection="NPGenEvent" loadMCParticles="1" MCParticlesCollection="MCParticles" TrackMETCollection="" loadTrackMET="0"/>
+</analysis>
+</data>

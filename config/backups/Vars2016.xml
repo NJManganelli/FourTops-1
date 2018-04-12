@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+
+<analyses>
+
+
+	<channel name="muel" category="Dilepton">
+		<lepton>Electron</lepton>
+		<lepton>Muon</lepton>
+		<leptoAbbr>MuEl</leptoAbbr>
+		<chan>ttttmuel</chan>
+		<fileName>config/DiLepton_Craneens_Nom.xml</fileName>
+		<craneenPath>/user/lowang/CMSSW_8_0_26_patch1/src/TopBrussels/FourTops/Craneens_Comb/</craneenPath>
+
+	<var lBound= 0 uBound=60 nBins=60 units="">PU</var>
+        <var lBound= 0 uBound=10 nBins=10 units="">NbJetsM</var>
+        <var lBound= 0 uBound=10 nBins=10 units="">NJets</var>
+        <var lBound= -2.5 uBound=2.5 nBins=20 units="">lep1Eta</var>
+        <var lBound= 0 uBound=400 nBins=20 units="GeV">diLepMass</var>
+        <var lBound= 0 uBound=400 nBins=20 units="GeV">lep1Pt</var>
+        <var lBound= 0 uBound=400 nBins=20 units="GeV">lep2Pt</var>
+        <var lBound= 0 uBound=2000 nBins=20 units="GeV">HT</var>
+        <var lBound= 0 uBound=800 nBins=40 units="GeV">1stJetPt</var>
+        <var lBound= 0 uBound=800 nBins=40 units="GeV">2ndJetPt</var>
+        <var lBound= 0 uBound=1 nBins=10 units="">CSV1</var>
+        <var lBound= 0 uBound=1 nBins=10 units="">CSV2</var>
+
+	</channel>
+
+	<channel name="mumu" category="Dilepton">
+		<lepton>Muon</lepton>
+		<leptoAbbr>MuMu</leptoAbbr>
+		<chan>ttttmumu</chan>
+		<fileName>config/DiLepton_Craneens_Nom.xml</fileName>
+		<craneenPath>/user/lowang/CMSSW_8_0_26_patch1/src/TopBrussels/FourTops/Craneens_Comb/</craneenPath>
+
+        <var lBound= 0 uBound=60 nBins=60 units="">PU</var>
+        <var lBound= 0 uBound=10 nBins=10 units="">NbJetsM</var>
+        <var lBound= 0 uBound=10 nBins=10 units="">NJets</var>
+        <var lBound= -2.5 uBound=2.5 nBins=20 units="">lep1Eta</var>
+        <var lBound= 0 uBound=400 nBins=20 units="GeV">diLepMass</var>
+        <var lBound= 0 uBound=400 nBins=20 units="GeV">lep1Pt</var>
+        <var lBound= 0 uBound=400 nBins=20 units="GeV">lep2Pt</var>
+        <var lBound= 0 uBound=2000 nBins=20 units="GeV">HT</var>
+        <var lBound= 0 uBound=800 nBins=40 units="GeV">1stJetPt</var>
+        <var lBound= 0 uBound=800 nBins=40 units="GeV">2ndJetPt</var>
+        <var lBound= 0 uBound=1 nBins=10 units="">CSV1</var>
+        <var lBound= 0 uBound=1 nBins=10 units="">CSV2</var>
+
+	</channel>
+
+	<channel name="elel" category="Dilepton">
+		<lepton>Electron</lepton>
+		<leptoAbbr>ElEl</leptoAbbr>
+		<chan>ttttelel</chan>
+		<fileName>config/DiLepton_Craneens_Nom.xml</fileName>
+		<craneenPath>/user/lowang/CMSSW_8_0_26_patch1/src/TopBrussels/FourTops/Craneens_Comb/</craneenPath>
+
+        <!--var lBound= 0 uBound=60 nBins=60 units="">PU</var>
+        <var lBound= 0 uBound=10 nBins=10 units="">NbJetsM</var>
+        <var lBound= 0 uBound=10 nBins=10 units="">NJets</var>
+        <var lBound= -2.5 uBound=2.5 nBins=20 units="">lep1Eta</var-->
+        <var lBound= 70 uBound=120 nBins=50 units="GeV">diLepMass</var>
+        <!--var lBound= 0 uBound=400 nBins=20 units="GeV">lep1Pt</var>
+        <var lBound= 0 uBound=400 nBins=20 units="GeV">lep2Pt</var>
+        <var lBound= 0 uBound=2000 nBins=20 units="GeV">HT</var>
+        <var lBound= 0 uBound=800 nBins=40 units="GeV">1stJetPt</var>
+        <var lBound= 0 uBound=800 nBins=40 units="GeV">2ndJetPt</var>
+        <var lBound= 0 uBound=1 nBins=10 units="">CSV1</var>
+        <var lBound= 0 uBound=1 nBins=10 units="">CSV2</var-->
+
+	</channel>
+
+	<channel name="comb" category="Dilepton">
+		<lepton>Electron</lepton>
+		<lepton>Muon</lepton>
+		<leptoAbbr>Combined</leptoAbbr>
+		<chan>comb</chan>
+		<fileName>config/DiLepton_Craneens_Nom.xml</fileName>
+		<craneenPath>/user/lowang/CMSSW_8_0_26_patch1/src/TopBrussels/FourTops/Craneens_Comb/</craneenPath>
+
+	<!--var lBound= -0.6 uBound=0.4 nBins=10 units="">topness</var>
+        <var lBound= 4 uBound=13 nBins=9 units="">nJets</var>
+	<var lBound= 0 uBound=0.9 nBins=9 units="">EventSph</var>		
+	<var lBound= 0 uBound=1500 nBins=15 units="GeV">HT2M</var>
+	<var lBound= 0 uBound=20 nBins=20 units="">fnjetW</var>
+	<var lBound= 0 uBound=2000 nBins=20 units="GeV">HT</var>
+	<var lBound= 0 uBound=500 nBins=20 units="GeV">LeadingLepPt</var>
+	<var lBound= -2.5 uBound=2.5 nBins=20 units="#eta">LeadingLepEta</var>
+	<var lBound= 0 uBound=500 nBins=20 units="GeV">SubLeadingLepPt</var>
+	<var lBound= 0 uBound=5 nBins=10 units="">dRLep</var>
+	<var lBound= 0 uBound=1 nBins=10 units="">HTH</var>
+	<var lBound= 0 uBound=1 nBins=10 units="">HTRat</var>
+	<var lBound= 0 uBound=800 nBins=8 units="GeV">HTb</var>
+	<var lBound= 0 uBound=5 nBins=10 units="">dRbb</var>
+	<var lBound= 2 uBound=8 nBins=6 units="">nLtags</var>
+	<var lBound= 2 uBound=6 nBins=4 units="">nMtags</var>
+	<var lBound= 0 uBound=10 nBins=10 units="">nTtags</var>
+	<var lBound= 0 uBound=700 nBins=35 units="GeV">1stJetPt</var>
+	<var lBound= 0 uBound=700 nBins=35 units="GeV">2ndJetPt</var>
+	<var lBound= 30 uBound=310 nBins=14 units="GeV">3rdJetPt</var>
+	<var lBound= 30 uBound=210 nBins=9 units="GeV">4thJetPt</var-->
+	<var lBound= 0 uBound=60 nBins=60 units="">PU</var>
+
+	</channel>
+
+</analyses>

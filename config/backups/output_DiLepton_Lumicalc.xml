@@ -1,0 +1,32 @@
+<data>
+<datasets>
+
+
+<d EqLumi="269778424.695" PreselEff="0.0" add="1" color="40" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TTTT_TuneCUETP8M2T4_13TeV-amcatnlo-pythia8/crab_M2T413TeVamcatnlopythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab74/170415_202742/*/*.root" ls="1" lw="2" name="NP_overlay_ttttNLO_MuEl" normf="1" title="NLO_SM_tttt" xsection="0.009103" />
+
+<d EqLumi="184961.158267" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_13TeV-powheg-pythia8/*/170506_105*/*/*.root" ls="1" lw="2" name="TTJetsPowheg_MuEl" normf="1" title="TTJetsPowheg" xsection="831.76" />
+
+<d EqLumi="70876.3188901" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4up_13TeV-powheg-pythia8/*/170*5_*/*/*.root" ls="1" lw="2" name="TTUEUp_MuEl" normf="1" title="TTUEUp" xsection="831.76" />
+
+<d EqLumi="67994.2916226" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4down_13TeV-powheg-pythia8/*/170*0*_*/*/*.root" ls="1" lw="2" name="TTUEDown_MuEl" normf="1" title="TTUEDown" xsection="831.76" />
+
+<d EqLumi="69089.268539" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_13TeV-powheg-isrup-pythia8/crab_eVpowhegisruppythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6ext1v1crab4/170814_145411/*/*.root" ls="1" lw="2" name="TTISRUp_MuEl" normf="1" title="t\bar{t}_ISRScaleUp" xsection="831.76" />
+
+<d EqLumi="56667.1768299" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_13TeV-powheg-isrdown-pythia8/*/170506_104*/*/*.root" ls="1" lw="2" name="TTISRDown_MuEl" normf="1" title="t\bar{t}_ISRScaleDown" xsection="831.76" />
+
+<d EqLumi="70104.6263345" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_13TeV-powheg-fsrup-pythia8/*/170*_1*/*/*.root" ls="1" lw="2" name="TTFSRUp_MuEl" normf="1" title="t\bar{t}_FSRScaleUp" xsection="831.76" />
+
+<d EqLumi="68848.2819563" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_13TeV-powheg-fsrdown-pythia8/*/170*_1*4*/*/*.root" ls="1" lw="2" name="TTFSRDown_MuEl" normf="1" title="t\bar{t}_FSRScaleDown" xsection="831.76" />
+
+<d EqLumi="26614.7901726" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/*/170506_101*/*/*.root" ls="1" lw="2" name="DYJets_MuEl" normf="1" title="DY+jets" xsection="5075.6" />
+
+<d EqLumi="12610919.5402" PreselEff="0.0" add="1" color="413" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/ttZJets_13TeV_madgraphMLM-pythia8/crab_s13TeVmadgraphMLMpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab71/170417_052540/*/*.root" ls="1" lw="2" name="TTZ_pythia8_MuEl" normf="1" title="TTZ" xsection="0.783" />
+
+
+
+
+</datasets>
+<analysis>
+<a ElectronCollection="Electrons_selectedElectrons" GenEventCollection="GenEvent" GenJetCollection="GenJets_slimmedGenJets" JetCollection="PFJets_slimmedJets" JetType="2" MCParticlesCollection="MCParticles" METCollection="PFMET_slimmedMETs" METType="2" MuonCollection="Muons_slimmedMuons" NPGenEventCollection="NPGenEvent" PVCollection="PrimaryVertex" TrackMETCollection="" loadGenEventCollection="0" loadGenJetCollection="0" loadMCParticles="1" loadNPGenEventCollection="0" loadTrackMET="0" type="Collections" />
+</analysis>
+</data>

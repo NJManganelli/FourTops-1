@@ -1,0 +1,69 @@
+<data>
+<datasets>
+
+
+
+
+
+<d EqLumi="62110.5486199" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TTJets_DiLept_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/crab_113TeVmadgraphMLMpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab81/170506_104136/0000/*.root" ls="1" lw="2" name="TTJetsPowheg__ElEl_dileptv1" normf="1" title="TTJetsPowheg" xsection="87.31" />
+
+<d EqLumi="278883.804833" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TTJets_DiLept_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/crab_eVmadgraphMLMpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6ext1v1crab72/170417_050341/0000/*.root" ls="1" lw="2" name="TTJetsPowheg__ElEl_dileptv1ext1" normf="1" title="TTJetsPowheg" xsection="87.31" />
+
+<d EqLumi="12190.6523516" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TTJets_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/crab_113TeVmadgraphMLMpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab4/170522_082617/0000/*.root" ls="1" lw="2" name="TTJetsPowheg__ElEl_ttjetsmadgraph" normf="1" title="TTJetsPowheg" xsection="831.76" />
+
+<d EqLumi="52371.2753679" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TTJets_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8/crab_mcatnloFXFXpythia8RunIISummer16MiniAODv2PUMoriond17backup80XmcRun2asymptotic2016TrancheIVv6v1crab73/170417_052154/0000/*.root" ls="1" lw="2" name="TTJetsPowheg__ElEl_ttjetsamcNLO" normf="1" title="TTJetsPowheg" xsection="831.76" />
+
+<d EqLumi="905848.012828" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TTTo2L2Nu_TuneCUETP8M2_ttHtranche3_13TeV-powheg-pythia8/crab_anche313TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab75/170415_153901/0000/*.root" ls="1" lw="2" name="TTJetsPowheg__ElEl_ttto2l2nu" normf="1" title="TTJetsPowheg" xsection="87.31 " />
+
+
+
+
+<d EqLumi="93172.536549" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_13TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond17backup80XmcRun2asymptotic2016TrancheIVv6v1crab83/170506_105102/0000/*.root" ls="1" lw="2" name="TTJetsPowheg__ElEl_backup" normf="1" title="TTJetsPowheg" xsection="831.76" />
+
+<d EqLumi="91788.6217178" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab82/170506_105019/0000/*.root" ls="1" lw="2" name="TTJetsPowheg__ElEl" normf="1" title="TTJetsPowheg" xsection="831.76" />
+
+
+
+
+<d EqLumi="23538.3932865" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_mtop1715_13TeV-powheg-pythia8/crab_op171513TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab95/170417_052410/0000/*.root" ls="1" lw="2" name="TTJetsPowheg__ElEl_mtop1715" normf="1" title="TTJetsPowheg" xsection="831.76" />
+
+<d EqLumi="23346.3186496" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_mtop1735_13TeV-powheg-pythia8/crab_op173513TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab96/170415_154459/0000/*.root" ls="1" lw="2" name="TTJetsPowheg__ElEl_mtop1735" normf="1" title="TTJetsPowheg" xsection="831.76" />
+
+<d EqLumi="35072.8984322" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_mtop1695_13TeV-powheg-pythia8/crab_13TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond17backup80XmcRun2asymptotic2016TrancheIVv6v1crab94/170415_200730/0000/*.root" ls="1" lw="2" name="TTJetsPowheg__ElEl_mtop1695backup" normf="1" title="TTJetsPowheg" xsection="831.76" />
+
+<d EqLumi="11967.2958546" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_mtop1695_13TeV-powheg-pythia8/crab_9513TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6ext1v1crab93/170415_201031/0000/*.root" ls="1" lw="2" name="TTJetsPowheg__ElEl_mtop1695ext1" normf="1" title="TTJetsPowheg" xsection="831.76" />
+
+<d EqLumi="20615.2135231" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_mtop1695_13TeV-powheg-pythia8/crab_9513TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6ext2v1crab9/170705_054148/0000/*.root" ls="1" lw="2" name="TTJetsPowheg__ElEl_mtop1695ext2" normf="1" title="TTJetsPowheg" xsection="831.76" />
+
+<d EqLumi="11691.789699" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_mtop1755_13TeV-powheg-pythia8/crab_5513TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6ext1v1crab10/170705_054231/0000/*.root" ls="1" lw="2" name="TTJetsPowheg__ElEl_mtop1755ext1" normf="1" title="TTJetsPowheg" xsection="831.76" />
+
+<d EqLumi="24039.1663461" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_mtop1755_13TeV-powheg-pythia8/crab_5513TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6ext2v1crab11/170705_054317/0000/*.root" ls="1" lw="2" name="TTJetsPowheg__ElEl_mtop1755ext2" normf="1" title="TTJetsPowheg" xsection="831.76" />
+
+
+
+
+<d EqLumi="22728.5491007" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_widthx0p2_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab1/170506_105336/0000/*.root" ls="1" lw="2" name="TTJetsPowheg__ElEl_widthx0p2" normf="1" title="TTJetsPowheg" xsection="831.76" />
+
+<d EqLumi="23539.7867173" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_widthx0p5_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab2/170506_105419/0000/*.root" ls="1" lw="2" name="TTJetsPowheg__ElEl_widthx0p5" normf="1" title="TTJetsPowheg" xsection="831.76" />
+
+<d EqLumi="22608.6383091" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_widthx4_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab91/170506_105503/0000/*.root" ls="1" lw="2" name="TTJetsPowheg__ElEl_widthx4" normf="1" title="TTJetsPowheg" xsection="831.76" />
+
+<d EqLumi="23473.8133596" PreselEff="0.0" add="1" color="633" filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_widthx8_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab3/170415_152603/0000/*.root" ls="1" lw="2" name="TTJetsPowheg__ElEl_widthx8" normf="1" title="TTJetsPowheg" xsection="831.76" />
+
+
+
+
+
+
+
+
+
+
+
+</datasets>
+
+
+<analysis>
+<a ElectronCollection="Electrons_selectedElectrons" GenEventCollection="GenEvent" GenJetCollection="GenJets_slimmedGenJets" JetCollection="PFJets_slimmedJets" JetType="2" MCParticlesCollection="MCParticles" METCollection="PFMET_slimmedMETs" METType="2" MuonCollection="Muons_slimmedMuons" NPGenEventCollection="NPGenEvent" PVCollection="PrimaryVertex" TrackMETCollection="" loadGenEventCollection="0" loadGenJetCollection="1" loadMCParticles="1" loadNPGenEventCollection="0" loadTrackMET="0" type="Collections" />
+</analysis>
+</data>

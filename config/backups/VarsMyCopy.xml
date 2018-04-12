@@ -1,0 +1,490 @@
+<?xml version="1.0"?>
+
+<analyses>
+	<channel name="mu" category="SingleLep">
+		<lepton>Muon</lepton>
+		<leptoAbbr>Mu</leptoAbbr>
+		<chan>ttttmu</chan>
+		<fileName>config/Run2SingleLepton_samples74.xml</fileName>
+		<fileNameSys>config/Run2SingleLepton_samples_Sys74.xml</fileNameSys>
+		<!--craneenPath>/user/lbeck/CMSSW_7_4_2/src/TopBrussels/FourTops/Craneens_Mu/Craneens14_7_2015_merge/Craneen_</craneenPath-->
+		<!--craneenPath>/user/lbeck/CMSSW_7_4_2/src/TopBrussels/FourTops/Craneens_Mu/Craneens14_7_2015_merge/CraneenJets_</craneenPath-->
+
+		<craneenPath>/user/lbeck/CMSSW_7_6_3/src/TopBrussels/FourTops/Craneens_Mu/Craneens5_4_2016/merge/Craneen_</craneenPath> <!-- 17_9 no scale 
+		weights--> <!--22_10_2015_merge2 25ns    25_10 50ns v7 tag   17_12-->
+
+		<lumiScale lumi=-1/>
+
+		<splitting splitVar="nJets" bSplit=6 tSplit=9 wSplit=1 >JS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nMtags" bSplit1=6 tSplit1=10 wSplit1=4 bSplit2=2 tSplit2=4 wSplit2=2 >JTS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nMtags" ltSplit=13 gtSplit=15 >JPTS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nMtags" >JPTS2
+			<split n=5.5 />  <!--  lower bounds for jet baseline cut at >=6jets  -->
+			<split n=11.5 />
+			<split n=12.5 />
+			<split n=13.5 />
+			<split n=14.5 />
+		</splitting>
+
+		<datacardVar>BDT</datacardVar> <!-- variable for which datacard will be produced -->
+		<var lBound= 0 uBound=2500 nBins=30 >HT</var>
+		<var lBound= -0.5 uBound=15.5 nBins=16 >nJets</var>
+
+		<var lBound= 20 uBound=300 nBins=36 >LeptonPt</var>
+		<!--var lBound= -2.5 uBound=2.5 nBins=24 >LeptonEta</var>
+		<var lBound= -3.5 uBound=3.5 nBins=14 >leptonphi</var>
+		<var lBound= 1.5 uBound=7.5 nBins=6 >nMtags</var-->
+		<var lBound= 1.5 uBound=11.5 nBins=10 >nLtags</var>
+		<var lBound= -0.5 uBound=5.5 nBins=6 >nTtags</var>
+		<var lBound= 0 uBound=700 nBins=28 >met</var>
+
+		<var lBound= 0 uBound=1600 nBins=16 >1stjetpt</var>
+		<var lBound= 0 uBound=800 nBins=16 >LeadingBJetPt</var>
+
+
+		<!--var lBound= 0 uBound=4 nBins=20>angletop1top2</var-->
+		<var lBound= 0 uBound=1000 nBins=20>HTb</var>
+		<!--var lBound= 0.1 uBound=1.1 nBins=20>HTH</var-->
+		<var lBound= 0.1 uBound=1.1 nBins=20>fCentrality</var>
+		<var lBound= 0 uBound=0.6 nBins=18>HTRat</var>
+		<var lBound= -1 uBound=0.5 nBins=30>multitopness</var>
+		<!--var lBound= 0 uBound=0.5 nBins=20>leptonIso</var>
+		<var lBound= -0.5 uBound=30.5 nBins=31>PU</var>
+		<var lBound= 0 uBound=400 nBins=15 >jet5and6pt</var-->	
+		<var lBound= 0 uBound=300 nBins=10 >5thjetpt</var>
+		<var lBound= 0 uBound=250 nBins=10 >6thjetpt</var>
+
+		<var lBound= 0 uBound=1.5 nBins=30 >csvJetcsv1</var>
+		<var lBound= 0 uBound=1.5 nBins=30 >csvJetcsv2</var>
+		<var lBound= 0 uBound=1.5 nBins=30 >csvJetcsv3</var>
+		<var lBound= 0 uBound=1.5 nBins=30 >csvJetcsv4</var>
+		<!--var lBound= 0 uBound=1.5 nBins=30 >csvJetpt1</var>
+		<var lBound= 0 uBound=1.5 nBins=30 >csvJetpt2</var>
+		<var lBound= 0 uBound=1.5 nBins=30 >csvJetpt3</var>
+		<var lBound= 0 uBound=1.5 nBins=30 >csvJetpt4</var-->
+		<var lBound= 0 uBound=0.004 nBins=20 >angleBestTopAllJet</var>
+		<var lBound= 0 uBound=10 nBins=20 >fnjetW</var>
+		<var lBound= 0 uBound=800 nBins=20 >bestTopPt</var>
+
+		<var lBound= 0 uBound=3000 nBins=15 >SumJetMassX</var>
+
+
+		<!--var lBound= 0 uBound=1600 nBins=16 >HTX</var>
+		<var lBound= 0 uBound=1600 nBins=16 >SumJetMassX</var>
+		<var lBound= -0.5 uBound=1.0 nBins=15 >BDT</var-->
+
+
+		<!-- for craneenJets -->
+		<!--var lBound= 0 uBound=600 nBins=20 >jetpT</var>
+		<var lBound= -1 uBound=1 nBins=40 >csvDisc</var-->
+		<!--var lBound= -2.5 uBound=2.5 nBins=100 >jeteta</var>
+		<var lBound= -3.5 uBound=3.5 nBins=70 >jetphi</var>
+		<var lBound= 0.1 uBound=0.5 nBins=40 >jetLeptDR</var-->
+
+		<!-- for craneenZ -->
+		<!-- var lBound=0 uBound=200 nBins=100 >invMassll</var-->
+
+		<!--var lBound= 0.9 uBound=1.1 nBins=20 >SFbtag</var>
+		<var lBound= -1 uBound=10 nBins=22 >SFPU</var>
+		<var lBound= 0.9 uBound=1.1 nBins=10 >SFlepton</var-->
+
+	</channel>
+
+	<channel name="el" category="SingleLep">
+		<lepton>Electron</lepton>
+		<leptoAbbr>El</leptoAbbr>
+		<chan>ttttel</chan>
+		<fileName>config/Run2SingleLepton_samples76_El.xml</fileName>
+		<fileNameSys>config/Run2SingleLepton_samples_Sys74_El.xml</fileNameSys>
+		<craneenPath>/user/lbeck/CMSSW_7_6_3/src/TopBrussels/FourTops/Craneens_El/Craneens4_4_2016/merge/Craneen_</craneenPath>
+
+		<lumiScale lumi=-1/>
+
+
+		<splitting splitVar="nJets" bSplit=6 tSplit=9 wSplit=1 >JS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nMtags" bSplit1=6 tSplit1=10 wSplit1=2 bSplit2=2 tSplit2=4 wSplit2=2 >JTS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nMtags" ltSplit=14 gtSplit=15 >JPTS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nMtags" ltSplit=13 gtSplit=15>JPTS2
+			<split n=5.5 />  <!--  lower bounds for jet baseline cut at >=6jets  -->
+			<split n=11.5 />
+			<split n=12.5 />
+			<split n=13.5 />
+			<split n=14.5 />
+		</splitting>
+		<datacardVar>BDT</datacardVar> <!-- variable for which datacard will be produced -->
+		<var lBound= 0 uBound=2500 nBins=75 >HT</var>
+		<var lBound= -0.5 uBound=15.5 nBins=16 >nJets</var>
+
+		<var lBound= 20 uBound=300 nBins=36 >LeptonPt</var>
+		<!--var lBound= -2.5 uBound=2.5 nBins=24 >LeptonEta</var>
+		<var lBound= -3.5 uBound=3.5 nBins=14 >leptonphi</var-->
+		<var lBound= 1.5 uBound=7.5 nBins=6 >nMtags</var>
+		<var lBound= 1.5 uBound=11.5 nBins=10 >nLtags</var>
+		<var lBound= -0.5 uBound=5.5 nBins=6 >nTtags</var>
+		<var lBound= 0 uBound=700 nBins=28 >met</var>
+
+		<var lBound= 0 uBound=1600 nBins=16 >1stjetpt</var>
+		<var lBound= 0 uBound=800 nBins=16 >LeadingBJetPt</var>
+
+
+		<!--var lBound= 0 uBound=4 nBins=20>angletop1top2</var-->
+		<var lBound= 0 uBound=1000 nBins=20>HTb</var>
+		<var lBound= 0.1 uBound=1.1 nBins=20>HTH</var>
+		<var lBound= 0 uBound=0.6 nBins=18>HTRat</var>
+		<var lBound= -1 uBound=0.5 nBins=30>multitopness</var>
+		<!--var lBound= 0 uBound=0.05 nBins=20>leptonIso</var-->
+		<var lBound= -0.5 uBound=30.5 nBins=31>PU</var>
+		<!--var lBound= 0 uBound=400 nBins=15 >jet5and6pt</var-->	
+		<var lBound= 0 uBound=300 nBins=10 >5thjetpt</var>
+		<var lBound= 0 uBound=250 nBins=10 >6thjetpt</var>
+
+		<var lBound= -1 uBound=1.5 nBins=60 >csvJetcsv1</var>
+		<var lBound= -1 uBound=1.5 nBins=60 >csvJetcsv2</var>
+		<var lBound= -1 uBound=1.5 nBins=60 >csvJetcsv3</var>
+		<var lBound= -1 uBound=1.5 nBins=60 >csvJetcsv4</var>
+		<!--var lBound= -1 uBound=1.5 nBins=60 >csvJetpt1</var>
+		<var lBound= -1 uBound=1.5 nBins=60 >csvJetpt2</var>
+		<var lBound= -1 uBound=1.5 nBins=60 >csvJetpt3</var>
+		<var lBound= -1 uBound=1.5 nBins=60 >csvJetpt4</var-->
+		<var lBound= 0 uBound=0.004 nBins=20 >angleBestTopAllJet</var>
+		<var lBound= 0 uBound=10 nBins=20 >fnjetW</var>
+		<var lBound= 0 uBound=800 nBins=20 >bestTopPt</var>
+		<var lBound= 0.1 uBound=1.1 nBins=20>fCentrality</var>
+
+		<var lBound= 0 uBound=3000 nBins=15 >SumJetMassX</var>
+		<!--var lBound= 0.1 uBound=0.5 nBins=40 >jetLeptDR</var-->
+
+		<!--var lBound= 0 uBound=600 nBins=20 >jetpT</var>
+		<var lBound= -15 uBound=15 nBins=50 >csvDisc</var>
+		<var lBound= -2.5 uBound=2.5 nBins=100 >jeteta</var>
+		<var lBound= -3.5 uBound=3.5 nBins=70 >jetphi</var-->
+
+		<!-- var lBound=0 uBound=200 nBins=100 >invMassll</var-->
+
+		<!--var lBound= -0.5 uBound=1.0 nBins=15 >BDT</var-->
+
+
+	</channel>
+
+	<channel name="muel" category="Dilepton">
+		<lepton>Electron</lepton>
+		<lepton>Muon</lepton>
+		<leptoAbbr>MuEl</leptoAbbr>
+		<chan>ttttmuel</chan>
+		<fileName>config/Run2DiLepton_Craneens_MuEl_Nom.xml</fileName>
+		<fileNameSys>config/Run2DiLepton_Craneens_MuEl_Sys.xml</fileNameSys>
+		<craneenPath>/user/heilman/CMSSW_7_6_3/src/TopBrussels/FourTops/Craneens_MuEl/Current Merge/</craneenPath>
+
+		<splitting splitVar="nJets" bSplit=6 tSplit=10 wSplit=2 >JS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nLtags" bSplit1=6 tSplit1=10 wSplit1=2 bSplit2=2 tSplit2=4 wSplit2=2 >JTS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nMtags" ltSplit=14 gtSplit=15 >JPTS</splitting>
+
+		<!--var lBound= -1.0 uBound=1.0 nBins=40>BDT</var-->
+		<var lBound= 0 uBound=2000 nBins=50>HT</var>
+		<var lBound= 0 uBound=20 nBins=20>nJets</var>
+		<!--var lBound= 0 uBound=1 nBins=20>EventSph</var>
+		<var lBound= 0 uBound=1 nBins=20>EventCen</var>
+		<var lBound= 0 uBound=1 nBins=20>DiLepSph</var>
+		<var lBound= 0 uBound=1 nBins=20>DiLepCen</var>
+		<var lBound= 0 uBound=1 nBins=20>TopDiLepSph</var>
+		<var lBound= 0 uBound=1 nBins=20>TopDiLepCen</var>
+		<var lBound= -1 uBound=0.5 nBins=30>topness</var>
+		<var lBound= 0 uBound=500 nBins=50>LeadingMuonPt</var>
+		<var lBound= -2.5 uBound=2.5 nBins=25>LeadingMuonEta</var>
+		<var lBound= 0 uBound=500 nBins=50>LeadingElectronPt</var>
+		<var lBound= 0 uBound=1 nBins=20>HTH</var>
+		<var lBound= 0 uBound=1 nBins=20>HTRat</var>
+		<var lBound= 0 uBound=2000 nBins=50>HTb</var>
+		<var lBound= 0 uBound=10 nBins=10>nLtags</var>
+		<var lBound= 0 uBound=10 nBins=10>nMtags</var>
+		<var lBound= 0 uBound=10 nBins=10>nTtags</var-->
+		<var lBound= 0 uBound=500 nBins=50>1stJetPt</var>
+		<var lBound= 0 uBound=500 nBins=50>2ndJetPt</var>
+		<var lBound= 0 uBound=500 nBins=50>3rdJetPt</var>
+		<var lBound= 0 uBound=500 nBins=50>4thJetPt</var>
+		<var lBound= 0 uBound=2000 nBins=50>HT2M</var>
+                <var lBound= 0 uBound=40 nBins=40>PU</var>
+		<var lBound= 0 uBound=400 nBins=20>MET</var>
+		<!--var lBound= 20 uBound=400 nBins=19>diLepMass</var-->
+
+	</channel>
+
+	<channel name="mumu" category="Dilepton">
+		<lepton>Muon</lepton>
+		<leptoAbbr>MuMu</leptoAbbr>
+		<chan>ttttmumu</chan>
+		<fileName>config/Run2DiLepton_Craneens_MuMu_Nom.xml</fileName>
+		<fileNameSys>config/Run2DiLepton_Craneens_MuMu_Sys.xml</fileNameSys>
+		<craneenPath>/user/heilman/CMSSW_7_6_3/src/TopBrussels/FourTops/Craneens_MuMu/Current Merge/</craneenPath>
+
+		<splitting splitVar="nJets" bSplit=4 tSplit=10 wSplit=2 >JS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nLtags" bSplit1=6 tSplit1=10 wSplit1=2 bSplit2=2 tSplit2=4 wSplit2=2 >JTS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nMtags" ltSplit=14 gtSplit=15 >JPTS</splitting>
+
+		<!--var lBound= -1.0 uBound=1.0 nBins=40>BDT</var-->
+		<var lBound= 0 uBound=2000 nBins=50>HT</var>
+		<var lBound= 0 uBound=20 nBins=20>nJets</var>
+		<!--var lBound= 0 uBound=1 nBins=20>EventSph</var>
+		<var lBound= 0 uBound=1 nBins=20>EventCen</var>
+		<var lBound= 0 uBound=1 nBins=20>DiLepSph</var>
+		<var lBound= 0 uBound=1 nBins=20>DiLepCen</var>
+		<var lBound= 0 uBound=1 nBins=20>TopDiLepSph</var>
+		<var lBound= 0 uBound=1 nBins=20>TopDiLepCen</var>
+		<var lBound= -1 uBound=0.5 nBins=30>topness</var>
+		<var lBound= 0 uBound=500 nBins=50>LeadingMuonPt</var>
+		<var lBound= -2.5 uBound=2.5 nBins=25>LeadingMuonEta</var>
+		<var lBound= 0 uBound=500 nBins=50>LeadingElectronPt</var>
+		<var lBound= 0 uBound=1 nBins=20>HTH</var>
+		<var lBound= 0 uBound=1 nBins=20>HTRat</var>
+		<var lBound= 0 uBound=2000 nBins=50>HTb</var>
+		<var lBound= 0 uBound=10 nBins=10>nLtags</var>
+		<var lBound= 0 uBound=10 nBins=10>nMtags</var>
+		<var lBound= 0 uBound=10 nBins=10>nTtags</var-->
+		<var lBound= 0 uBound=500 nBins=50>1stJetPt</var>
+		<var lBound= 0 uBound=500 nBins=50>2ndJetPt</var>
+		<var lBound= 0 uBound=500 nBins=50>3rdJetPt</var>
+		<var lBound= 0 uBound=500 nBins=50>4thJetPt</var>
+		<var lBound= 0 uBound=2000 nBins=50>HT2M</var>
+                <var lBound= 0 uBound=40 nBins=40>PU</var>
+		<var lBound= 0 uBound=400 nBins=20>MET</var>
+		<!--var lBound= 20 uBound=400 nBins=19>diLepMass</var-->
+
+	</channel>
+
+	<channel name="elel" category="Dilepton">
+		<lepton>Electron</lepton>
+		<leptoAbbr>ElEl</leptoAbbr>
+		<chan>ttttelel</chan>
+		<fileName>config/Run2DiLepton_Craneens_ElEl_Nom.xml</fileName>
+		<fileNameSys>config/Run2DiLepton_Craneens_ElEl_Sys.xml</fileNameSys>
+		<craneenPath>/user/heilman/CMSSW_7_6_3/src/TopBrussels/FourTops/Craneens_ElEl/Current Merge/</craneenPath>
+
+		<splitting splitVar="nJets" bSplit=6 tSplit=10 wSplit=2 >JS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nLtags" bSplit1=6 tSplit1=10 wSplit1=2 bSplit2=2 tSplit2=4 wSplit2=2 >JTS</splitting>
+
+		<!--var lBound= -1.0 uBound=1.0 nBins=40>BDT</var-->
+		<var lBound= 0 uBound=2000 nBins=50>HT</var>
+		<var lBound= 0 uBound=20 nBins=20>nJets</var>
+		<!--var lBound= 0 uBound=1 nBins=20>EventSph</var>
+		<var lBound= 0 uBound=1 nBins=20>EventCen</var>
+		<var lBound= 0 uBound=1 nBins=20>DiLepSph</var>
+		<var lBound= 0 uBound=1 nBins=20>DiLepCen</var>
+		<var lBound= 0 uBound=1 nBins=20>TopDiLepSph</var>
+		<var lBound= 0 uBound=1 nBins=20>TopDiLepCen</var>
+		<var lBound= -1 uBound=0.5 nBins=30>topness</var>
+		<var lBound= 0 uBound=500 nBins=50>LeadingMuonPt</var>
+		<var lBound= -2.5 uBound=2.5 nBins=25>LeadingMuonEta</var>
+		<var lBound= 0 uBound=500 nBins=50>LeadingElectronPt</var>
+		<var lBound= 0 uBound=1 nBins=20>HTH</var>
+		<var lBound= 0 uBound=1 nBins=20>HTRat</var>
+		<var lBound= 0 uBound=2000 nBins=50>HTb</var>
+		<var lBound= 0 uBound=10 nBins=10>nLtags</var>
+		<var lBound= 0 uBound=10 nBins=10>nMtags</var>
+		<var lBound= 0 uBound=10 nBins=10>nTtags</var-->
+		<var lBound= 0 uBound=500 nBins=50>1stJetPt</var>
+		<var lBound= 0 uBound=500 nBins=50>2ndJetPt</var>
+		<var lBound= 0 uBound=500 nBins=50>3rdJetPt</var>
+		<var lBound= 0 uBound=500 nBins=50>4thJetPt</var>
+		<var lBound= 0 uBound=2000 nBins=50>HT2M</var>
+                <var lBound= 0 uBound=40 nBins=40>PU</var>
+		<var lBound= 0 uBound=400 nBins=20>MET</var>
+		<!--var lBound= 20 uBound=400 nBins=19>diLepMass</var-->
+
+	</channel>
+
+	<channel name="comb" category="Dilepton">
+		<lepton>Electron</lepton>
+		<lepton>Muon</lepton>
+		<leptoAbbr>Combined</leptoAbbr>
+		<chan>ttttmuel</chan>
+		<fileName>config/Run2DiLepton_Craneens_Comb_Nom.xml</fileName>
+		<fileNameSys>config/Run2DiLepton_Craneens_Comb_Sys.xml</fileNameSys>
+		<craneenPath>/user/heilman/CMSSW_7_6_3/src/TopBrussels/FourTops/Craneens_Comb/</craneenPath>
+
+		<splitting splitVar="nJets" bSplit=6 tSplit=10 wSplit=2 >JS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nLtags" bSplit1=6 tSplit1=10 wSplit1=2 bSplit2=2 tSplit2=4 wSplit2=2 >JTS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nMtags" ltSplit=14 gtSplit=15 >JPTS</splitting>
+
+		<!--var lBound= -1.0 uBound=1.0 nBins=40>BDT</var-->
+		<var lBound= 0 uBound=2000 nBins=50>HT</var>
+		<var lBound= 0 uBound=20 nBins=20>nJets</var>
+		<!--var lBound= 0 uBound=1 nBins=20>EventSph</var>
+		<var lBound= 0 uBound=1 nBins=20>EventCen</var>
+		<var lBound= 0 uBound=1 nBins=20>DiLepSph</var>
+		<var lBound= 0 uBound=1 nBins=20>DiLepCen</var>
+		<var lBound= 0 uBound=1 nBins=20>TopDiLepSph</var>
+		<var lBound= 0 uBound=1 nBins=20>TopDiLepCen</var>
+		<var lBound= -1 uBound=0.5 nBins=30>topness</var>
+		<var lBound= 0 uBound=500 nBins=50>LeadingMuonPt</var>
+		<var lBound= -2.5 uBound=2.5 nBins=25>LeadingMuonEta</var>
+		<var lBound= 0 uBound=500 nBins=50>LeadingElectronPt</var>
+		<var lBound= 0 uBound=1 nBins=20>HTH</var>
+		<var lBound= 0 uBound=1 nBins=20>HTRat</var>
+		<var lBound= 0 uBound=2000 nBins=50>HTb</var>
+		<var lBound= 0 uBound=10 nBins=10>nLtags</var>
+		<var lBound= 0 uBound=10 nBins=10>nMtags</var>
+		<var lBound= 0 uBound=10 nBins=10>nTtags</var-->
+		<var lBound= 0 uBound=500 nBins=50>1stJetPt</var>
+		<var lBound= 0 uBound=500 nBins=50>2ndJetPt</var>
+		<var lBound= 0 uBound=300 nBins=30>3rdJetPt</var>
+		<var lBound= 0 uBound=200 nBins=20>4thJetPt</var>
+		<var lBound= 0 uBound=2000 nBins=50>HT2M</var>
+                <var lBound= 0 uBound=40 nBins=40>PU</var>
+		<var lBound= 0 uBound=400 nBins=20>MET</var>
+		<!--var lBound= 20 uBound=400 nBins=19>diLepMass</var-->
+
+	</channel>
+
+	<channel name="muel_elid" category="Dilepton">
+		<lepton>Electron</lepton>
+		<lepton>Muon</lepton>
+		<leptoAbbr>MuEl_ElecID</leptoAbbr>
+		<chan>ttttmuel</chan>
+		<fileName>config/Run2DiLepton_Craneens_MuEl_Nom.xml</fileName>
+		<fileNameSys>config/Run2DiLepton_Craneens_MuEl_Sys.xml</fileNameSys>
+		<craneenPath>/user/heilman/CMSSW_7_6_3/src/TopBrussels/FourTops/Craneens_MuEl/ObjectIDMerge/</craneenPath>
+
+		<splitting splitVar="nJets" bSplit=6 tSplit=10 wSplit=2 >JS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nLtags" bSplit1=6 tSplit1=10 wSplit1=2 bSplit2=2 tSplit2=4 wSplit2=2 >JTS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nMtags" ltSplit=14 gtSplit=15 >JPTS</splitting>
+
+		<var lBound= -2.5 uBound=2.5 nBins=25>ElSuperclusterEta</var>
+		<var lBound= 0 uBound=0.03 nBins=25>Elfull5x5</var>
+		<var lBound= 0 uBound=0.01 nBins=25>EldEdatIn</var>
+		<var lBound= 0 uBound=0.1 nBins=25>EldPhiIn</var>
+		<var lBound= 0 uBound=0.07 nBins=20>ElhOverE</var>
+		<var lBound= 0 uBound=0.1 nBins=20>ElRelIso</var>
+		<var lBound= 0 uBound=0.02 nBins=20>ElEmP</var>
+		<var lBound= 0 uBound=0.04 nBins=20>Eld0</var>
+		<var lBound= 0 uBound=0.6 nBins=20>Eldz</var>
+		<var lBound= 0 uBound=3 nBins=3>ElMissingHits</var>
+
+	</channel>
+
+	<channel name="muel_muid" category="Dilepton">
+		<lepton>Electron</lepton>
+		<lepton>Muon</lepton>
+		<leptoAbbr>MuEl_MuonID</leptoAbbr>
+		<chan>ttttmuel</chan>
+		<fileName>config/Run2DiLepton_Craneens_MuEl_Nom.xml</fileName>
+		<fileNameSys>config/Run2DiLepton_Craneens_MuEl_Sys.xml</fileNameSys>
+		<craneenPath>/user/heilman/CMSSW_7_6_3/src/TopBrussels/FourTops/Craneens_MuEl/ObjectIDMerge/</craneenPath>
+
+		<splitting splitVar="nJets" bSplit=6 tSplit=10 wSplit=2 >JS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nLtags" bSplit1=6 tSplit1=10 wSplit1=2 bSplit2=2 tSplit2=4 wSplit2=2 >JTS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nMtags" ltSplit=14 gtSplit=15 >JPTS</splitting>
+
+		<var lBound= 0 uBound=400 nBins=40>MuPt</var>
+		<var lBound= -2.5 uBound=2.5 nBins=25>MuEta</var>
+		<var lBound= 0 uBound=0.3 nBins=30>MuRelIso</var>
+
+	</channel>
+
+	<channel name="muel_jetid" category="Dilepton">
+		<lepton>Electron</lepton>
+		<lepton>Muon</lepton>
+		<leptoAbbr>MuEl_JetID</leptoAbbr>
+		<chan>ttttmuel</chan>
+		<fileName>config/Run2DiLepton_Craneens_MuEl_Nom.xml</fileName>
+		<fileNameSys>config/Run2DiLepton_Craneens_MuEl_Sys.xml</fileNameSys>
+		<craneenPath>/user/heilman/CMSSW_7_6_3/src/TopBrussels/FourTops/Craneens_MuEl/ObjectIDMerge/</craneenPath>
+
+		<splitting splitVar="nJets" bSplit=6 tSplit=10 wSplit=2 >JS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nLtags" bSplit1=6 tSplit1=10 wSplit1=2 bSplit2=2 tSplit2=4 wSplit2=2 >JTS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nMtags" ltSplit=14 gtSplit=15 >JPTS</splitting>
+
+		<var lBound= 0 uBound=1 nBins=25>NHF</var>
+		<var lBound= 0 uBound=1 nBins=25>NEMF</var>
+		<var lBound= 0 uBound=1 nBins=25>CHF</var>
+		<var lBound= 0 uBound=1 nBins=25>CEMF</var>
+		<var lBound= 0 uBound=80 nBins=80>nConstituents</var>
+		<var lBound= 0 uBound=80 nBins=80>CMultiplicity</var>
+
+	</channel>
+
+	<channel name="mumu_muid" category="Dilepton">
+		<lepton>Muon</lepton>
+		<leptoAbbr>MuMu_MuonID</leptoAbbr>
+		<chan>ttttmumu</chan>
+		<fileName>config/Run2DiLepton_Craneens_MuMu_Nom.xml</fileName>
+		<fileNameSys>config/Run2DiLepton_Craneens_MuMu_Sys.xml</fileNameSys>
+		<craneenPath>/user/heilman/CMSSW_7_6_3/src/TopBrussels/FourTops/Craneens_MuMu/ObjectIDMerge/</craneenPath>
+
+		<splitting splitVar="nJets" bSplit=6 tSplit=10 wSplit=2 >JS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nLtags" bSplit1=6 tSplit1=10 wSplit1=2 bSplit2=2 tSplit2=4 wSplit2=2 >JTS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nMtags" ltSplit=14 gtSplit=15 >JPTS</splitting>
+
+		<var lBound= 0 uBound=400 nBins=40>MuPt</var>
+		<var lBound= -2.5 uBound=2.5 nBins=25>MuEta</var>
+		<var lBound= 0 uBound=0.3 nBins=30>MuRelIso</var>
+
+	</channel>
+
+	<channel name="mumu_jetid" category="Dilepton">
+		<lepton>Muon</lepton>
+		<leptoAbbr>MuMu_JetID</leptoAbbr>
+		<chan>ttttmumu</chan>
+		<fileName>config/Run2DiLepton_Craneens_MuMu_Nom.xml</fileName>
+		<fileNameSys>config/Run2DiLepton_Craneens_MuMu_Sys.xml</fileNameSys>
+		<craneenPath>/user/heilman/CMSSW_7_6_3/src/TopBrussels/FourTops/Craneens_MuMu/ObjectIDMerge/</craneenPath>
+
+		<splitting splitVar="nJets" bSplit=6 tSplit=10 wSplit=2 >JS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nLtags" bSplit1=6 tSplit1=10 wSplit1=2 bSplit2=2 tSplit2=4 wSplit2=2 >JTS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nMtags" ltSplit=14 gtSplit=15 >JPTS</splitting>
+
+		<var lBound= 0 uBound=1 nBins=25>NHF</var>
+		<var lBound= 0 uBound=1 nBins=25>NEMF</var>
+		<var lBound= 0 uBound=1 nBins=25>CHF</var>
+		<var lBound= 0 uBound=1 nBins=25>CEMF</var>
+		<var lBound= 0 uBound=80 nBins=80>nConstituents</var>
+		<var lBound= 0 uBound=80 nBins=80>CMultiplicity</var>
+
+	</channel>
+
+	<channel name="elel_jetid" category="Dilepton">
+		<lepton>Electron</lepton>
+		<leptoAbbr>ElEl_JetID</leptoAbbr>
+		<chan>ttttelel</chan>
+		<fileName>config/Run2DiLepton_Craneens_ElEl_Nom.xml</fileName>
+		<fileNameSys>config/Run2DiLepton_Craneens_ElEl_Sys.xml</fileNameSys>
+		<craneenPath>/user/heilman/CMSSW_7_6_3/src/TopBrussels/FourTops/Craneens_ElEl/ObjectIDMerge/</craneenPath>
+
+		<splitting splitVar="nJets" bSplit=6 tSplit=10 wSplit=2 >JS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nLtags" bSplit1=6 tSplit1=10 wSplit1=2 bSplit2=2 tSplit2=4 wSplit2=2 >JTS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nMtags" ltSplit=14 gtSplit=15 >JPTS</splitting>
+
+		<var lBound= 0 uBound=1 nBins=25>NHF</var>
+		<var lBound= 0 uBound=1 nBins=25>NEMF</var>
+		<var lBound= 0 uBound=1 nBins=25>CHF</var>
+		<var lBound= 0 uBound=1 nBins=25>CEMF</var>
+		<var lBound= 0 uBound=80 nBins=80>nConstituents</var>
+		<var lBound= 0 uBound=80 nBins=80>CMultiplicity</var>
+
+	</channel>
+
+
+<channel name="elel_elid" category="Dilepton">
+		<lepton>Electron</lepton>
+		<leptoAbbr>ElEl_ElecID</leptoAbbr>
+		<chan>ttttelel</chan>
+		<fileName>config/Run2DiLepton_Craneens_ElEl_Nom.xml</fileName>
+		<fileNameSys>config/Run2DiLepton_Craneens_ElEl_Sys.xml</fileNameSys>
+		<craneenPath>/user/heilman/CMSSW_7_6_3/src/TopBrussels/FourTops/Craneens_ElEl/ObjectIDMerge/</craneenPath>
+
+		<splitting splitVar="nJets" bSplit=6 tSplit=10 wSplit=2 >JS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nLtags" bSplit1=6 tSplit1=10 wSplit1=2 bSplit2=2 tSplit2=4 wSplit2=2 >JTS</splitting>
+		<splitting splitVar1="nJets" splitVar2= "nMtags" ltSplit=14 gtSplit=15 >JPTS</splitting>
+
+		<var lBound= -2.5 uBound=2.5 nBins=25>ElSuperclusterEta</var>
+		<var lBound= 0 uBound=0.03 nBins=25>Elfull5x5</var>
+		<var lBound= 0 uBound=0.01 nBins=25>EldEdatIn</var>
+		<var lBound= 0 uBound=0.1 nBins=25>EldPhiIn</var>
+		<var lBound= 0 uBound=0.07 nBins=20>ElhOverE</var>
+		<var lBound= 0 uBound=0.1 nBins=20>ElRelIso</var>
+		<var lBound= 0 uBound=0.02 nBins=20>ElEmP</var>
+		<var lBound= 0 uBound=0.04 nBins=20>Eld0</var>
+		<var lBound= 0 uBound=0.6 nBins=20>Eldz</var>
+		<var lBound= 0 uBound=3 nBins=3>ElMissingHits</var>
+
+	</channel>
+</analyses>
