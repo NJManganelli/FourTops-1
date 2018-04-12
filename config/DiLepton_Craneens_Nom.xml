@@ -93,11 +93,10 @@
 <d name="TTJets_SubTotalFlavorDown"  title="JES"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="185933.774166" xsection="831.76"   PreselEff="0.0"
    filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab82/170417_044928/*/*.root"/>
 
-<d name="TTJetsPowheg"  title="t#bar{t}+X"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="551805.763767" xsection="830.221"   PreselEff="0.0"
+
+<d name="TTJetsPowheg"  title="t#bar{t}+X"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="550784.76123" xsection="830.221"   PreselEff="0.0"
    filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab82/170417_044928/*/*.root"/>
 
-<d name="TTJetsPowheg_f"  title="t#bar{t}+X"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="6005912.2807" xsection="1.539"   PreselEff="0.0"
-   filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab82/170417_044928/*/*.root"/>
 
 <d name="TTJetsPowheg_JESUp"  title="TT_JESUp"   add="1"   color="633"  ls="1"  lw="2" normf="1"  EqLumi="185933.774166" xsection="831.76"   PreselEff="0.0"
    filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/TT_TuneCUETP8M2T4_13TeV-powheg-pythia8/crab_P8M2T413TeVpowhegpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6v1crab82/170417_044928/*/*.root"/>
@@ -167,6 +166,7 @@
 
 <d name="EWWZ"  title="EW"   add="1"   color="413"  ls="1"  lw="2" normf="1"  EqLumi="84782.0496499" xsection="47.13"   PreselEff="0.0"
    filenames="/pnfs/iihe/cms/store/user/fblekman/TopTree/CMSSW_80X_v8/TTP-CMSSW_80X_v8--GT-80X_mcRun2_asymptotic_2016_TrancheIV_v8/WZ_TuneCUETP8M1_13TeV-pythia8/crab_CUETP8M113TeVpythia8RunIISummer16MiniAODv2PUMoriond1780XmcRun2asymptotic2016TrancheIVv6ext1v1crab137/170415_201204/*/*.root"/>
+
 
 
 

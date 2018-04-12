@@ -70,7 +70,7 @@
 		<lepton>Muon</lepton>
 		<leptoAbbr>MuMu</leptoAbbr>
 		<chan>ttttmumu</chan>
-		<fileName>config/DiLepton_Craneens_Nom.xml</fileName>
+		<fileName>config/DiLepton_Craneens_Nom_stitch.xml</fileName>
 		<fileNameSys>config/DiLepton_Craneens_Sys.xml</fileNameSys>
 		<craneenPath>/user/lowang/CMSSW_8_0_26_patch1/src/TopBrussels/FourTops/Craneens_Comb/</craneenPath>
 		<datacardVar>BDT_DilepCombined30thApril2016_17Var</datacardVar>

@@ -512,22 +512,40 @@ int main(int argc, char** argv)
 
 
 
+        string Powheg_f = "Craneens_Comb/TTJetsPowheg_f_Run2_TopTree_Study.root";
+        string Powheg_f_JERUp = "Craneens_Comb/TTJetsPowheg_f_JERUp_Run2_TopTree_Study.root";
+        string Powheg_f_JERDown = "Craneens_Comb/TTJetsPowheg_f_JERDown_Run2_TopTree_Study.root";
+        string Powheg_f_JESUp = "Craneens_Comb/TTJetsPowheg_f_JESUp_Run2_TopTree_Study.root";
+        string Powheg_f_JESDown = "Craneens_Comb/TTJetsPowheg_f_JESDown_Run2_TopTree_Study.root";
+        string TTJets_f_SubTotalPileUpUp = "Craneens_Comb/TTJets_f_SubTotalPileUpUp_Run2_TopTree_Study.root";
+        string TTJets_f_SubTotalPileUpDown = "Craneens_Comb/TTJets_f_SubTotalPileUpDown_Run2_TopTree_Study.root";
+        string TTJets_f_SubTotalRelativeUp = "Craneens_Comb/TTJets_f_SubTotalRelativeUp_Run2_TopTree_Study.root";
+        string TTJets_f_SubTotalRelativeDown = "Craneens_Comb/TTJets_f_SubTotalRelativeDown_Run2_TopTree_Study.root";
+        string TTJets_f_SubTotalPtUp = "Craneens_Comb/TTJets_f_SubTotalPtUp_Run2_TopTree_Study.root";
+        string TTJets_f_SubTotalPtDown = "Craneens_Comb/TTJets_f_SubTotalPtDown_Run2_TopTree_Study.root";
+        string TTJets_f_SubTotalScaleUp = "Craneens_Comb/TTJets_f_SubTotalScaleUp_Run2_TopTree_Study.root";
+        string TTJets_f_SubTotalScaleDown = "Craneens_Comb/TTJets_f_SubTotalScaleDown_Run2_TopTree_Study.root";
+        string TTJets_f_SubTotalFlavorUp = "Craneens_Comb/TTJets_f_SubTotalFlavorUp_Run2_TopTree_Study.root";
+        string TTJets_f_SubTotalFlavorDown = "Craneens_Comb/TTJets_f_SubTotalFlavorDown_Run2_TopTree_Study.root";
 
-
-        string main = "TTJetsPowheg_main_Run2_TopTree_Study.root";
-        string news = "TTJetsPowheg_new_Run2_TopTree_Study.root";
-        string mtop1695 = "TTJetsPowheg_mass_Run2_TopTree_Study.root";
-        string width = "TTJetsPowheg_width_Run2_TopTree_Study.root";
 
         vector<TFile*> files;
 
-        files.push_back(TFile::Open(main.c_str(), "UPDATE"));
-        files.push_back(TFile::Open(news.c_str(), "UPDATE"));
-        files.push_back(TFile::Open(mtop1695.c_str(), "UPDATE"));
-        files.push_back(TFile::Open(width.c_str(), "UPDATE"));
-
-
-
+        files.push_back(TFile::Open(Powheg_f.c_str(), "UPDATE"));
+        files.push_back(TFile::Open(Powheg_f_JERUp.c_str(), "UPDATE"));
+        files.push_back(TFile::Open(Powheg_f_JERDown.c_str(), "UPDATE"));
+        files.push_back(TFile::Open(Powheg_f_JESUp.c_str(), "UPDATE"));
+        files.push_back(TFile::Open(Powheg_f_JESDown.c_str(), "UPDATE"));
+        files.push_back(TFile::Open(TTJets_f_SubTotalPileUpUp.c_str(), "UPDATE"));
+        files.push_back(TFile::Open(TTJets_f_SubTotalPileUpDown.c_str(), "UPDATE"));
+        files.push_back(TFile::Open(TTJets_f_SubTotalRelativeUp.c_str(), "UPDATE"));
+        files.push_back(TFile::Open(TTJets_f_SubTotalRelativeDown.c_str(), "UPDATE"));
+        files.push_back(TFile::Open(TTJets_f_SubTotalPtUp.c_str(), "UPDATE"));
+        files.push_back(TFile::Open(TTJets_f_SubTotalPtDown.c_str(), "UPDATE"));
+        files.push_back(TFile::Open(TTJets_f_SubTotalScaleUp.c_str(), "UPDATE"));
+        files.push_back(TFile::Open(TTJets_f_SubTotalScaleDown.c_str(), "UPDATE"));
+        files.push_back(TFile::Open(TTJets_f_SubTotalFlavorUp.c_str(), "UPDATE"));
+        files.push_back(TFile::Open(TTJets_f_SubTotalFlavorDown.c_str(), "UPDATE"));
 
 
 

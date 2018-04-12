@@ -34,7 +34,7 @@ map<string, MultiSamplePlot*> MSPlot;
 map<std::string, std::string> MessageMap;
 
 bool prelim_ = true;  //controls the appearance of "preliminary on the plots"
-bool split_ttbar = true;
+bool split_ttbar = false;
 bool reweight_ttbar = true;
 
 std::string intToStr(int number);
