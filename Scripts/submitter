@@ -1,0 +1,6 @@
+#!/bin/bash
+
+ls Submit_Scripts/MuSubmit* | awk '{print "qsub "$1}' | sh
+#ls Submit_Scripts/MuSubmit* | awk '{print "qsub "$1"\nsleep 10s"}' | sh
+
+
