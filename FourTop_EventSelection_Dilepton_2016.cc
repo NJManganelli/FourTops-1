@@ -131,8 +131,7 @@ int main(int argc, char* argv[])
 
     int passed = 0;
     int negWeights = 0;
-    float weightCount = 0.0;
-    int eventCount = 0, trigCount = 0;
+    int eventCount = 0, trigCount = 0, N_SelectedEvent = 0;
     clock_t start = clock();
     string postfix = "_Run2_TopTree_Study";
     int doJESShift = 0; // 0: off 1: minus 2: plus
@@ -683,8 +682,8 @@ int main(int argc, char* argv[])
             "btagWeightCSVLFStats2Up:btagWeightCSVLFStats2Down:btagWeightCSVCFErr1Up:btagWeightCSVCFErr1Down:btagWeightCSVCFErr2Up:btagWeightCSVCFErr2Down:" //6
             "GenWeight:weight1:weight2:weight3:weight4:weight5:weight6:weight7:weight8:weight_ct10:weight_mmht14:hdampup:hdampdown:" //13
             "SFbtagCSV:SFPU:SFPU_up:SFPU_down:SFtopPt:SFtopPtUp:SFtopPtDown:ttXrew:ttXrew_up:ttXrew_down:" //10
-            "LeadingLepdZ:SubLeadingLepdZ:SumJetMassX:SumbMass:dRlb:csvj1:csvb1:" //7
-	    "genHT:n_genjets:n_genleps"); //3
+            "LeadingLepdZ:SubLeadingLepdZ:SumJetMassX:SumbMass:csvj1:csvb1:" //6
+	    "genHT:n_genjets:n_genleps:superClusterEta1:superClusterEta2"); //5
 
         /*
         TTree *tree = new TTree(("Tree"+channelpostfix).c_str(),("Tree"+channelpostfix).c_str());
@@ -970,6 +969,19 @@ int main(int argc, char* argv[])
  
             if(debug) cout << "triggered? Y/N?  " << trigged << endl;
  
+            if(!trigged) continue;
+            trigCount++;
+
+            float negweight = 0.0;
+            if(nlo) {
+                if(centralWeight < 0.0) {
+                    negWeights++;
+                    negweight =-1.0;
+                } else {
+                    negweight = 1.0;
+                }
+            }
+
 
             //////////////////////////////////////
             ///  Jet Energy Scale Corrections  ///
@@ -1032,6 +1044,11 @@ int main(int argc, char* argv[])
 
             // Declare selection instance
             Run2Selection selection(init_jets, init_fatjets, init_muons, init_electrons, mets, rho);
+            bool isGoodPV = selection.isPVSelected(vertex, 4, 24., 2);
+            if(debug)
+                cout << "PrimaryVertexBit: " << isGoodPV << " TriggerBit: " << trigged << endl;
+            if(!isGoodPV) continue;
+
             selectedMuons.clear(); selectedElectrons.clear(); selectedOrigElectrons.clear(); selectedVetoElectrons.clear(); selectedOrigVetoElectrons.clear();
             // Define object selection cuts
             if(Muon && Electron && dilepton) {
@@ -1041,7 +1058,7 @@ int main(int argc, char* argv[])
             } if(Muon && !Electron && dilepton) {
                 selectedMuons = selection.GetSelectedMuons(20., 2.4, 0.15, "Loose", "Summer16");
                 selectedOrigElectrons = selection.GetSelectedElectrons(20., 2.4, "Loose", "Spring16_80X", true, true);
-                selectedOrigVetoElectrons = selection.GetSelectedElectrons(15., 2.4, "Veto", "Spring16_80X", true, true);
+                selectedOrigVetoElectrons = selection.GetSelectedElectrons(15., 2.4,"Veto", "Spring16_80X", true, true);
             } if(!Muon && Electron && dilepton) {
                 selectedMuons = selection.GetSelectedMuons(20., 2.4, 0.15, "Loose", "Summer16");
                 selectedOrigElectrons = selection.GetSelectedElectrons(20., 2.4, "Loose", "Spring16_80X", true, true);
@@ -1059,12 +1076,19 @@ int main(int argc, char* argv[])
                 }
             }
 
-            if(Muon && !Electron && dilepton && selectedMuons.size() > 0 && selectedMuons[0]->Pt() < 25.0) continue;
-            if(!Muon && Electron && dilepton && selectedElectrons.size() > 0 && selectedElectrons[0]->Pt() < 25.0) continue;
+            if(Muon && !Electron && dilepton){
+                if(selectedMuons.size() == 0) continue;
+                if(selectedMuons[0]->Pt() < 25.0) continue;
+            }
+            if(!Muon && Electron && dilepton){
+                if(selectedElectrons.size() == 0) continue;
+                if(selectedElectrons[0]->Pt() < 25.0) continue;
+            }
             if(Muon && Electron && dilepton){
                 if(selectedMuons.size() > 0 && selectedElectrons.size() == 0 && selectedMuons[0]->Pt() < 25.0) continue;
                 if(selectedMuons.size() == 0 && selectedElectrons.size() > 0 && selectedElectrons[0]->Pt() < 25.0) continue;
                 if(selectedMuons.size() > 0 && selectedElectrons.size() > 0 && selectedMuons[0]->Pt() < 25.0 && selectedElectrons[0]->Pt() < 25.0) continue;
+                if(selectedMuons.size() == 0 && selectedElectrons.size() == 0) continue;
             }
 
             selectedUncleanedJets.clear(); selectedFatJets.clear();
@@ -1217,11 +1241,8 @@ int main(int argc, char* argv[])
 
             if(debug)
                 cout << " applying baseline event selection for cut table..." << endl;
-            bool isGoodPV = selection.isPVSelected(vertex, 4, 24., 2);
-            if(debug)
-                cout << "PrimaryVertexBit: " << isGoodPV << " TriggerBit: " << trigged << endl;
 
-            int cfTrigger = 0, cfPV = 0, cfLep1 = 0, cfLep2 = 0, cfJets2 = 0, cfJets3 = 0, cfJets4 = 0, cfTags = 0, cfHT = 0, cfAll = 1;
+            /*int cfTrigger = 0, cfPV = 0, cfLep1 = 0, cfLep2 = 0, cfJets2 = 0, cfJets3 = 0, cfJets4 = 0, cfTags = 0, cfHT = 0, cfAll = 1;
             if(Muon && Electron && dilepton) 
             {
                 if(trigged) {
@@ -1251,12 +1272,12 @@ int main(int argc, char* argv[])
                         }
                     }
                 }
-            }
+            }*/
             if(Muon && !Electron && dilepton) 
             {
                 if(!sameCharge && (diLepMass < 20 || (diLepMass > (ZMass - ZMassWindow) && diLepMass < (ZMass + ZMassWindow))))
                     ZVeto = true;
-                if(trigged) {
+                /*if(trigged) {
                     cfTrigger = 1;
                     if(isGoodPV) {
                         cfPV = 1;
@@ -1282,13 +1303,13 @@ int main(int argc, char* argv[])
                             }
                         }
                     }
-                }
+                }*/
             }
             if(!Muon && Electron && dilepton) 
             {
                 if(!sameCharge && (diLepMass < 20 || (diLepMass > (ZMass - ZMassWindow) && diLepMass < (ZMass + ZMassWindow))))
                     ZVeto = true;
-                if(trigged) {
+                /*if(trigged) {
                     cfTrigger = 1;
                     if(isGoodPV) {
                         cfPV = 1;
@@ -1314,29 +1335,16 @@ int main(int argc, char* argv[])
                             }
                         }
                     }
-                }
+                }*/
             }
+
+            N_SelectedEvent++;
 
             //cuttup->Fill(cfAll, cfTrigger, cfPV, cfLep1, cfLep2, cfJets2, cfJets3, cfJets4, cfTags, cfHT);
 
             /////////////////////////////////
             // Applying baseline selection //
             /////////////////////////////////
-
-            if(!trigged) continue;
-            trigCount++;
-
-            float negweight = 0.0;
-            if(nlo) {
-                if(centralWeight < 0.0) {
-                    negWeights++;
-                    negweight =-1.0;
-                } else {
-                    negweight = 1.0;
-                }
-            }
-
-            if(!isGoodPV) continue;
 
             if(debug)
                 cout << " applying baseline event selection... nMu = " << nMu << " nEl = " << nEl << " ZVeto: " << ZVeto << " sameCharge: " << sameCharge << endl;
@@ -1499,7 +1507,7 @@ int main(int argc, char* argv[])
             }
 
             //csv discriminator reweighting
-            if(bTagCSVReweight && !isData){
+            if(bTagCSVReweight && !isData && nJets>=4){
             //get btag weight info
                 for(int jetbtag = 0; jetbtag<selectedJets.size(); jetbtag++){
                     float bTagEff_LFUp, bTagEff_LFDown, bTagEff_HFUp, bTagEff_HFDown, bTagEff_HFStats1Up, bTagEff_HFStats1Down, bTagEff_HFStats2Up,
@@ -1649,6 +1657,7 @@ int main(int argc, char* argv[])
                     fleptonSF_BCDEF = fleptonSF1 * fleptonSF2;
                 }
                 fleptonSF = (19676.2598077*fleptonSF_BCDEF + 16146.1775979*fleptonSF_GH)/(35822.4374055);
+
                 float eta1, eta2;
                 if(Muon && !Electron){
 		    eta1 = selectedMuons[0]->Eta();
@@ -1700,96 +1709,7 @@ int main(int argc, char* argv[])
                     } else {cerr << "Error1" << endl; exit(1);}
                 }
             }
-            //fleptonSF = fleptonSF1 * fleptonSF2;
-            //if(debug) cout << "lepton1 SF:  " << fleptonSF1 << "  lepton2 SF:  " << fleptonSF2 << endl;
-            /*if(Muon && !Electron && !isData){
-                if( abs( selectedMuons[0]->Eta() )<0.9 ){
-                    if( abs( selectedMuons[1]->Eta()<0.9 ) ) {
-				sfleptrig_BCDEF = 0.948179;sfleptrig_GH = (7540.49*0.976139 + 8605.69*0.968985)/(7540.49+8605.69);
-				sfleptrig_BCDEFUp = 0.948179;sfleptrig_GHUp = (7540.49*0.98168502 + 8605.69*0.9749255)/(7540.49+8605.69);
-				sfleptrig_BCDEFDown = 0.948179;sfleptrig_GHDown = (7540.49*0.97059298 + 8605.69*0.9630445)/(7540.49+8605.69);
-                    } else if( abs( selectedMuons[1]->Eta()<1.2 ) ) {
-				sfleptrig_BCDEF = 0.960657;sfleptrig_GH = (7540.49*0.980864 + 8605.69*0.979902)/(7540.49+8605.69);
-	                        sfleptrig_BCDEFUp = 0.960657;sfleptrig_GHUp = (7540.49*0.98934893 + 8605.69*0.98890021)/(7540.49+8605.69);		
-				sfleptrig_BCDEFDown = 0.960657;sfleptrig_GHDown = (7540.49*0.97237907 + 8605.69*0.97090379)/(7540.49+8605.69);
-		    } else if( abs( selectedMuons[1]->Eta()<2.1 ) ) {
-				sfleptrig_BCDEF = 0.968998;sfleptrig_GH = (7540.49*0.990586 + 8605.69*0.986834)/(7540.49+8605.69);
-				sfleptrig_BCDEFUp = 0.968998;sfleptrig_GHUp = (7540.49*0.99660106 + 8605.69*0.99343632)/(7540.49+8605.69);
-				sfleptrig_BCDEFDown = 0.968998;sfleptrig_GHDown = (7540.49*0.98457094 + 8605.69*0.98023168)/(7540.49+8605.69);
-                    } else if( abs( selectedMuons[1]->Eta()<2.4 ) ) {
-				sfleptrig_BCDEF = 0.960431;sfleptrig_GH = (7540.49*0.985026 + 8605.69*0.978097)/(7540.49+8605.69);
-				sfleptrig_BCDEFUp = 0.960431;sfleptrig_GHUp = (7540.49*0.997788 + 8605.69*0.9956252)/(7540.49+8605.69);
-				sfleptrig_BCDEFDown = 0.960431;sfleptrig_GHDown = (7540.49*0.972264 + 8605.69*0.9605688)/(7540.49+8605.69);
-                    } else {cerr << "Error" << endl; exit(1);}
-                } else if( abs( selectedMuons[0]->Eta() )<1.2 ) {
-                    if( abs( selectedMuons[1]->Eta()<0.9 ) ) {
-				sfleptrig_BCDEF = 0.955935;sfleptrig_GH = (7540.49*0.982464 + 8605.69*0.983213)/(7540.49+8605.69);
-                                sfleptrig_BCDEFUp = 0.955935;sfleptrig_GHUp = (7540.49*0.99094986 + 8605.69*0.99220793)/(7540.49+8605.69);
-                                sfleptrig_BCDEFDown = 0.955935;sfleptrig_GHDown = (7540.49*0.97397814 + 8605.69*0.97421807)/(7540.49+8605.69);
-                    } else if( abs( selectedMuons[1]->Eta()<1.2 ) ) {
-				sfleptrig_BCDEF = 0.964931;sfleptrig_GH = (7540.49*1.016780 + 8605.69*0.999540)/(7540.49+8605.69);
-                                sfleptrig_BCDEFUp = 0.964931;sfleptrig_GHUp = (7540.49*1.02067743 + 8605.69*1.0106039)/(7540.49+8605.69);
-                                sfleptrig_BCDEFDown = 0.964931;sfleptrig_GHDown = (7540.49*1.01288257 + 8605.69*0.9884761)/(7540.49+8605.69);
-                    } else if( abs( selectedMuons[1]->Eta()<2.1 ) ) {
-				sfleptrig_BCDEF = 0.982130;sfleptrig_GH = (7540.49*0.991973 + 8605.69*0.991456)/(7540.49+8605.69);
-                                sfleptrig_BCDEFUp = 0.982130;sfleptrig_GHUp = (7540.49*0.9994536 + 8605.69*1.00077573)/(7540.49+8605.69);
-                                sfleptrig_BCDEFDown = 0.982130;sfleptrig_GHDown = (7540.49*0.9844924 + 8605.69*0.98213627)/(7540.49+8605.69);
-                    } else if( abs( selectedMuons[1]->Eta()<2.4 ) ) {
-				sfleptrig_BCDEF = 0.951884;sfleptrig_GH = (7540.49*1.004301 + 8605.69*0.999805)/(7540.49+8605.69);
-                                sfleptrig_BCDEFUp = 0.951884;sfleptrig_GHUp = (7540.49*1.0205237 + 8605.69*1.018131)/(7540.49+8605.69);
-                                sfleptrig_BCDEFDown = 0.951884;sfleptrig_GHDown = (7540.49*0.9880783 + 8605.69*0.981479)/(7540.49+8605.69);
-                    } else {cerr << "Error" << endl; exit(1);}
-                } else if( abs( selectedMuons[0]->Eta() )<2.1 ) {
-                    if( abs( selectedMuons[1]->Eta()<0.9 ) ) {
-				sfleptrig_BCDEF = 0.970120;sfleptrig_GH = (7540.49*0.988191 + 8605.69*0.983700)/(7540.49+8605.69);
-                                sfleptrig_BCDEFUp = 0.970120;sfleptrig_GHUp = (7540.49*0.99418715 + 8605.69*0.99040486)/(7540.49+8605.69);
-                                sfleptrig_BCDEFDown = 0.970120;sfleptrig_GHDown = (7540.49*0.98219485 + 8605.69*0.97699514)/(7540.49+8605.69);
-                    } else if( abs( selectedMuons[1]->Eta()<1.2 ) ) {
-				sfleptrig_BCDEF = 0.979653;sfleptrig_GH = (7540.49*0.992394 + 8605.69*0.982809)/(7540.49+8605.69);
-                                sfleptrig_BCDEFUp = 0.979653;sfleptrig_GHUp = (7540.49*1.00021733 + 8605.69*0.99246931)/(7540.49+8605.69);
-                                sfleptrig_BCDEFDown = 0.979653;sfleptrig_GHDown = (7540.49*0.98457067 + 8605.69*0.97314869)/(7540.49+8605.69);
-                    } else if( abs( selectedMuons[1]->Eta()<2.1 ) ) {
-				sfleptrig_BCDEF = 0.991621;sfleptrig_GH = (7540.49*0.994308 + 8605.69*0.976385)/(7540.49+8605.69);
-                                sfleptrig_BCDEFUp = 0.991621;sfleptrig_GHUp = (7540.49*1.00070344 + 8605.69*0.9874707)/(7540.49+8605.69);
-                                sfleptrig_BCDEFDown = 0.991621;sfleptrig_GHDown = (7540.49*0.98791256 + 8605.69*0.9652993)/(7540.49+8605.69);
-                    } else if( abs( selectedMuons[1]->Eta()<2.4 ) ) {
-				sfleptrig_BCDEF = 0.983483;sfleptrig_GH = (7540.49*0.989969 + 8605.69*0.983709)/(7540.49+8605.69);
-                                sfleptrig_BCDEFUp = 0.983483;sfleptrig_GHUp = (7540.49*1.000219 + 8605.69*0.9956063)/(7540.49+8605.69);
-                                sfleptrig_BCDEFDown = 0.983483;sfleptrig_GHDown = (7540.49*0.979719 + 8605.69*0.9718117)/(7540.49+8605.69);
-                    } else {cerr << "Error" << endl; exit(1);}
-                } else if( abs( selectedMuons[0]->Eta() )<2.4 ) {
-                    if( abs( selectedMuons[1]->Eta()<0.9 ) ) {
-				sfleptrig_BCDEF = 0.970599;sfleptrig_GH = (7540.49*0.990155 + 8605.69*0.979211)/(7540.49+8605.69);
-                                sfleptrig_BCDEFUp = 0.970599;sfleptrig_GHUp = (7540.49*1.0032201 + 8605.69*0.9953345)/(7540.49+8605.69);
-                                sfleptrig_BCDEFDown = 0.970599;sfleptrig_GHDown = (7540.49*0.9770899 + 8605.69*0.9630875)/(7540.49+8605.69);
-                    } else if( abs( selectedMuons[1]->Eta()<1.2 ) ) {
-				sfleptrig_BCDEF = 0.960382;sfleptrig_GH = (7540.49*1.005147 + 8605.69*0.992346)/(7540.49+8605.69);
-                                sfleptrig_BCDEFUp = 0.960382;sfleptrig_GHUp = (7540.49*1.0184711 + 8605.69*1.0105148)/(7540.49+8605.69);
-                                sfleptrig_BCDEFDown = 0.960382;sfleptrig_GHDown = (7540.49*0.9918289 + 8605.69*0.9741772)/(7540.49+8605.69);
-                    } else if( abs( selectedMuons[1]->Eta()<2.1 ) ) {
-				sfleptrig_BCDEF = 0.981527;sfleptrig_GH = (7540.49*1.000300 + 8605.69*0.992799)/(7540.49+8605.69);
-                                sfleptrig_BCDEFUp = 0.981527;sfleptrig_GHUp = (7540.49*1.0099321 + 8605.69*1.0044061)/(7540.49+8605.69);
-                                sfleptrig_BCDEFDown = 0.981527;sfleptrig_GHDown = (7540.49*0.9906679 + 8605.69*0.9811919)/(7540.49+8605.69);
-                    } else if( abs( selectedMuons[1]->Eta()<2.4 ) ) {
-				sfleptrig_BCDEF = 0.968428;sfleptrig_GH = (7540.49*0.972295 + 8605.69*0.974504)/(7540.49+8605.69);
-                                sfleptrig_BCDEFUp = 0.968428;sfleptrig_GHUp = (7540.49*0.9911826 + 8605.69*0.9956983)/(7540.49+8605.69);
-                                sfleptrig_BCDEFDown = 0.968428;sfleptrig_GHDown = (7540.49*0.9534074 + 8605.69*0.9533097)/(7540.49+8605.69);
-                    } else {cerr << "Error" << endl; exit(1);}
-                } else {cerr << "Error" << endl; exit(1);}
-            }*/
-            /*else if(Muon && M && !MM && !ME && !isData){
-                sfleptrig_BCDEF = muonSFWeightTrig_BCDEF->at(selectedMuons[0]->Eta(), selectedMuons[0]->Pt(), 0);
-                sfleptrig_GH = muonSFWeightTrig_GH->at(selectedMuons[0]->Eta(), selectedMuons[0]->Pt(), 0);
-            }*/
 
-
-            float fTriggerSF = 1.0;
-            if(Electron && Muon)
-                fTriggerSF *= 1.;
-            else if(!Electron && Muon)
-                fTriggerSF *= 1.;
-            else if(Electron && !Muon)
-                fTriggerSF *= 1.;
 
             ///////////////////////
             // Getting Gen Event //
@@ -1861,21 +1781,6 @@ int main(int argc, char* argv[])
 
             float alphaTune = 1, falphaTuneSF = 1.0;
 
-
-            /////////////////////////////
-            // Aggregating ScaleFactor //
-            /////////////////////////////
-
-            scaleFactor *= centralWeight;
-            scaleFactor *= lumiWeight;
-            scaleFactor *= fleptonSF_GH;
-            scaleFactor *= (btagWeight_light * btagWeight_heavy);
-            scaleFactor *= falphaTuneSF;
-            scaleFactor *= fTopPtReWeightsf;
-
-            weightCount += scaleFactor;
-
-
             //////////////////////
             //   W/Top tagging  //
             //////////////////////
@@ -1916,7 +1821,6 @@ int main(int argc, char* argv[])
             TLorentzVector sumjet_X, sumjet_b;
             float sumpx_X = 0, sumpy_X = 0, sumpz_X = 0, sume_X =0, SumJetMassX = 0;
             float sumpx_b = 0, sumpy_b = 0, sumpz_b = 0, sume_b =0, Mass_bb = 0;
-            float dRlb = 99999999., dRlb1 = 99999999., dRlb2 = 99999999.;
             if(nJets >= 4) {
                 jetCombiner->ProcessEvent_SingleHadTop(datasets[d], mcParticlesMatching_, selectedJets, selectedLeptonTLV_JC[0], scaleFactor);
                 if(!TrainMVA) {
@@ -2018,9 +1922,11 @@ int main(int argc, char* argv[])
                 HT = HT + jetpt;
                 H = H + selectedJets[seljet1]->P();
             }
-            dRbb = fabs(selectedJets[0]->DeltaR(*selectedJets[1]));
-            HTRat = (selectedJets[0]->Pt() + selectedJets[1]->Pt()) / HT;
-            HTH = HT / H;
+            if(nJets>=4){
+                dRbb = fabs(selectedJets[0]->DeltaR(*selectedJets[1]));
+                HTRat = (selectedJets[0]->Pt() + selectedJets[1]->Pt()) / HT;
+                HTH = HT / H;
+            }
 
             sort(selectedJets.begin(), selectedJets.end(), HighestPt()); // order Jets wrt Pt for tuple output
 
@@ -2031,39 +1937,18 @@ int main(int argc, char* argv[])
                 electronpt = selectedElectrons[0]->Pt();
                 reliso1 = selectedMuons[0]->relPfIso(4,0.5);
                 reliso2 = ElectronRelIso(selectedElectrons[0],rho);
-
-                for(Int_t seljet = 0; seljet < selectedJets.size(); seljet++) {
-                    if(selectedJets[seljet]->btag_combinedInclusiveSecondaryVertexV2BJetTags()<0.8484) continue;
-                    dRlb1 = (fabs(selectedMuons[0]->DeltaR(*selectedJets[seljet])) < dRlb1) ? fabs(selectedMuons[0]->DeltaR(*selectedJets[seljet])) : dRlb1;
-                    dRlb2 = (fabs(selectedElectrons[0]->DeltaR(*selectedJets[seljet])) < dRlb2) ? fabs(selectedElectrons[0]->DeltaR(*selectedJets[seljet])) : dRlb2;
-                }
-                dRlb = (dRlb1<dRlb2) ? dRlb1 : dRlb2;
             }
             if(dilepton && Muon && !Electron) {
                 muonpt = selectedMuons[0]->Pt();
                 muoneta = selectedMuons[0]->Eta();
                 reliso1 = selectedMuons[0]->relPfIso(4,0.5);
                 reliso2 = selectedMuons[1]->relPfIso(4,0.5);
-
-                for(Int_t seljet = 0; seljet < selectedJets.size(); seljet++) {
-                    if(selectedJets[seljet]->btag_combinedInclusiveSecondaryVertexV2BJetTags()<0.8484) continue;
-                    dRlb1 = (fabs(selectedMuons[0]->DeltaR(*selectedJets[seljet])) < dRlb1) ? fabs(selectedMuons[0]->DeltaR(*selectedJets[seljet])) : dRlb1;
-                    dRlb2 = (fabs(selectedMuons[1]->DeltaR(*selectedJets[seljet])) < dRlb2) ? fabs(selectedMuons[1]->DeltaR(*selectedJets[seljet])) : dRlb2;
-                }
-                dRlb = (dRlb1<dRlb2) ? dRlb1 : dRlb2;
             }
             if(dilepton && !Muon && Electron) {
                 muonpt = selectedElectrons[0]->Pt();
                 muoneta = selectedElectrons[0]->Eta();
                 reliso1 = ElectronRelIso(selectedElectrons[0],rho);
                 reliso2 = ElectronRelIso(selectedElectrons[1],rho);
-
-                for(Int_t seljet = 0; seljet < selectedJets.size(); seljet++) {
-                    if(selectedJets[seljet]->btag_combinedInclusiveSecondaryVertexV2BJetTags()<0.8484) continue;
-                    dRlb1 = (fabs(selectedElectrons[0]->DeltaR(*selectedJets[seljet])) < dRlb1) ? fabs(selectedElectrons[0]->DeltaR(*selectedJets[seljet])) : dRlb1;
-                    dRlb2 = (fabs(selectedElectrons[1]->DeltaR(*selectedJets[seljet])) < dRlb2) ? fabs(selectedElectrons[1]->DeltaR(*selectedJets[seljet])) : dRlb2;
-                }
-                dRlb = (dRlb1<dRlb2) ? dRlb1 : dRlb2;
             }
 
             if(nMtags >= 1) {
@@ -2144,7 +2029,7 @@ int main(int argc, char* argv[])
             // Filling nTuple //
             //////////////////// 
  
-            float vals[107] = {
+            float vals[108] = {
 	        (float) currentRun, (float) LumiBlock, (float) currentEvent, Luminosity, nvertices, scaleFactor, normfactor,
 	        nJets, nFatJets, nWTags, nTopTags, nLtags, nMtags, nTtags, (float)mets[0]->Et(), HT, HT2M, HTb, HTH, HTRat,
 	        (float)(nJets > 0 ? selectedJets[0]->Pt() : -9999), (float)(nJets > 1 ? selectedJets[1]->Pt() : -9999),
@@ -2160,8 +2045,8 @@ int main(int argc, char* argv[])
 	        btagWeightCSVLFStats2Up, btagWeightCSVLFStats2Down, btagWeightCSVCFErr1Up, btagWeightCSVCFErr1Down, btagWeightCSVCFErr2Up, btagWeightCSVCFErr2Down,
 	        centralWeight, weight1, weight2, weight3, weight4, weight5, weight6, weight7, weight8, weight_ct10, weight_mmht14, weight_hdamp_up, weight_hdamp_dw,
 	        btagWeightCSV, lumiWeight, lumiWeight_up, lumiWeight_down, fTopPtReWeightsf, fTopPtReWeightsfUp, fTopPtReWeightsfDown, ttXrew, ttXrew_up, ttXrew_down,
-                0, 0, SumJetMassX, Mass_bb, dRlb, selectedJets[0]->btag_combinedInclusiveSecondaryVertexV2BJetTags(), 0, 
-                genHT, (float)n_genjets, (float)n_genleps};
+                0, 0, SumJetMassX, Mass_bb, selectedJets[0]->btag_combinedInclusiveSecondaryVertexV2BJetTags(), 0, 
+                genHT, (float)n_genjets, (float)n_genleps, 0, 0};
 
 
             if(Muon && Electron) {
@@ -2174,14 +2059,8 @@ int main(int argc, char* argv[])
                 vals[97] = selectedMuons[0]->dz();
                 vals[98] = selectedElectrons[0]->dz();
 
-                /*vals[104] = selectedMuons[0]->chargedHadronIso(4);
-                vals[105] = selectedMuons[0]->neutralHadronIso(4);
-                vals[106] = selectedMuons[0]->photonIso(4);
-                vals[107] = selectedMuons[0]->puChargedHadronIso(4);
-                vals[108] = selectedElectrons[0]->chargedHadronIso(3);
-                vals[109] = selectedElectrons[0]->neutralHadronIso(3);
-                vals[110] = selectedElectrons[0]->photonIso(3);
-                vals[111] = selectedElectrons[0]->puChargedHadronIso(4);*/
+                vals[106] = 0;
+                vals[107] = selectedElectrons[0]->superClusterEta();
             }
             if(Muon && !Electron) {
                 vals[28] = selectedMuons[0]->Pt();
@@ -2193,14 +2072,8 @@ int main(int argc, char* argv[])
                 vals[97] = selectedMuons[0]->dz();
                 vals[98] = selectedMuons[1]->dz();
 
-                /*vals[104] = selectedMuons[0]->chargedHadronIso(4);
-                vals[105] = selectedMuons[0]->neutralHadronIso(4);
-                vals[106] = selectedMuons[0]->photonIso(4);
-                vals[107] = selectedMuons[0]->puChargedHadronIso(4);
-                vals[108] = selectedMuons[1]->chargedHadronIso(4);
-                vals[109] = selectedMuons[1]->neutralHadronIso(4);
-                vals[110] = selectedMuons[1]->photonIso(4);
-                vals[111] = selectedMuons[1]->puChargedHadronIso(4);*/
+                vals[106] = 0;
+                vals[107] = 0;
             }
             if(!Muon && Electron) {
                 vals[28] = selectedElectrons[0]->Pt();
@@ -2212,18 +2085,12 @@ int main(int argc, char* argv[])
                 vals[97] = selectedElectrons[0]->dz();
                 vals[98] = selectedElectrons[1]->dz();
 
-                /*vals[104] = selectedElectrons[0]->chargedHadronIso(3);
-                vals[105] = selectedElectrons[0]->neutralHadronIso(3);
-                vals[106] = selectedElectrons[0]->photonIso(3);
-                vals[107] = selectedElectrons[0]->puChargedHadronIso(4);
-                vals[108] = selectedElectrons[1]->chargedHadronIso(3);
-                vals[109] = selectedElectrons[1]->neutralHadronIso(3);
-                vals[110] = selectedElectrons[1]->photonIso(3);
-                vals[111] = selectedElectrons[1]->puChargedHadronIso(4);*/
+                vals[106] = selectedElectrons[0]->superClusterEta();
+                vals[107] = selectedElectrons[1]->superClusterEta();
             }
             
             sort(selectedJets.begin(), selectedJets.end(), HighestCVSBtag());
-            vals[103] = selectedJets[0]->btag_combinedInclusiveSecondaryVertexV2BJetTags();
+            vals[102] = selectedJets[0]->btag_combinedInclusiveSecondaryVertexV2BJetTags();
             tup->Fill(vals);
 
 /*            
@@ -2266,11 +2133,11 @@ int main(int argc, char* argv[])
 
 
         cout << "n events passing selection  = " << passed << endl;
+        cout << "n events initialy selected  = " << N_SelectedEvent << endl;
         cout << "n events passing trigger    = " << trigCount << endl;
         cout << "n events passing filter     = " << eventCount << endl;
         cout << "trigger eff. = " << (float) trigCount/(float) eventCount << endl;
         cout << "n events with negative weights = " << negWeights << endl;
-        cout << "Weight Count = " << weightCount << endl;
 
         treeLoader.UnLoadDataset(); // important: free memory
     } // End Loop on Datasets
@@ -2373,20 +2240,14 @@ float ElectronRelIso(TRootElectron* el, float rho)
     double EffectiveArea = 0.;
     // Updated to Spring 2015 EA from
     // https://github.com/cms-sw/cmssw/blob/CMSSW_7_4_14/RecoEgamma/ElectronIdentification/data/Spring15/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_25ns.txt#L8
-    if(fabs(el->superClusterEta()) >= 0.0 && fabs(el->superClusterEta()) < 1.0)
-        EffectiveArea = 0.1752;
-    if(fabs(el->superClusterEta()) >= 1.0 && fabs(el->superClusterEta()) < 1.479)
-        EffectiveArea = 0.1862;
-    if(fabs(el->superClusterEta()) >= 1.479 && fabs(el->superClusterEta()) < 2.0)
-        EffectiveArea = 0.1411;
-    if(fabs(el->superClusterEta()) >= 2.0 && fabs(el->superClusterEta()) < 2.2)
-        EffectiveArea = 0.1534;
-    if(fabs(el->superClusterEta()) >= 2.2 && fabs(el->superClusterEta()) < 2.3)
-        EffectiveArea = 0.1903;
-    if(fabs(el->superClusterEta()) >= 2.3 && fabs(el->superClusterEta()) < 2.4)
-        EffectiveArea = 0.2243;
-    if(fabs(el->superClusterEta()) >= 2.4 && fabs(el->superClusterEta()) < 5.0)
-        EffectiveArea = 0.2687;
+    if (fabs(el->superClusterEta()) >= 0.0   && fabs(el->superClusterEta()) < 1.0   ) EffectiveArea = 0.1703;
+    if (fabs(el->superClusterEta()) >= 1.0   && fabs(el->superClusterEta()) < 1.479 ) EffectiveArea = 0.1715;
+    if (fabs(el->superClusterEta()) >= 1.479 && fabs(el->superClusterEta()) < 2.0   ) EffectiveArea = 0.1213;
+    if (fabs(el->superClusterEta()) >= 2.0   && fabs(el->superClusterEta()) < 2.2   ) EffectiveArea = 0.1230;
+    if (fabs(el->superClusterEta()) >= 2.2   && fabs(el->superClusterEta()) < 2.3   ) EffectiveArea = 0.1635;
+    if (fabs(el->superClusterEta()) >= 2.3   && fabs(el->superClusterEta()) < 2.4   ) EffectiveArea = 0.1937;
+    if (fabs(el->superClusterEta()) >= 2.4   && fabs(el->superClusterEta()) < 5.   ) EffectiveArea = 0.2393;
+    if (fabs(el->superClusterEta()) >= 5.) EffectiveArea = -9999;
 
     double isoCorr = 0;
     isoCorr = el->neutralHadronIso(3) + el->photonIso(3) - rho * EffectiveArea;

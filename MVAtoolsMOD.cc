@@ -512,7 +512,7 @@ int main(int argc, char** argv)
 
 
 
-        string Powheg_f = "Craneens_Comb/TTJetsPowheg_f_Run2_TopTree_Study.root";
+        string Powheg_f = "TTJetsPowheg_stitched_Run2_TopTree_Study.root";
         string Powheg_f_JERUp = "Craneens_Comb/TTJetsPowheg_f_JERUp_Run2_TopTree_Study.root";
         string Powheg_f_JERDown = "Craneens_Comb/TTJetsPowheg_f_JERDown_Run2_TopTree_Study.root";
         string Powheg_f_JESUp = "Craneens_Comb/TTJetsPowheg_f_JESUp_Run2_TopTree_Study.root";
@@ -531,7 +531,7 @@ int main(int argc, char** argv)
 
         vector<TFile*> files;
 
-        files.push_back(TFile::Open(Powheg_f.c_str(), "UPDATE"));
+        files.push_back(TFile::Open(Powheg_f.c_str(), "UPDATE"));/*
         files.push_back(TFile::Open(Powheg_f_JERUp.c_str(), "UPDATE"));
         files.push_back(TFile::Open(Powheg_f_JERDown.c_str(), "UPDATE"));
         files.push_back(TFile::Open(Powheg_f_JESUp.c_str(), "UPDATE"));
@@ -545,7 +545,7 @@ int main(int argc, char** argv)
         files.push_back(TFile::Open(TTJets_f_SubTotalScaleUp.c_str(), "UPDATE"));
         files.push_back(TFile::Open(TTJets_f_SubTotalScaleDown.c_str(), "UPDATE"));
         files.push_back(TFile::Open(TTJets_f_SubTotalFlavorUp.c_str(), "UPDATE"));
-        files.push_back(TFile::Open(TTJets_f_SubTotalFlavorDown.c_str(), "UPDATE"));
+        files.push_back(TFile::Open(TTJets_f_SubTotalFlavorDown.c_str(), "UPDATE"));*/
 
 
 

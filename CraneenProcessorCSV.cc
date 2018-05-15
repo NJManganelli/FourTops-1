@@ -34,7 +34,7 @@ map<string, MultiSamplePlot*> MSPlot;
 map<std::string, std::string> MessageMap;
 
 bool prelim_ = true;  //controls the appearance of "preliminary on the plots"
-bool split_ttbar = false;
+bool split_ttbar = true;
 bool reweight_ttbar = true;
 
 std::string intToStr(int number);
@@ -420,11 +420,11 @@ int main(int argc, char** argv)
                     Split2DatasetPlotter(NumberOfBins, lumiScale, lBound, uBound, leptoAbbr, shapefile, errorfile,
                         channel, VoI, splitVar1, bSplit1, tSplit1, wSplit1, splitVar2, bSplit2, tSplit2, wSplit2,
                         xmlFileName, CraneenPath, shapefileName, Units);
-                    //if(VoI.find("BDT") != string::npos || VoI == "HT") {
+                    if(VoI.find("BDT") != string::npos || VoI == "HT") {
                     Split2_DataCardProducer(VoI, shapefile, shapefileName, channel, leptoAbbr, jetSplit,
                         jetTagsplit, splitVar1, bSplit1, tSplit1, wSplit1, splitVar2, bSplit2, tSplit2, wSplit2,
                         xmlFileName, lumiScale);
-                    //}
+                    }
                 }else if(postfitplots){
                     GetPostFits(NumberOfBins, lumiScale, lBound, uBound, leptoAbbr, shapefile, errorfile,
                         channel, VoI, splitVar1, bSplit1, tSplit1, wSplit1, splitVar2, bSplit2, tSplit2, wSplit2,
@@ -432,9 +432,9 @@ int main(int argc, char** argv)
                 } else {
                     DatasetPlotter(NumberOfBins, lumiScale, lBound, uBound, leptoAbbr, shapefile, errorfile, channel,
                         VoI, xmlFileName, CraneenPath, shapefileName, Units);
-                    //if(VoI.find("BDT") != string::npos) {
-                    //    DataCardProducer(VoI, shapefile, shapefileName, channel, leptoAbbr, xmlFileName, lumiScale);
-                    //}
+                    if(VoI.find("BDT") != string::npos) {
+                        DataCardProducer(VoI, shapefile, shapefileName, channel, leptoAbbr, xmlFileName, lumiScale);
+                    }
                 }
 
                 shapefile->Close();
@@ -476,24 +476,15 @@ void GetErrorBand(int nBins,
 
     string sysname = channel + "__" + "ttbarTTX" + "__";
 
-    histo1D["weight0"] = (TH1F*)shapefile->Get("Genweight_tt");
-    histo1D["weight1"] = (TH1F*)shapefile->Get("weight1_tt");
-    histo1D["weight2"] = (TH1F*)shapefile->Get("weight2_tt");
-    histo1D["weight3"] = (TH1F*)shapefile->Get("weight3_tt");
-    histo1D["weight4"] = (TH1F*)shapefile->Get("weight4_tt");
-    histo1D["weight5"] = (TH1F*)shapefile->Get("weight5_tt");
-    histo1D["weight6"] = (TH1F*)shapefile->Get("weight6_tt");
-    histo1D["weight7"] = (TH1F*)shapefile->Get("weight7_tt");
-    histo1D["weight8"] = (TH1F*)shapefile->Get("weight8_tt");
-
+    histo1D["err1Up"] = (TH1F*)shapefile->Get((sysname + "ttMEScaleUp").c_str());
     histo1D["err2Up"] = (TH1F*)shapefile->Get((sysname + "PUUp").c_str());
-    histo1D["err3Up"] = (TH1F*)shapefile->Get((sysname + "TTJets_HDAMPUp").c_str());
-    histo1D["err4Up"] = (TH1F*)shapefile->Get((sysname + "heavyFlavUp").c_str());
-    histo1D["err5Up"] = (TH1F*)shapefile->Get((sysname + "JERUp").c_str());
-    histo1D["err6Up"] = (TH1F*)shapefile->Get((sysname + "JESUp").c_str());
-    histo1D["err7Up"] = (TH1F*)shapefile->Get((sysname + "TTUEUp").c_str());
-    histo1D["err8Up"] = (TH1F*)shapefile->Get((sysname + "TTISRUp").c_str());
-    histo1D["err9Up"] = (TH1F*)shapefile->Get((sysname + "TTFSRUp").c_str());
+    histo1D["err3Up"] = (TH1F*)shapefile->Get((sysname + "SFjetnormUp").c_str());
+    histo1D["err4Up"] = (TH1F*)shapefile->Get((sysname + "TTPTUp").c_str());
+    histo1D["err5Up"] = (TH1F*)shapefile->Get((sysname + "TTJets_HDAMPUp").c_str());
+    histo1D["err6Up"] = (TH1F*)shapefile->Get((sysname + "TTJets_PDFUp").c_str());
+    histo1D["err7Up"] = (TH1F*)shapefile->Get((sysname + "heavyFlavUp").c_str());
+    histo1D["err8Up"] = (TH1F*)shapefile->Get((sysname + "JERUp").c_str());
+    histo1D["err9Up"] = (TH1F*)shapefile->Get((sysname + "JESUp").c_str());
     histo1D["err10Up"] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVLFUp").c_str());
     histo1D["err11Up"] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVHFUp").c_str());
     histo1D["err12Up"] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVHFStats1Up").c_str());
@@ -503,14 +494,15 @@ void GetErrorBand(int nBins,
     histo1D["err16Up"] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVCFErr1Up").c_str());
     histo1D["err17Up"] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVCFErr2Up").c_str());
 
+    histo1D["err1Down"] = (TH1F*)shapefile->Get((sysname + "ttMEScaleDown").c_str());
     histo1D["err2Down"] = (TH1F*)shapefile->Get((sysname + "PUDown").c_str());
-    histo1D["err3Down"] = (TH1F*)shapefile->Get((sysname + "TTJets_HDAMPDown").c_str());
-    histo1D["err4Down"] = (TH1F*)shapefile->Get((sysname + "heavyFlavDown").c_str());
-    histo1D["err5Down"] = (TH1F*)shapefile->Get((sysname + "JERDown").c_str());
-    histo1D["err6Down"] = (TH1F*)shapefile->Get((sysname + "JESDown").c_str());
-    histo1D["err7Down"] = (TH1F*)shapefile->Get((sysname + "TTUEDown").c_str());
-    histo1D["err8Down"] = (TH1F*)shapefile->Get((sysname + "TTISRDown").c_str());
-    histo1D["err9Down"] = (TH1F*)shapefile->Get((sysname + "TTFSRDown").c_str());
+    histo1D["err3Down"] = (TH1F*)shapefile->Get((sysname + "SFjetnormDown").c_str());
+    histo1D["err4Down"] = (TH1F*)shapefile->Get((sysname + "TTPTDown").c_str());
+    histo1D["err5Down"] = (TH1F*)shapefile->Get((sysname + "TTJets_HDAMPDown").c_str());
+    histo1D["err6Down"] = (TH1F*)shapefile->Get((sysname + "TTJets_PDFDown").c_str());
+    histo1D["err7Down"] = (TH1F*)shapefile->Get((sysname + "heavyFlavDown").c_str());
+    histo1D["err8Down"] = (TH1F*)shapefile->Get((sysname + "JERDown").c_str());
+    histo1D["err9Down"] = (TH1F*)shapefile->Get((sysname + "JESDown").c_str());
     histo1D["err10Down"] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVLFDown").c_str());
     histo1D["err11Down"] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVHFDown").c_str());
     histo1D["err12Down"] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVHFStats1Down").c_str());
@@ -523,24 +515,11 @@ void GetErrorBand(int nBins,
     histo1D["main_ttbar"] = (TH1F*)shapefile->Get((sysname + "nominal").c_str());
 
     for(int binN = 1; binN < nBins + 1; ++binN) {
-        float binContentMax = -1, binContentMin = 1000000000000000;
-
-        for(int weightIt = 1; weightIt < 9; ++weightIt) {
-            if(weightIt == 6 || weightIt == 8) {
-                continue;
-            }
-            string weightStr = static_cast<ostringstream*>(&(ostringstream() << weightIt))->str();
-            string weightHistoName = ("weight" + weightStr).c_str();
-            if(binContentMin > histo1D[weightHistoName]->GetBinContent(binN))
-                binContentMin = histo1D[weightHistoName]->GetBinContent(binN);
-            if(binContentMax < histo1D[weightHistoName]->GetBinContent(binN))
-                binContentMax = histo1D[weightHistoName]->GetBinContent(binN);
-        }
 
         float err1up, err2up, err3up, err4up, err5up, err6up, err7up, err8up, err9up, err10up, err11up, err12up, err13up, err14up, err15up, err16up, err17up;
         float err1down, err2down, err3down, err4down, err5down, err6down, err7down, err8down, err9down, err10down, err11down, err12down, err13down, err14down, err15down, err16down, err17down;
 
-        err1up = binContentMax - histo1D["main_ttbar"]->GetBinContent(binN);
+        err1up = histo1D["err1Up"]->GetBinContent(binN) - histo1D["main_ttbar"]->GetBinContent(binN);
         err2up = histo1D["err2Up"]->GetBinContent(binN) - histo1D["main_ttbar"]->GetBinContent(binN);
         err3up = histo1D["err3Up"]->GetBinContent(binN) - histo1D["main_ttbar"]->GetBinContent(binN);
         err4up = histo1D["err4Up"]->GetBinContent(binN) - histo1D["main_ttbar"]->GetBinContent(binN);
@@ -558,7 +537,7 @@ void GetErrorBand(int nBins,
         err16up = histo1D["err16Up"]->GetBinContent(binN) - histo1D["main_ttbar"]->GetBinContent(binN);
         err17up = histo1D["err17Up"]->GetBinContent(binN) - histo1D["main_ttbar"]->GetBinContent(binN);
 
-        err1down = histo1D["main_ttbar"]->GetBinContent(binN) - binContentMin;
+        err1down = histo1D["err1Down"]->GetBinContent(binN) - histo1D["main_ttbar"]->GetBinContent(binN);
         err2down = histo1D["err2Down"]->GetBinContent(binN) - histo1D["main_ttbar"]->GetBinContent(binN);
         err3down = histo1D["err3Down"]->GetBinContent(binN) - histo1D["main_ttbar"]->GetBinContent(binN);
         err4down = histo1D["err4Down"]->GetBinContent(binN) - histo1D["main_ttbar"]->GetBinContent(binN);
@@ -576,11 +555,14 @@ void GetErrorBand(int nBins,
         err16down = histo1D["err16Down"]->GetBinContent(binN) - histo1D["main_ttbar"]->GetBinContent(binN);
         err17down = histo1D["err17Down"]->GetBinContent(binN) - histo1D["main_ttbar"]->GetBinContent(binN);
 
-        float errorbandUp = sqrt(err1up*err1up+err2up*err2up+err3up*err3up+err4up*err4up+err5up*err5up+err6up*err6up+err7up*err7up+err8up*err8up+err9up*err9up+err10up*err10up+err11up*err11up+err12up*err12up+err13up*err13up+err14up*err14up+err15up*err15up+err16up*err16up+err17up*err17up);
-        float errorbandDown = sqrt(err1down*err1down+err2down*err2down+err3down*err3down+err4down*err4down+err5down*err5down+err6down*err6down+err7down*err7down+err8down*err8down+err9down*err9down+err10down*err10down+err11down*err11down+err12down*err12down+err13down*err13down+err14down*err14down+err15down*err15down+err16down*err16down+err17down*err17down);
+        float errLumi = 0.05*histo1D["main_ttbar"]->GetBinContent(binN);
+        float errstat = histo1D["main_ttbar"]->GetBinError(binN);
 
-        histo1D["weightPlus"]->SetBinContent(binN, histo1D["main_ttbar"]->GetBinContent(binN) + err1up);
-        histo1D["weightMinus"]->SetBinContent(binN, histo1D["main_ttbar"]->GetBinContent(binN) - err1down);
+        float errorbandUp = sqrt(err1up*err1up+err2up*err2up+err3up*err3up+err4up*err4up+err5up*err5up+err6up*err6up+err7up*err7up+err8up*err8up+err9up*err9up+err10up*err10up+err11up*err11up+err12up*err12up+err13up*err13up+err14up*err14up+err15up*err15up+err16up*err16up+err17up*err17up+errLumi*errLumi+errstat*errstat);
+        float errorbandDown = sqrt(err1down*err1down+err2down*err2down+err3down*err3down+err4down*err4down+err5down*err5down+err6down*err6down+err7down*err7down+err8down*err8down+err9down*err9down+err10down*err10down+err11down*err11down+err12down*err12down+err13down*err13down+err14down*err14down+err15down*err15down+err16down*err16down+err17down*err17down+errLumi*errLumi+errstat*errstat);
+
+        histo1D["weightPlus"]->SetBinContent(binN, histo1D["main_ttbar"]->GetBinContent(binN) + errorbandUp);
+        histo1D["weightMinus"]->SetBinContent(binN, histo1D["main_ttbar"]->GetBinContent(binN) - errorbandDown);
     }
 
     errorfile->cd();
@@ -588,7 +570,7 @@ void GetErrorBand(int nBins,
     histo1D["weightMinus"]->Write("Minus");
     histo1D["weightPlus"]->Write("Plus");
     histo1D["weight0"]->Write("Nominal");
-    cout << "wrote weights in errorfile" << endl;
+    cout << "" << endl;
 }
 
 void GetScaleEnvelope(int nBins,
@@ -728,43 +710,6 @@ void GetScaleEnvelope_tttt(int nBins,
     cout << "wrote sys MEScale shapes in shapefile" << endl;
 }
 
-void GetMatching(int nBins,
-    float lScale,
-    float plotLow,
-    float plotHigh,
-    string leptoAbbr,
-    TFile* shapefile,
-    TFile* errorfile,
-    string channel,
-    string sVarofinterest,
-    string xmlNom,
-    string CraneenPath,
-    string mainTTbarSample,
-    string otherTTbarsample)
-{
-
-    cout << "Producing envelope for ttGenerator uncertainty" << endl;
-    histo1D["ttGeneratorPlus"] = new TH1F("Plus_match", "Plus", nBins, plotLow, plotHigh);
-    histo1D["ttGeneratorMinus"] = new TH1F("Minus_match", "Minus", nBins, plotLow, plotHigh);
-
-    histo1D["main_ttbar"] = (TH1F*)shapefile->Get((channel + "__" + mainTTbarSample + "__nominal").c_str());
-    histo1D["other_ttbar"] = (TH1F*)shapefile->Get((channel + "__" + otherTTbarsample + "__nominal").c_str());
-    cout << "Got ttGenerator histos" << endl;
-
-    for(int binN = 1; binN < nBins + 1; ++binN) {
-        float binContentMax = -1, binContentMin = 1000000000000000;
-        float errorMatching = abs(histo1D["main_ttbar"]->GetBinContent(binN) - histo1D["other_ttbar"]->GetBinContent(binN));
-
-        histo1D["ttGeneratorPlus"]->SetBinContent(binN, histo1D["main_ttbar"]->GetBinContent(binN) + errorMatching);
-        histo1D["ttGeneratorMinus"]->SetBinContent(binN, histo1D["main_ttbar"]->GetBinContent(binN) - errorMatching);
-    }
-
-    shapefile->cd();
-    string ttGeneratorsysname = channel + "__" + mainTTbarSample + "__ttGenerator";
-    histo1D["ttGeneratorMinus"]->Write((ttGeneratorsysname + "Down").c_str());
-    histo1D["ttGeneratorPlus"]->Write((ttGeneratorsysname + "Up").c_str());
-    cout << "wrote sys ttGenerator shapes in shapefile" << endl;
-}
 
 void GetMatchingSplit(int nBins,
     float lScale,
@@ -1099,7 +1044,6 @@ void GetErrorBandSplit2(int nBins,
     string shapefileName,
     string mainTTbarSample)
 {
-    string plotname; ///// Jet Split plot
     string numStr1;
     string numStr2;
     string sbSplit1 = static_cast<ostringstream*>(&(ostringstream() << fbSplit1))->str();
@@ -1109,7 +1053,7 @@ void GetErrorBandSplit2(int nBins,
     string stSplit2 = static_cast<ostringstream*>(&(ostringstream() << ftSplit2))->str();
     string swSplit2 = static_cast<ostringstream*>(&(ostringstream() << fwSplit2))->str();
 
-    cout << "Producing Error Band for ttbar" << endl;
+    cout << "Producing Systematic Error Band for ttbar" << endl;
 
     for(int s = fbSplit1; s <= ftSplit1; s += fwSplit1) {
         numStr1 = static_cast<ostringstream*>(&(ostringstream() << s))->str();
@@ -1122,83 +1066,59 @@ void GetErrorBandSplit2(int nBins,
 
             string sysname = channel + numStr1 + sSplitVar1 + numStr2 + sSplitVar2 + "__ttbarTTX__";
 
-            histo1D[("weight0_tt" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] =
-                (TH1F*)shapefile->Get(("Genweight_tt" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str());
-            histo1D[("weight1_tt" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] =
-                (TH1F*)shapefile->Get(("weight1_tt" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str());
-            histo1D[("weight2_tt" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] =
-                (TH1F*)shapefile->Get(("weight2_tt" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str());
-            histo1D[("weight3_tt" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] =
-                (TH1F*)shapefile->Get(("weight3_tt" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str());
-            histo1D[("weight4_tt" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] =
-                (TH1F*)shapefile->Get(("weight4_tt" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str());
-            histo1D[("weight5_tt" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] =
-                (TH1F*)shapefile->Get(("weight5_tt" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str());
-            histo1D[("weight6_tt" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] =
-                (TH1F*)shapefile->Get(("weight6_tt" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str());
-            histo1D[("weight7_tt" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] =
-                (TH1F*)shapefile->Get(("weight7_tt" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str());
-            histo1D[("weight8_tt" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] =
-                (TH1F*)shapefile->Get(("weight8_tt" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str());
 
+            histo1D[("err1Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "ttMEScaleUp").c_str());
             histo1D[("err2Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "PUUp").c_str());
-            histo1D[("err3Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "TTJets_HDAMPUp").c_str());
-            histo1D[("err4Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "heavyFlavUp").c_str());
-            histo1D[("err5Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "JERUp").c_str());
-            histo1D[("err6Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "JESUp").c_str());
-            histo1D[("err7Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "TTUEUp").c_str());
-            histo1D[("err8Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "TTISRUp").c_str());
-            histo1D[("err9Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "TTFSRUp").c_str());
-            histo1D[("err10Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVLFUp").c_str());
-            histo1D[("err11Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVHFUp").c_str());
-            histo1D[("err12Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVHFStats1Up").c_str());
-            histo1D[("err13Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVHFStats2Up").c_str());
-            histo1D[("err14Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVLFStats1Up").c_str());
-            histo1D[("err15Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVLFStats2Up").c_str());
-            histo1D[("err16Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVCFErr1Up").c_str());
-            histo1D[("err17Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVCFErr2Up").c_str());
+            histo1D[("err3Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "SFjetnormUp").c_str());
+            histo1D[("err4Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "TTPTUp").c_str());
+            histo1D[("err5Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "TTJets_HDAMPUp").c_str());
+            histo1D[("err6Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "TTJets_PDFUp").c_str());
+            histo1D[("err7Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "heavyFlavUp").c_str());
+            histo1D[("err8Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "JERUp").c_str());
+            histo1D[("err9Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "JESUp").c_str());
+            //histo1D[("err10Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "TTUEUp").c_str());
+            //histo1D[("err11Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "TTISRUp").c_str());
+            //histo1D[("err12Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "TTFSRUp").c_str());
+            histo1D[("err13Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVLFUp").c_str());
+            histo1D[("err14Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVHFUp").c_str());
+            histo1D[("err15Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVHFStats1Up").c_str());
+            histo1D[("err16Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVHFStats2Up").c_str());
+            histo1D[("err17Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVLFStats1Up").c_str());
+            histo1D[("err18Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVLFStats2Up").c_str());
+            histo1D[("err19Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVCFErr1Up").c_str());
+            histo1D[("err20Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVCFErr2Up").c_str());
 
+            histo1D[("err1Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "ttMEScaleDown").c_str());
             histo1D[("err2Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "PUDown").c_str());
-            histo1D[("err3Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "TTJets_HDAMPDown").c_str());
-            histo1D[("err4Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "heavyFlavDown").c_str());
-            histo1D[("err5Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "JERDown").c_str());
-            histo1D[("err6Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "JESDown").c_str());
-            histo1D[("err7Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "TTUEDown").c_str());
-            histo1D[("err8Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "TTISRDown").c_str());
-            histo1D[("err9Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "TTFSRDown").c_str());
-            histo1D[("err10Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVLFDown").c_str());
-            histo1D[("err11Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVHFDown").c_str());
-            histo1D[("err12Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVHFStats1Down").c_str());
-            histo1D[("err13Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVHFStats2Down").c_str());
-            histo1D[("err14Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVLFStats1Down").c_str());
-            histo1D[("err15Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVLFStats2Down").c_str());
-            histo1D[("err16Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVCFErr1Down").c_str());
-            histo1D[("err17Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVCFErr2Down").c_str());
+            histo1D[("err3Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "SFjetnormDown").c_str());
+            histo1D[("err4Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "TTPTDown").c_str());
+            histo1D[("err5Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "TTJets_HDAMPDown").c_str());
+            histo1D[("err6Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "TTJets_PDFDown").c_str());
+            histo1D[("err7Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "heavyFlavDown").c_str());
+            histo1D[("err8Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "JERDown").c_str());
+            histo1D[("err9Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "JESDown").c_str());
+            //histo1D[("err10Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "TTUEDown").c_str());
+            //histo1D[("err11Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "TTISRDown").c_str());
+            //histo1D[("err12Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "TTFSRDown").c_str());
+            histo1D[("err13Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVLFDown").c_str());
+            histo1D[("err14Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVHFDown").c_str());
+            histo1D[("err15Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVHFStats1Down").c_str());
+            histo1D[("err16Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVHFStats2Down").c_str());
+            histo1D[("err17Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVLFStats1Down").c_str());
+            histo1D[("err18Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVLFStats2Down").c_str());
+            histo1D[("err19Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVCFErr1Down").c_str());
+            histo1D[("err20Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "btagWeightCSVCFErr2Down").c_str());
 
             histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "nominal").c_str());
 
             for(int binN = 1; binN < nBins + 1; ++binN) {
-                float binContentMax = -1, binContentMin = 1000000000000000;
 
-                for(int weightIt = 1; weightIt < 9; ++weightIt) {
-                    if(weightIt == 6 || weightIt == 8) {
-                        continue; // extreme weights with 1/2u and 2u
-                    }
+                float err1up, err2up, err3up, err4up, err5up, err6up, err7up, err8up, err9up, err10up, err11up, err12up, err13up, err14up, err15up, err16up, err17up, err18up, err19up, err20up;
+                float err1down, err2down, err3down, err4down, err5down, err6down, err7down, err8down, err9down, err10down, err11down, err12down, err13down, err14down, err15down, err16down,
+			 err17down, err18down, err19down, err20down;
 
-                    string weightStr = static_cast<ostringstream*>(&(ostringstream() << weightIt))->str();
-                    string weightHistoName =
-                        ("weight" + weightStr + "_tt" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str();
-                    if(binContentMin > histo1D[weightHistoName]->GetBinContent(binN))
-                        binContentMin = histo1D[weightHistoName]->GetBinContent(binN);
-                    if(binContentMax < histo1D[weightHistoName]->GetBinContent(binN))
-                        binContentMax = histo1D[weightHistoName]->GetBinContent(binN);
-                }
-
-                float err1up, err2up, err3up, err4up, err5up, err6up, err7up, err8up, err9up, err10up, err11up, err12up, err13up, err14up, err15up, err16up, err17up;
-                float err1down, err2down, err3down, err4down, err5down, err6down, err7down, err8down, err9down, err10down, err11down, err12down, err13down, err14down,
-                      err15down, err16down, err17down;
-
-                err1up = binContentMax - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
+                err1up = histo1D[("err1Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN)
+                         - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
                 err2up = histo1D[("err2Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN)
                          - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
                 err3up = histo1D[("err3Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN) 
@@ -1215,12 +1135,12 @@ void GetErrorBandSplit2(int nBins,
                          - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
                 err9up = histo1D[("err9Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN) 
                          - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
-                err10up = histo1D[("err10Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN) 
-                         - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
-                err11up = histo1D[("err11Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN) 
-                         - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
-                err12up = histo1D[("err12Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN) 
-                         - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
+                err10up = 0;//histo1D[("err10Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN) 
+                         //- histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
+                err11up = 0;//histo1D[("err11Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN) 
+                         //- histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
+                err12up = 0;//histo1D[("err12Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN) 
+                         //- histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
                 err13up = histo1D[("err13Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN) 
                          - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
                 err14up = histo1D[("err14Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN) 
@@ -1231,8 +1151,16 @@ void GetErrorBandSplit2(int nBins,
                          - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
                 err17up = histo1D[("err17Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN) 
                          - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
+                err18up = histo1D[("err18Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN)
+                         - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
+                err19up = histo1D[("err19Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN)
+                         - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
+                err20up = histo1D[("err20Up" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN)
+                         - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
 
-                err1down = binContentMin - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
+
+                err1down = histo1D[("err1Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN)
+                         - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
                 err2down = histo1D[("err2Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN) 
                          - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
                 err3down = histo1D[("err3Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN)
@@ -1249,12 +1177,12 @@ void GetErrorBandSplit2(int nBins,
                          - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
                 err9down = histo1D[("err9Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN)
                          - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
-                err10down = histo1D[("err10Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN)
-                         - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
-                err11down = histo1D[("err11Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN)
-                         - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
-                err12down = histo1D[("err12Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN)
-                         - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
+                err10down = 0;//histo1D[("err10Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN)
+                         //- histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
+                err11down = 0;//histo1D[("err11Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN)
+                         //- histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
+                err12down = 0;//histo1D[("err12Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN)
+                         //- histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
                 err13down = histo1D[("err13Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN)
                          - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
                 err14down = histo1D[("err14Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN)
@@ -1265,14 +1193,28 @@ void GetErrorBandSplit2(int nBins,
                          - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
                 err17down = histo1D[("err17Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN)
                          - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
+                err18down = histo1D[("err18Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN)
+                         - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
+                err19down = histo1D[("err19Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN)
+                         - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
+                err20down = histo1D[("err20Down" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN)
+                         - histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
+
+                float err21 = 0.05*histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN);
+                float statunc = histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinError(binN);
 
                 float errorbandUp = sqrt(err1up*err1up+err2up*err2up+err3up*err3up+err4up*err4up+err5up*err5up+err6up*err6up+
                                          err7up*err7up+err8up*err8up+err9up*err9up+err10up*err10up+err11up*err11up+err12up*err12up+
-                                         err13up*err13up+err14up*err14up+err15up*err15up+err16up*err16up+err17up*err17up);
+                                         err13up*err13up+err14up*err14up+err15up*err15up+err16up*err16up+err17up*err17up+
+					 err18up*err18up+err19up*err19up+err20up*err20up+
+					 err21*err21 + statunc*statunc
+					);
                 float errorbandDown = sqrt(err1down*err1down+err2down*err2down+err3down*err3down+err4down*err4down+err5down*err5down+
                                            err6down*err6down+err7down*err7down+err8down*err8down+err9down*err9down+err10down*err10down+
                                            err11down*err11down+err12down*err12down+err13down*err13down+err14down*err14down+err15down*err15down+
-                                           err16down*err16down+err17down*err17down);
+                                           err16down*err16down+err17down*err17down+err18down*err18down+err19down*err19down+err20down*err20down+
+				 	   err21*err21 + statunc*statunc
+					  );
                 histo1D[("weightPlus" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->SetBinContent(binN, 
 				histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN) + errorbandUp);
                 histo1D[("weightMinus" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->SetBinContent(binN,
@@ -1283,10 +1225,83 @@ void GetErrorBandSplit2(int nBins,
             errorfile->cd(("MultiSamplePlot_" + sVarofinterest + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str());
             histo1D[("weightMinus" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->Write("Minus");
             histo1D[("weightPlus" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->Write("Plus");
-            histo1D[("weight0_tt" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->Write("Nominal");
+            histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->Write("Nominal");
         }
     }
 }
+
+
+void GetStatErrorBandSplit2(int nBins,
+    float lScale,
+    float plotLow,
+    float plotHigh,
+    string leptoAbbr,
+    TFile* shapefile,
+    TFile* errorfile,
+    string channel,
+    string sVarofinterest,
+    string sSplitVar1,
+    float fbSplit1,
+    float ftSplit1,
+    float fwSplit1,
+    string sSplitVar2,
+    float fbSplit2,
+    float ftSplit2,
+    float fwSplit2,
+    string xmlNom,
+    string CraneenPath,
+    string shapefileName,
+    string mainTTbarSample)
+{
+    string numStr1;
+    string numStr2;
+    string sbSplit1 = static_cast<ostringstream*>(&(ostringstream() << fbSplit1))->str();
+    string stSplit1 = static_cast<ostringstream*>(&(ostringstream() << ftSplit1))->str();
+    string swSplit1 = static_cast<ostringstream*>(&(ostringstream() << fwSplit1))->str();
+    string sbSplit2 = static_cast<ostringstream*>(&(ostringstream() << fbSplit2))->str();
+    string stSplit2 = static_cast<ostringstream*>(&(ostringstream() << ftSplit2))->str();
+    string swSplit2 = static_cast<ostringstream*>(&(ostringstream() << fwSplit2))->str();
+
+    cout << "Producing Statistical Error Band for ttbar" << endl;
+
+    for(int s = fbSplit1; s <= ftSplit1; s += fwSplit1) {
+        numStr1 = static_cast<ostringstream*>(&(ostringstream() << s))->str();
+        for(int t2 = fbSplit2; t2 <= ftSplit2; t2 += fwSplit2) {
+            numStr2 = static_cast<ostringstream*>(&(ostringstream() << t2))->str();
+
+            string sysname = channel + numStr1 + sSplitVar1 + numStr2 + sSplitVar2 + "__ttbarTTX__";
+
+            histo1D[("weightPlus" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] =
+                new TH1F(("Plus_err" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str(), "Plus", nBins, plotLow, plotHigh);
+            histo1D[("weightMinus" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] =
+                new TH1F(("Minus_err" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str(), "Minus", nBins, plotLow, plotHigh);
+
+            histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()] = (TH1F*)shapefile->Get((sysname + "nominal").c_str());
+
+            for(int binN = 1; binN < nBins + 1; ++binN) {
+
+                //histo1D[("weightPlus" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->Sumw2();
+                //histo1D[("weightMinus" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->Sumw2();
+
+                histo1D[("weightPlus" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->SetBinContent(binN,
+                                histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN) + 
+                                histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinError(binN) );
+                histo1D[("weightMinus" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->SetBinContent(binN,
+                                histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinContent(binN) -
+                                histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->GetBinError(binN) );
+            }
+            errorfile->cd();
+            errorfile->mkdir(("MultiSamplePlot_" + sVarofinterest + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str());
+            errorfile->cd(("MultiSamplePlot_" + sVarofinterest + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str());
+            histo1D[("weightMinus" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->Write("Minus");
+            histo1D[("weightPlus" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->Write("Plus");
+            histo1D[("main_ttbar" + numStr1 + sSplitVar1 + numStr2 + sSplitVar2).c_str()]->Write("Nominal");
+        }
+    }
+}
+
+
+
 
 
 void GetScaleEnvelopeSplit2(int nBins,
@@ -1510,15 +1525,18 @@ void DatasetPlotter(int nBins,
     // NTUPLES**********************************************
     string dataSetName, filepath;
     int nEntries;
-    float ScaleFactor = 1, NormFactor = 1, Luminosity, varofInterest, GenWeight = 1, weight1 = 1, weight2 = 1,
-          weight3 = 1, weight4 = 1, weight5 = 1, weight6 = 1, weight7 = 1, weight8 = 1, ttbar_flav = 1, SFtrigger = 1,
-          SFlepton = 1, SFPU = 1, SFPU_up = 1, SFPU_down = 1, SFTopPt = 1, SFTopPt_up = 1, SFTopPt_down = 1, SFbehrends = 1,
-          nJet = 1, SFalphaTune = 1, SFbtagCSV = 1, btagWeightCSVLFUp = 1, btagWeightCSVLFDown = 1, btagWeightCSVHFUp = 1,
+    float ScaleFactor = 1, NormFactor = 1, varofInterest, splitVar,
+          GenWeight = 1, weight1 = 1, weight2 = 1, weight3 = 1, weight4 = 1, weight5 = 1, weight6 = 1, weight7 = 1, weight8 = 1,
+          ttbar_flav = 1, SFtrigger = 1, SFlepton = 1, SFtrigger_up = 1, SFtrigger_down = 1,
+          SFPU = 1, SFPU_up = 1, SFPU_down = 1, SFTopPt = 1, SFTopPt_up = 1, SFTopPt_down = 1, SFbehrends = 1, splitVar1, splitVar2, SFTopPt2,
+          SFalphaTune = 1, SFbtagCSV = 1, hdamp_up = 1, hdamp_down = 1, btagWeightCSVLFUp = 1, btagWeightCSVLFDown = 1, btagWeightCSVHFUp = 1,
           btagWeightCSVHFDown = 1, btagWeightCSVHFStats1Up = 1, btagWeightCSVHFStats1Down = 1,
           btagWeightCSVHFStats2Up = 1, btagWeightCSVHFStats2Down = 1, btagWeightCSVLFStats1Up = 1,
           btagWeightCSVLFStats1Down = 1, btagWeightCSVLFStats2Up = 1, btagWeightCSVLFStats2Down = 1,
-          btagWeightCSVCFErr1Up = 1, btagWeightCSVCFErr1Down = 1, btagWeightCSVCFErr2Up = 1, btagWeightCSVCFErr2Down = 1,
-          hdamp_up = 1, hdamp_down = 1, ttXrew = 1, ttXrew_up = 1, ttXrew_down = 1, weight_ct10 = 1, weight_mmht14 = 1;
+          btagWeightCSVCFErr1Up = 1, btagWeightCSVCFErr1Down = 1, btagWeightCSVCFErr2Up = 1,
+          btagWeightCSVCFErr2Down = 1, weight_ct10 = 1, weight_mmht14 = 1, ttXrew = 1, ttXrew_up = 1, ttXrew_down = 1;
+    float flag_ = 0, Luminosity = 0, nJet = 0;
+
 
     Dataset* ttbar_ll;
     Dataset* ttbar_ll_up;
@@ -1599,7 +1617,8 @@ void DatasetPlotter(int nBins,
 
         /// heavy flav re-weight -> scaling ttbb up and ttjj down so that ttbb/ttjj matches CMS measurement.
 
-        int newlumi = 439773.673896;//datasets[ndatasets - 1]->EquivalentLumi();
+        int newlumi = 185933.774166;
+		      //datasets[ndatasets - 1]->EquivalentLumi();
         ttbar_ll->SetEquivalentLuminosity(newlumi);
         ttbar_cc->SetEquivalentLuminosity(newlumi);
         ttbar_bb->SetEquivalentLuminosity(newlumi);
@@ -1636,10 +1655,13 @@ void DatasetPlotter(int nBins,
         // datasets.push_back(ttbar_ll_down);
     }
     MSPlot[plotname] = new MultiSamplePlot(datasets, plotname.c_str(), nBins, plotLow, plotHigh, plotaxis.c_str(), units, "Events", chanText.c_str());
-    MSPlot[plotname]->setPreliminary(prelim_);  //toggels the preliminary text
+    MSPlot[plotname]->setPreliminary(prelim_);  //toggels the preliminary texta
+    MSPlot[plotname]->setMinLogY(0.01);
+
     histo1D["TTJets_Rare"] = new TH1F("TTJets_Rare", "TTJets_Rare", nBins, plotLow, plotHigh);
-    // instantiating these plots outside the dataset loop so that they can be combined between multiple channels of the
-    // same main ttbar sample
+    histo1D["TTJets_Rare_plus"] = new TH1F("TTJets_Rare_plus", "TTJets_Rare_plus", nBins, plotLow, plotHigh);
+    histo1D["EW"] = new TH1F("EW", "EW", nBins, plotLow, plotHigh);
+
     histo1D["Genweight_tt"] = new TH1F("Genweight", "Genweight", nBins, plotLow, plotHigh);
     histo1D["weight1_tt"] = new TH1F("weight1", "weight1", nBins, plotLow, plotHigh);
     histo1D["weight2_tt"] = new TH1F("weight2", "weight2", nBins, plotLow, plotHigh);
@@ -1659,6 +1681,8 @@ void DatasetPlotter(int nBins,
     histo1D["heavyFlav_Down"] = new TH1F("heavyFlav_Down", "heavyFlav_Down", nBins, plotLow, plotHigh);
     histo1D["TTJetsPDF_Up"] = new TH1F("TTJetsPDF_Up", "TTJetsPDF_Up", nBins, plotLow, plotHigh);
     histo1D["TTJetsPDF_Down"] = new TH1F("TTJetsPDF_Down", "TTJetsPDF_Down", nBins, plotLow, plotHigh);
+    histo1D["SFjetnormcor_Up"] = new TH1F("SFjetnormcor_Up", "SFjetnormcor_Up", nBins, plotLow, plotHigh);
+    histo1D["SFjetnormcor_Down"] = new TH1F("SFjetnormcor_Down", "SFjetnormcor_Down", nBins, plotLow, plotHigh);
     histo1D["btagWeightCSVLF_Up"] = new TH1F("btagWeightCSVLF_Up", "btagWeightCSVLF_Up", nBins, plotLow, plotHigh);
     histo1D["btagWeightCSVLF_Down"] = new TH1F("btagWeightCSVLF_Down", "btagWeightCSVLF_Down", nBins, plotLow, plotHigh);
     histo1D["btagWeightCSVHF_Up"] = new TH1F("btagWeightCSVHF_Up", "btagWeightCSVHF_Up", nBins, plotLow, plotHigh);
@@ -1724,6 +1748,7 @@ void DatasetPlotter(int nBins,
         if(sVarofinterest.find("nJets") != string::npos) {
             nTuple[dataSetName.c_str()]->SetBranchAddress("nJets", &nJet);
         }
+
         nTuple[dataSetName.c_str()]->SetBranchAddress(sVarofinterest.c_str(), &varofInterest);
         nTuple[dataSetName.c_str()]->SetBranchAddress("ScaleFactor", &ScaleFactor);
         nTuple[dataSetName.c_str()]->SetBranchAddress("NormFactor", &NormFactor);
@@ -1736,8 +1761,23 @@ void DatasetPlotter(int nBins,
         nTuple[dataSetName.c_str()]->SetBranchAddress("weight6", &weight6);
         nTuple[dataSetName.c_str()]->SetBranchAddress("weight7", &weight7);
         nTuple[dataSetName.c_str()]->SetBranchAddress("weight8", &weight8);
-        nTuple[dataSetName.c_str()]->SetBranchAddress("SFlepton", &SFlepton);
         nTuple[dataSetName.c_str()]->SetBranchAddress("SFtrigger", &SFtrigger);
+        nTuple[dataSetName.c_str()]->SetBranchAddress("SFtriggerUp", &SFtrigger_up);
+        nTuple[dataSetName.c_str()]->SetBranchAddress("SFtriggerDown", &SFtrigger_down);
+        nTuple[dataSetName.c_str()]->SetBranchAddress("SFlepton", &SFlepton);
+        nTuple[dataSetName.c_str()]->SetBranchAddress("weight_ct10", &weight_ct10);
+        nTuple[dataSetName.c_str()]->SetBranchAddress("weight_mmht14", &weight_mmht14);
+        nTuple[dataSetName.c_str()]->SetBranchAddress("SFPU", &SFPU);
+        nTuple[dataSetName.c_str()]->SetBranchAddress("SFPU_up", &SFPU_up);
+        nTuple[dataSetName.c_str()]->SetBranchAddress("SFPU_down", &SFPU_down);
+        nTuple[dataSetName.c_str()]->SetBranchAddress("hdampup", &hdamp_up);
+        nTuple[dataSetName.c_str()]->SetBranchAddress("hdampdown", &hdamp_down);
+        nTuple[dataSetName.c_str()]->SetBranchAddress("SFtopPt", &SFTopPt);
+        nTuple[dataSetName.c_str()]->SetBranchAddress("SFtopPtUp", &SFTopPt_up);
+        nTuple[dataSetName.c_str()]->SetBranchAddress("SFtopPtDown", &SFTopPt_down);
+        nTuple[dataSetName.c_str()]->SetBranchAddress("ttXrew", &ttXrew);
+        nTuple[dataSetName.c_str()]->SetBranchAddress("ttXrew_up", &ttXrew_up);
+        nTuple[dataSetName.c_str()]->SetBranchAddress("ttXrew_down", &ttXrew_down);
         nTuple[dataSetName.c_str()]->SetBranchAddress("SFbtagCSV", &SFbtagCSV); // SFbtag
         nTuple[dataSetName.c_str()]->SetBranchAddress("btagWeightCSVLFUp", &btagWeightCSVLFUp);
         nTuple[dataSetName.c_str()]->SetBranchAddress("btagWeightCSVLFDown", &btagWeightCSVLFDown);
@@ -1755,20 +1795,11 @@ void DatasetPlotter(int nBins,
         nTuple[dataSetName.c_str()]->SetBranchAddress("btagWeightCSVCFErr1Down", &btagWeightCSVCFErr1Down);
         nTuple[dataSetName.c_str()]->SetBranchAddress("btagWeightCSVCFErr2Up", &btagWeightCSVCFErr2Up);
         nTuple[dataSetName.c_str()]->SetBranchAddress("btagWeightCSVCFErr2Down", &btagWeightCSVCFErr2Down);
-        nTuple[dataSetName.c_str()]->SetBranchAddress("SFPU", &SFPU);
-        nTuple[dataSetName.c_str()]->SetBranchAddress("SFPU_up", &SFPU_up);
-        nTuple[dataSetName.c_str()]->SetBranchAddress("SFPU_down", &SFPU_down);
-        nTuple[dataSetName.c_str()]->SetBranchAddress("ttXrew", &ttXrew);
-        nTuple[dataSetName.c_str()]->SetBranchAddress("ttXrew_up", &ttXrew_up);
-        nTuple[dataSetName.c_str()]->SetBranchAddress("ttXrew_down", &ttXrew_down);
-        nTuple[dataSetName.c_str()]->SetBranchAddress("SFtopPt", &SFTopPt);
-        nTuple[dataSetName.c_str()]->SetBranchAddress("SFtopPtUp", &SFTopPt_up);
-        nTuple[dataSetName.c_str()]->SetBranchAddress("SFtopPtDown", &SFTopPt_down);
-        nTuple[dataSetName.c_str()]->SetBranchAddress("weight_ct10", &weight_ct10);
-        nTuple[dataSetName.c_str()]->SetBranchAddress("weight_mmht14", &weight_mmht14);
-        nTuple[dataSetName.c_str()]->SetBranchAddress("hdampup", &hdamp_up);
-        nTuple[dataSetName.c_str()]->SetBranchAddress("hdampdown", &hdamp_down);
         nTuple[dataSetName.c_str()]->SetBranchAddress("ttbar_flav", &ttbar_flav);
+
+        //if(dataSetName.find("TTJets_") != string::npos || dataSetName.find(mainTTbarSample) != string::npos)
+        //    nTuple[dataSetName.c_str()]->SetBranchAddress("flag", &flag_);
+
         // 
         //
         //
@@ -1812,12 +1843,12 @@ void DatasetPlotter(int nBins,
                 }
             }
 
+            SFTopPt = 1; SFTopPt_up = 1; SFTopPt_down = 1;
+            float cFactor = 1, cFactor_up = 1, cFactor_down = 1;
 
-            //float cFactor = 1, cFactor_up = 1, cFactor_down = 1;
-
-            //if(splitVar1 == 6){ cFactor = 0.9; cFactor_up = 0.93; cFactor_down = 0.87;}
-            //if(splitVar1 == 7){ cFactor = 0.85; cFactor_up = 0.89; cFactor_down = 0.81;}
-            //if(splitVar1 >=8){ cFactor = 0.85; cFactor_up = 0.935; cFactor_down = 0.765;}
+            if(splitVar1 == 6){ cFactor = 0.9; cFactor_up = 0.93; cFactor_down = 0.87;}
+            if(splitVar1 == 7){ cFactor = 0.85; cFactor_up = 0.89; cFactor_down = 0.81;}
+            if(splitVar1 >=8){ cFactor = 0.85; cFactor_up = 0.935; cFactor_down = 0.765;}
 
             ////////////////////////////////////////////////////////
             /////                    Fill plots                /////
@@ -1841,95 +1872,102 @@ void DatasetPlotter(int nBins,
                    dataSetName.find("JER") == string::npos && dataSetName.find("Up") == string::npos &&
                    dataSetName.find("Down") == string::npos  && dataSetName.find("ISR") == string::npos &&
                    dataSetName.find("FSR") == string::npos) {
+
+          //          if(flag_>0) SFbehrends = 0.0902;
                     // Since these are instantiated outside the dataset loop, these will combine across multiple
                     // channels of the mainTTbarSample and provide the correct histos for the MEScale envelope
                     histo1D["Genweight_tt"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["weight1_tt"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * weight1 * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * weight1 * eqlumi * ttbbReweight * cFactor);
                     histo1D["weight2_tt"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * weight2 * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * weight2 * eqlumi * ttbbReweight * cFactor);
                     histo1D["weight3_tt"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * weight3 * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * weight3 * eqlumi * ttbbReweight * cFactor);
                     histo1D["weight4_tt"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * weight4 * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * weight4 * eqlumi * ttbbReweight * cFactor);
                     histo1D["weight5_tt"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * weight5 * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * weight5 * eqlumi * ttbbReweight * cFactor);
                     histo1D["weight6_tt"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * weight6 * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * weight6 * eqlumi * ttbbReweight * cFactor);
                     histo1D["weight7_tt"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * weight7 * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * weight7 * eqlumi * ttbbReweight * cFactor);
                     histo1D["weight8_tt"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * weight8 * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * weight8 * eqlumi * ttbbReweight * cFactor);
                     histo1D["btagWeightCSVLF_Up"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * btagWeightCSVLFUp * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["btagWeightCSVLF_Down"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * btagWeightCSVLFDown * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["btagWeightCSVHF_Up"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * btagWeightCSVHFUp * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["btagWeightCSVHF_Down"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * btagWeightCSVHFDown * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["btagWeightCSVHFStats1_Up"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * btagWeightCSVHFStats1Up * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["btagWeightCSVHFStats1_Down"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * btagWeightCSVHFStats1Down * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["btagWeightCSVHFStats2_Up"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * btagWeightCSVHFStats2Up * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["btagWeightCSVHFStats2_Down"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * btagWeightCSVHFStats2Down * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["btagWeightCSVLFStats1_Up"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * btagWeightCSVLFStats1Up * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["btagWeightCSVLFStats1_Down"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * btagWeightCSVLFStats1Down * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["btagWeightCSVLFStats2_Up"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * btagWeightCSVLFStats2Up * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["btagWeightCSVLFStats2_Down"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * btagWeightCSVLFStats2Down * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["btagWeightCSVCFErr1_Up"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * btagWeightCSVCFErr1Up * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["btagWeightCSVCFErr1_Down"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * btagWeightCSVCFErr1Down * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["btagWeightCSVCFErr2_Up"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * btagWeightCSVCFErr2Up * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["btagWeightCSVCFErr2_Down"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * btagWeightCSVCFErr2Down * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["PU_Up"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune * SFPU_up *
-                             SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["PU_Down"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune * SFPU_down *
-                             SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["TTPT_Up"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune * SFPU *
-                             SFTopPt_up * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFTopPt_up * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["TTPT_Down"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune * SFPU *
-                             SFTopPt_down * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFTopPt_down * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["TTJetsPDF_Up"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune * SFPU *
-                             SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor * findmax(weight_ct10, weight_mmht14, (float) 1.0));
+                             SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor * findmax(weight_ct10, weight_mmht14, (float) 1.0));
                     histo1D["TTJetsPDF_Down"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune * SFPU *
-                             SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor * findmin(weight_ct10, weight_mmht14, (float) 1.0));
+                             SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor * findmin(weight_ct10, weight_mmht14, (float) 1.0));
                     histo1D["heavyFlav_Up"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight_up * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight_up * cFactor);
                     histo1D["heavyFlav_Down"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight_down * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight_down * cFactor);
                     histo1D["hdamp_Up"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune * hdamp_up *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
                     histo1D["hdamp_Down"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune * hdamp_down *
-                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * cFactor);
+                    histo1D["SFjetnormcor_Up"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune * cFactor_up *
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight);
+                    histo1D["SFjetnormcor_Down"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune * cFactor_down *
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight);
+
 
                     histo1D[dataSetName]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
-                             SFPU * SFTopPt * SFbehrends * GenWeight * Luminosity * eqlumi * ttbbReweight);
+                             SFPU * SFTopPt * SFbehrends * GenWeight * Luminosity * eqlumi * ttbbReweight * cFactor);
                     if(split_ttbar) {
                         if(ttXrew < 1) { 
                             MSPlot[plotname]->Fill(varofInterest, ttbar_ll, true, NormFactor * GenWeight * SFtrigger * SFlepton *
-                             SFbtagCSV * SFalphaTune * SFPU * SFTopPt * SFbehrends * Luminosity * ttbbReweight * LumiFactor);
+                             SFbtagCSV * SFalphaTune * SFPU * SFTopPt * SFbehrends * Luminosity * ttbbReweight * cFactor);
                         } else if(ttXrew > 1) {
                             MSPlot[plotname]->Fill(varofInterest, ttbar_bb, true, NormFactor * GenWeight * SFtrigger * SFlepton *
-                             SFbtagCSV * SFalphaTune * SFPU * SFTopPt * SFbehrends * Luminosity * ttbbReweight * LumiFactor);
+                             SFbtagCSV * SFalphaTune * SFPU * SFTopPt * SFbehrends * Luminosity * ttbbReweight * cFactor);
                         } else {
                             MSPlot[plotname]->Fill(varofInterest, ttbar_cc, true, NormFactor * GenWeight * SFtrigger * SFlepton *
-                             SFbtagCSV * SFalphaTune * SFPU * SFTopPt * SFbehrends * Luminosity * ttbbReweight * LumiFactor);
+                             SFbtagCSV * SFalphaTune * SFPU * SFTopPt * SFbehrends * Luminosity * ttbbReweight * cFactor);
                         }
                     } else {
                         MSPlot[plotname]->Fill(varofInterest, datasets[d], true, NormFactor * GenWeight * SFtrigger * SFlepton *
-                             SFbtagCSV * SFalphaTune * SFPU * SFTopPt * SFbehrends * Luminosity * ttbbReweight * LumiFactor);
+                             SFbtagCSV * SFalphaTune * SFPU * SFTopPt * SFbehrends * Luminosity * ttbbReweight * cFactor);
                     }
                 } else if(dataSetName.find("NP_overlay_ttttNLO") != string::npos && dataSetName.find("JES") == string::npos &&
                           dataSetName.find("JER") == string::npos && dataSetName.find("Up") == string::npos &&
@@ -1994,22 +2032,47 @@ void DatasetPlotter(int nBins,
 
                     histo1D[dataSetName]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
                              SFPU * SFTopPt * SFbehrends * GenWeight * Luminosity * eqlumi * ttbbReweight);
-                } else if(dataSetName.find("Rare1") != string::npos || dataSetName.find("Rare2") != string::npos) {
+
+                } else if(dataSetName.find("Rare1") != string::npos) {
                     histo1D["TTJets_Rare"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                    histo1D[dataSetName]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
                              SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
                     MSPlot[plotname]->Fill(varofInterest, datasets[d], true, NormFactor * GenWeight * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
                              SFPU * SFTopPt * SFbehrends * Luminosity * ttbbReweight * LumiFactor);
-                } else if(dataSetName.find(otherTTbarsample) == string::npos && dataSetName.find("Down")==string::npos &&
-                        dataSetName.find("Scale") == string::npos && dataSetName.find("JES") == string::npos &&
-                        dataSetName.find("JER") == string::npos && dataSetName.find("Up") == string::npos &&
-                        dataSetName.find("ScaleH") == string::npos && dataSetName.find("TTUE") == string::npos &&
-                        dataSetName.find("ISR") == string::npos && dataSetName.find("FSR") == string::npos) { 
-                    // ie. don't add the MLM dataset which is just used for ttGenerator
+
+                } else if(dataSetName.find("Rare2") != string::npos) {
+                    histo1D["TTJets_Rare_plus"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                    histo1D[dataSetName]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight * LumiFactor);
+                    MSPlot[plotname]->Fill(varofInterest, datasets[d], true, NormFactor * GenWeight * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
+                             SFPU * SFTopPt * SFbehrends * Luminosity * ttbbReweight * LumiFactor);
+
+                } else if( dataSetName.find("EW") != string::npos || dataSetName.find("DYJets") != string::npos) {
+                    histo1D["EW"]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
+                             SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi * ttbbReweight* LumiFactor);
+
+                    histo1D[dataSetName]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
+                             SFPU * SFTopPt * SFbehrends * GenWeight * Luminosity * eqlumi * ttbbReweight * LumiFactor);
+
+                    MSPlot[plotname]->Fill(varofInterest, datasets[d], true, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
+                             SFPU * SFTopPt * SFbehrends * Luminosity * ttbbReweight * LumiFactor * GenWeight);
+
+                } else if(dataSetName.find(otherTTbarsample) == string::npos && dataSetName.find("TTUE")==string::npos &&
+                        dataSetName.find("JES") == string::npos && dataSetName.find("JER") == string::npos &&
+                        dataSetName.find("ISR") == string::npos && dataSetName.find("FSR") == string::npos &&
+                        dataSetName.find("Up") == string::npos && dataSetName.find("Down") == string::npos) { 
  
                     MSPlot[plotname]->Fill(varofInterest, datasets[d], true, NormFactor * GenWeight * SFtrigger * SFlepton *
                              SFbtagCSV * SFalphaTune * SFPU * SFTopPt * SFbehrends * Luminosity * ttbbReweight * LumiFactor);
                     histo1D[dataSetName]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
                              SFPU * SFTopPt * SFbehrends * GenWeight * Luminosity * eqlumi * ttbbReweight);
+
+                } else if(dataSetName.find("TTJets") != string::npos){
+            //        if(flag_>0) SFbehrends = 0.030468;
+                    histo1D[dataSetName]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune * 
+                             SFPU * SFTopPt * SFbehrends * GenWeight * Luminosity * eqlumi * ttbbReweight * cFactor);
 
                 } else {
                     histo1D[dataSetName]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune * 
@@ -2029,26 +2092,33 @@ void DatasetPlotter(int nBins,
             writename = channel + "__" + "ttbarTTX" + "__JESUp";
         } else if(dataSetName.find("TTJetsPowheg_JESDown") != string::npos) {
             writename = channel + "__" + "ttbarTTX" + "__JESDown";
-        } else if(dataSetName.find("TT_SubTotalPileUpUp") != string::npos) {
+
+        } else if(dataSetName.find("TTJets_SubTotalPileUpUp") != string::npos) {
             writename = channel + "__" + "ttbarTTX" + "__SubTotalPileUpUp";
-        } else if(dataSetName.find("TT_SubTotalPileUpDown") != string::npos) {
+        } else if(dataSetName.find("TTJets_SubTotalPileUpDown") != string::npos) {
             writename = channel + "__" + "ttbarTTX" + "__SubTotalPileUpDown";
-        } else if(dataSetName.find("TT_SubTotalRelativeUp") != string::npos) {
+        } else if(dataSetName.find("TTJets_SubTotalRelativeUp") != string::npos) {
             writename = channel + "__" + "ttbarTTX" + "__SubTotalRelativeUp";
-        } else if(dataSetName.find("TT_SubTotalRelativeDown") != string::npos) {
+        } else if(dataSetName.find("TTJets_SubTotalRelativeDown") != string::npos) {
             writename = channel + "__" + "ttbarTTX" + "__SubTotalRelativeDown";
-        } else if(dataSetName.find("TT_SubTotalPtUp") != string::npos) {
+        } else if(dataSetName.find("TTJets_SubTotalPtUp") != string::npos) {
             writename = channel + "__" + "ttbarTTX" + "__SubTotalPtUp";
-        } else if(dataSetName.find("TT_SubTotalPtDown") != string::npos) {
+        } else if(dataSetName.find("TTJets_SubTotalPtDown") != string::npos) {
             writename = channel + "__" + "ttbarTTX" + "__SubTotalPtDown";
-        } else if(dataSetName.find("TT_SubTotalScaleUp") != string::npos) {
+        } else if(dataSetName.find("TTJets_SubTotalScaleUp") != string::npos) {
             writename = channel + "__" + "ttbarTTX" + "__SubTotalScaleUp";
-        } else if(dataSetName.find("TT_SubTotalScaleDown") != string::npos) {
+        } else if(dataSetName.find("TTJets_SubTotalScaleDown") != string::npos) {
             writename = channel + "__" + "ttbarTTX" + "__SubTotalScaleDown";
+        } else if(dataSetName.find("TTJets_SubTotalFlavorUp") != string::npos) {
+            writename = channel + "__" + "ttbarTTX" + "__SubTotalFlavorUp";
+        } else if(dataSetName.find("TTJets_SubTotalFlavorDown") != string::npos) {
+            writename = channel + "__" + "ttbarTTX" + "__SubTotalFlavorDown";
+
         } else if(dataSetName.find("TTJetsPowheg_JERUp") != string::npos) {
             writename = channel + "__" + "ttbarTTX" + "__JERUp";
         } else if(dataSetName.find("TTJetsPowheg_JERDown") != string::npos) {
             writename = channel + "__" + "ttbarTTX" + "__JERDown";
+
         } else if(dataSetName.find("TTUEUp") != string::npos) {
             writename = channel + "__" + "ttbarTTX" + "__TTUEUp";
         } else if(dataSetName.find("TTUEDown") != string::npos) {
@@ -2077,6 +2147,7 @@ void DatasetPlotter(int nBins,
             writename = channel + "__" + "NP_overlay_ttttNLO" + "__JERUp";
         } else if(dataSetName.find("JERDown") != string::npos && dataSetName.find("tttt") != string::npos) {
             writename = channel + "__" + "NP_overlay_ttttNLO" + "__JERDown";
+
         } else if(dataSetName.find("ttttNLO_SubTotalPileUpUp") != string::npos) {
             writename = channel + "__" + "NP_overlay_ttttNLO" + "__SubTotalPileUpUp";
         } else if(dataSetName.find("ttttNLO_SubTotalPileUpDown") != string::npos) {
@@ -2093,6 +2164,11 @@ void DatasetPlotter(int nBins,
             writename = channel + "__" + "NP_overlay_ttttNLO" + "__SubTotalScaleUp";
         } else if(dataSetName.find("ttttNLO_SubTotalScaleDown") != string::npos) {
             writename = channel + "__" + "NP_overlay_ttttNLO" + "__SubTotalScaleDown";
+        } else if(dataSetName.find("ttttNLO_SubTotalFlavorUp") != string::npos) {
+            writename = channel + "__" + "NP_overlay_ttttNLO" + "__SubTotalFlavorUp";
+        } else if(dataSetName.find("ttttNLO_SubTotalFlavorDown") != string::npos) {
+            writename = channel + "__" + "NP_overlay_ttttNLO" + "__SubTotalFlavorDown";
+
         } else if(dataSetName.find("TTJetsPowheg") != string::npos && dataSetName.find("Up") == string::npos && dataSetName.find("Down") == string::npos) {
             writename = channel + "__ttbarTTX" + "__nominal";
         } else {
@@ -2123,10 +2199,12 @@ void DatasetPlotter(int nBins,
 
             histo1D["PU_Up"]->Write((MEScalesysname + "PUUp").c_str());
             histo1D["PU_Down"]->Write((MEScalesysname + "PUDown").c_str());
+            histo1D["SFjetnormcor_Up"]->Write((MEScalesysname + "SFjetnormUp").c_str());
+            histo1D["SFjetnormcor_Down"]->Write((MEScalesysname + "SFjetnormDown").c_str());
             histo1D["TTPT_Up"]->Write((MEScalesysname + "TTPTUp").c_str());
             histo1D["TTPT_Down"]->Write((MEScalesysname + "TTPTDown").c_str());
-            histo1D["TTJetsPDF_Up"]->Write((MEScalesysname + "TTJetsPDFUp").c_str());
-            histo1D["TTJetsPDF_Down"]->Write((MEScalesysname + "TTJetsPDFDown").c_str());
+            histo1D["TTJetsPDF_Up"]->Write((MEScalesysname + "TTJets_PDFUp").c_str());
+            histo1D["TTJetsPDF_Down"]->Write((MEScalesysname + "TTJets_PDFDown").c_str());
             histo1D["hdamp_Up"]->Write((MEScalesysname + "TTJets_HDAMPUp").c_str());
             histo1D["hdamp_Down"]->Write((MEScalesysname + "TTJets_HDAMPDown").c_str());
             histo1D["heavyFlav_Up"]->Write((MEScalesysname + "heavyFlavUp").c_str());
@@ -2190,6 +2268,8 @@ void DatasetPlotter(int nBins,
     } // end of dataset loop
 
     histo1D["TTJets_Rare"]->Write((channel + "__TTRARE__nominal").c_str());
+    histo1D["TTJets_Rare_plus"]->Write((channel + "__TTRARE_plus__nominal").c_str());
+    histo1D["EW"]->Write((channel + "__EW__nominal").c_str());
 
     GetScaleEnvelope_tttt(nBins, lScale, plotLow, plotHigh, leptoAbbr, shapefile, errorfile, channel, sVarofinterest, xmlNom, CraneenPath, shapefileName, mainTTbarSample);
     GetScaleEnvelope(nBins, lScale, plotLow, plotHigh, leptoAbbr, shapefile, errorfile, channel, sVarofinterest, xmlNom, CraneenPath, shapefileName, mainTTbarSample);
@@ -2215,7 +2295,7 @@ void DatasetPlotter(int nBins,
         temp->setDataLumi(35822);
 
         temp->setErrorBandFile(MEScaleFileName.c_str());
-        temp->Draw(sVarofinterest.c_str(), 1, true, false, true, 20);
+        temp->Draw(sVarofinterest.c_str(), 2, true, true, true, 20);
         temp->Write(shapefile, name, true, pathPNG, "eps");
         temp->Write(shapefile, name, true, pathPNG, "root");
     }
@@ -3601,7 +3681,7 @@ void Split2DatasetPlotter(int nBins,
         ttbar_cc = new Dataset("TTJets_cc", "tt + cc", true, 633, 1, 2, 1, 6.9, ttbar_filenames);
         ttbar_bb = new Dataset("TTJets_bb", "tt + bb", true, 634, 1, 2, 1, 4.8, ttbar_filenames);
 
-        int newlumi = 551805.763767;
+        int newlumi = 550784.76123;
                       //datasets[ndatasets - 1]->EquivalentLumi();
         ttbar_ll->SetEquivalentLuminosity(newlumi);
         ttbar_cc->SetEquivalentLuminosity(newlumi);
@@ -3671,6 +3751,7 @@ void Split2DatasetPlotter(int nBins,
           btagWeightCSVLFStats1Down = 1, btagWeightCSVLFStats2Up = 1, btagWeightCSVLFStats2Down = 1,
           btagWeightCSVCFErr1Up = 1, btagWeightCSVCFErr1Down = 1, btagWeightCSVCFErr2Up = 1,
           btagWeightCSVCFErr2Down = 1, weight_ct10 = 1, weight_mmht14 = 1, ttXrew = 1, ttXrew_up = 1, ttXrew_down = 1, lepiso1, lepiso2, BDT_TTRare = -2.0;
+    float flag_ = 0, superClusterEta1 = 1.479, superClusterEta2 = 1.479;
 
     for(int d = 0; d < datasets.size(); d++){
 
@@ -3692,6 +3773,8 @@ void Split2DatasetPlotter(int nBins,
         cout << "                 nEntries: " << nEntries << endl;
 
         nTuple[dataSetName.c_str()]->SetBranchAddress(sVarofinterest.c_str(), &varofInterest);
+        nTuple[dataSetName.c_str()]->SetBranchAddress(sSplitVar1.c_str(), &splitVar1);
+        nTuple[dataSetName.c_str()]->SetBranchAddress(sSplitVar2.c_str(), &splitVar2);
         nTuple[dataSetName.c_str()]->SetBranchAddress("ScaleFactor", &ScaleFactor);
         nTuple[dataSetName.c_str()]->SetBranchAddress("NormFactor", &NormFactor);
         nTuple[dataSetName.c_str()]->SetBranchAddress("GenWeight", &GenWeight);
@@ -3738,16 +3821,16 @@ void Split2DatasetPlotter(int nBins,
         nTuple[dataSetName.c_str()]->SetBranchAddress("btagWeightCSVCFErr2Up", &btagWeightCSVCFErr2Up);
         nTuple[dataSetName.c_str()]->SetBranchAddress("btagWeightCSVCFErr2Down", &btagWeightCSVCFErr2Down);
         nTuple[dataSetName.c_str()]->SetBranchAddress("ttbar_flav", &ttbar_flav);
-        nTuple[dataSetName.c_str()]->SetBranchAddress(sSplitVar1.c_str(), &splitVar1);
-        nTuple[dataSetName.c_str()]->SetBranchAddress(sSplitVar2.c_str(), &splitVar2);
+
+
+        //nTuple[dataSetName.c_str()]->SetBranchAddress("superClusterEta1", &superClusterEta1);
+        //nTuple[dataSetName.c_str()]->SetBranchAddress("superClusterEta2", &superClusterEta2);
         //nTuple[dataSetName.c_str()]->SetBranchAddress("LeadingLepIso", &lepiso1);
         //nTuple[dataSetName.c_str()]->SetBranchAddress("SubLeadingLepIso", &lepiso2);
-/*
-if(channel == "ttttmumu") nTuple[dataSetName.c_str()]->SetBranchAddress("BDT_MuMuTTRare_13TeVHadTop", &BDT_TTRare);
-else if(channel == "ttttmuel") nTuple[dataSetName.c_str()]->SetBranchAddress("BDT_MuElTTRare_13TeVHadTop", &BDT_TTRare);
-else if(channel == "ttttelel") nTuple[dataSetName.c_str()]->SetBranchAddress("BDT_ElElTTRare_13TeVHadTop", &BDT_TTRare);
-else BDT_TTRare = -2.0;
-*/
+	if(dataSetName.find("TTJets_") != string::npos || dataSetName.find(mainTTbarSample) != string::npos)
+            nTuple[dataSetName.c_str()]->SetBranchAddress("flag", &flag_);
+
+
         float eqlumi = 1. / datasets[d]->EquivalentLumi();
         cout << "eqlumi: " << eqlumi << endl;
 
@@ -3973,10 +4056,29 @@ else BDT_TTRare = -2.0;
         float ProjectedLumi = 10000; // pb-1
         float LumiFactor = 1;
 
-
         // float LumiFactor = ProjectedLumi/Luminosity;
         for(int j = 0; j < nEntries; j++) {
             nTuple[dataSetName.c_str()]->GetEntry(j);
+
+/////////////////////
+/// Fake Studies  ///
+/////////////////////
+//if(varofInterest<0.15&&lepiso2<0.15) continue;
+//if(varofInterest<0.15&&lepiso2>0.35) continue;
+//if(varofInterest>0.35&&lepiso2<0.15) continue;
+//if(varofInterest>0.15&&lepiso2>0.15) continue;
+
+//if(lepiso1>0.15) continue;
+//if((superClusterEta2<=1.479 && varofInterest<0.0994)||(superClusterEta2>1.479 && varofInterest<0.107)) continue;
+//if(varofInterest>0.3) continue;
+
+//if((superClusterEta2<=1.479 && lepiso2>0.0994)||(superClusterEta2>1.479 && lepiso2>0.107)) continue;
+//if(varofInterest>0.35||varofInterest<0.15) continue;
+
+//if( ((superClusterEta1<=1.479 && varofInterest<0.1)||(superClusterEta1>1.479 && varofInterest<0.12)) && ((superClusterEta2<=1.479 && lepiso2<0.1)||(superClusterEta2>1.479 && lepiso2<0.12)) ) continue;
+//if( ((superClusterEta1<=1.479 && varofInterest<0.1)||(superClusterEta1>1.479 && varofInterest<0.12)) && ((superClusterEta2<=1.479 && lepiso2>0.3)||(superClusterEta2>1.479 && lepiso2>0.30)) ) continue;
+//if( ((superClusterEta1<=1.479 && varofInterest>0.3)||(superClusterEta1>1.479 && varofInterest>0.30)) && ((superClusterEta2<=1.479 && lepiso2<0.1)||(superClusterEta2>1.479 && lepiso2<0.12)) ) continue;
+//if( ((superClusterEta1<=1.479 && varofInterest>0.1)||(superClusterEta1>1.479 && varofInterest>0.12)) && ((superClusterEta2<=1.479 && lepiso2>0.1)||(superClusterEta2>1.479 && lepiso2>0.12)) ) continue;
 
             // artificial Lumi
             // if(lScale > 0 )
@@ -3988,7 +4090,11 @@ else BDT_TTRare = -2.0;
             //if(lepiso1>0.15||lepiso2>0.15) continue;
             NormFactor = 1.0;
             SFalphaTune = 1.0; SFbehrends = 1.0;
-            //SFTopPt_up = SFTopPt > 1.0? SFTopPt: 1.0;            SFTopPt_down = SFTopPt > 1.0? 1.0: SFTopPt;            SFTopPt = 1.0; 
+
+            //SFTopPt_up = SFTopPt > 1.0? SFTopPt: 1.0;
+            //SFTopPt_down = SFTopPt > 1.0? 1.0: SFTopPt;
+            //SFTopPt = 1.0; 
+
             if(dataSetName.find("tttt") != string::npos) {
                 NormFactor = 1.0 / 0.4214;
             } else if(dataSetName.find("WZZ") != string::npos) {
@@ -4073,6 +4179,8 @@ else BDT_TTRare = -2.0;
             } else if(dataSetName.find(mainTTbarSample) != string::npos && dataSetName.find("JES") == string::npos &&
                 dataSetName.find("JER") == string::npos && dataSetName.find("ISR") == string::npos && dataSetName.find("FSR") == string::npos &&
                 dataSetName.find("Up") == string::npos && dataSetName.find("Down") == string::npos) {
+
+		if(flag_>0) SFbehrends = 0.0902;
 
                 histo1D[("Genweight_tt" + nameEnding).c_str()]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton *
                         SFbtagCSV * SFalphaTune * SFPU * SFTopPt * SFbehrends * Luminosity * eqlumi *
@@ -4208,7 +4316,6 @@ else BDT_TTRare = -2.0;
                 //histo1D[("ttbarTTX"+plotname).c_str()]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV *
                 //        SFalphaTune * SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi *
                 //        ttbbReweight* LumiFactor);
-
             } else if(dataSetName.find("NP_overlay_ttttNLO") != string::npos && dataSetName.find("JES") == string::npos &&
                 dataSetName.find("JER") == string::npos && dataSetName.find("ISR") == string::npos && dataSetName.find("FSR") == string::npos &&
                 dataSetName.find("Up") == string::npos && dataSetName.find("Down") == string::npos) {
@@ -4300,6 +4407,7 @@ else BDT_TTRare = -2.0;
                 MSPlot[plotname]->Fill(varofInterest, datasets[d], true, NormFactor * SFtrigger * SFlepton *
                         SFbtagCSV * SFalphaTune * SFPU * SFTopPt * SFbehrends * Luminosity *
                         ttbbReweight * LumiFactor * GenWeight);
+
             } else if(dataSetName.find("Rare1") != string::npos) {
                 histo1D[("TTJets_Rare"+plotname).c_str()]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV *
                         SFalphaTune * SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi *
@@ -4312,6 +4420,7 @@ else BDT_TTRare = -2.0;
                 MSPlot[plotname]->Fill(varofInterest, datasets[d], true, NormFactor * SFtrigger * SFlepton *
                         SFbtagCSV * SFalphaTune * SFPU * SFTopPt * SFbehrends * Luminosity *
                         ttbbReweight * LumiFactor * GenWeight);
+
             } else if( dataSetName.find("Rare2") != string::npos) {
                 histo1D[("TTJets_Rare_plus"+plotname).c_str()]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
                         SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi *
@@ -4324,6 +4433,7 @@ else BDT_TTRare = -2.0;
                 MSPlot[plotname]->Fill(varofInterest, datasets[d], true, NormFactor * SFtrigger * SFlepton *
                         SFbtagCSV * SFalphaTune * SFPU * SFTopPt * SFbehrends * Luminosity *
                         ttbbReweight * LumiFactor * GenWeight);
+
             } else if( dataSetName.find("EW") != string::npos || dataSetName.find("DYJets") != string::npos) {
                 histo1D[("EW"+plotname).c_str()]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune *
                         SFPU * SFTopPt * SFbehrends * Luminosity * GenWeight * eqlumi *
@@ -4336,6 +4446,7 @@ else BDT_TTRare = -2.0;
                 MSPlot[plotname]->Fill(varofInterest, datasets[d], true, NormFactor * SFtrigger * SFlepton *
                         SFbtagCSV * SFalphaTune * SFPU * SFTopPt * SFbehrends * Luminosity *
                         ttbbReweight * LumiFactor * GenWeight);
+
             } else if(dataSetName.find(otherTTbarsample) == string::npos && dataSetName.find("TTUE") == string::npos &&
                       dataSetName.find("JES") == string::npos && dataSetName.find("JER") == string::npos &&
                       dataSetName.find("ISR") == string::npos && dataSetName.find("FSR") == string::npos &&
@@ -4345,7 +4456,9 @@ else BDT_TTRare = -2.0;
                         ttbbReweight * LumiFactor * GenWeight);
                 histo1D[histoName]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV * SFalphaTune * SFPU * SFTopPt *
                         SFbehrends * GenWeight * Luminosity * eqlumi * ttbbReweight * LumiFactor);
+
             } else if(dataSetName.find("TTJets") != string::npos){
+                if(flag_>0) SFbehrends = 0.0902;
                 histo1D[histoName.c_str()]->Fill(varofInterest, NormFactor * SFtrigger * SFlepton * SFbtagCSV *
                         SFalphaTune * SFPU * SFTopPt * SFbehrends * GenWeight * Luminosity * eqlumi *
                         ttbbReweight * cFactor);
@@ -4553,6 +4666,7 @@ else BDT_TTRare = -2.0;
         }
         FileObj[dataSetName.c_str()]->Close();
     } // end dataset loop
+
     for(int s = fbSplit1; s <= ftSplit1; s += fwSplit1) {
         numStr1 = static_cast<ostringstream*>(&(ostringstream() << s))->str();
         for(int t2 = fbSplit2; t2 <= ftSplit2; t2 += fwSplit2) {
@@ -4563,18 +4677,23 @@ else BDT_TTRare = -2.0;
             histo1D[("EW"+plotname).c_str()]->Write((channel + numStr1 + sSplitVar1 + numStr2 + sSplitVar2 + "__EW__nominal").c_str());
         }
     }
+
     GetScaleEnvelopeSplit2_tttt(nBins, lScale, plotLow, plotHigh, leptoAbbr, shapefile, errorfile, channel, sVarofinterest,
         sSplitVar1, fbSplit1, ftSplit1, fwSplit1, sSplitVar2, fbSplit2, ftSplit2, fwSplit2, xmlNom, CraneenPath,
         shapefileName, mainTTbarSample);
+
     GetScaleEnvelopeSplit2(nBins, lScale, plotLow, plotHigh, leptoAbbr, shapefile, errorfile, channel, sVarofinterest,
         sSplitVar1, fbSplit1, ftSplit1, fwSplit1, sSplitVar2, fbSplit2, ftSplit2, fwSplit2, xmlNom, CraneenPath,
         shapefileName, mainTTbarSample);
-    //GetMatchingSplit2(nBins, lScale, plotLow, plotHigh, leptoAbbr, shapefile, errorfile, channel, sVarofinterest,
-    //    xmlNom, CraneenPath, mainTTbarSample, otherTTbarsample, sSplitVar1, fbSplit1, ftSplit1, fwSplit1, sSplitVar2,
-    //    fbSplit2, ftSplit2, fwSplit2);
+
     GetErrorBandSplit2(nBins, lScale, plotLow, plotHigh, leptoAbbr, shapefile, errorfile, channel, sVarofinterest,
         sSplitVar1, fbSplit1, ftSplit1, fwSplit1, sSplitVar2, fbSplit2, ftSplit2, fwSplit2, xmlNom, CraneenPath,
         shapefileName, mainTTbarSample);
+
+    //GetStatErrorBandSplit2(nBins, lScale, plotLow, plotHigh, leptoAbbr, shapefile, errorfile, channel, sVarofinterest,
+    //    sSplitVar1, fbSplit1, ftSplit1, fwSplit1, sSplitVar2, fbSplit2, ftSplit2, fwSplit2, xmlNom, CraneenPath,
+    //    shapefileName, mainTTbarSample);
+
     errorfile->Close();
     // treeLoader.UnLoadDataset();
 
@@ -4591,7 +4710,7 @@ else BDT_TTRare = -2.0;
         temp->setDataLumi(35822);
 
         temp->setErrorBandFile(MEScaleFileName.c_str()); // set error file for uncertainty bands on multisample plot
-        temp->Draw(sVarofinterest.c_str(), 2, false, true, true, 20);//bool addRatioErrorBand, bool addErrorBand, bool ErrorBandAroundTotalInput
+        temp->Draw(sVarofinterest.c_str(), 2, true, true, true, 20);//bool addRatioErrorBand, bool addErrorBand, bool ErrorBandAroundTotalInput
         temp->Write(shapefile, name, true, pathPNG, "eps");
         temp->Write(shapefile, name, true, pathPNG, "root");
     }
@@ -4653,11 +4772,13 @@ void DataCardProducer(string VoI,
         if(dataSetName.find("Data") != string::npos || dataSetName.find("data") != string::npos ||
             dataSetName.find("DATA") != string::npos || dataSetName.find("JER") != string::npos ||
             dataSetName.find("JES") != string::npos || dataSetName.find("MLM") != string::npos ||
-            dataSetName.find("Up") != string::npos || dataSetName.find("Scale") != string::npos ||
+            dataSetName.find("Up") != string::npos || dataSetName.find("Down") != string::npos ||
             dataSetName.find(otherTTbarsample) != string::npos|| dataSetName.find("TTJets_aMCatNLO")!=string::npos ||
-            dataSetName.find("RareTT") != string::npos ||dataSetName.find("Down") != string::npos ||
-            dataSetName.find("ISR") != string::npos || dataSetName.find("FSR") != string::npos ||
-            dataSetName.find("TTUE") != string::npos) {
+            dataSetName.find("Rare1TTZ") != string::npos ||
+            dataSetName.find("ISR") != string::npos ||
+            dataSetName.find("FSR") != string::npos || dataSetName.find("TTUE") != string::npos ||
+            dataSetName.find("Rare2TTW") != string::npos || dataSetName.find("Rare2TTZ") != string::npos ||
+            dataSetName.find("Rare2TTT") != string::npos || dataSetName.find("EW") != string::npos) {
             continue;
         } else {
             MCdatasets.push_back(dataSetName);
@@ -4707,19 +4828,25 @@ void DataCardProducer(string VoI,
     for(int j = 0; j < nDatasets; j++) {
         dataSetName = datasets[j]->Name();
         if(dataSetName.find("Data") != string::npos || dataSetName.find("data") != string::npos ||
-            dataSetName.find("DATA") != string::npos) {
-            continue;
-        } else if(dataSetName.find("JER") != string::npos || dataSetName.find("JES") != string::npos ||
+            dataSetName.find("DATA") != string::npos || dataSetName.find("JER") != string::npos || 
+            dataSetName.find("JES") != string::npos || dataSetName.find("MLM") != string::npos ||
             dataSetName.find("Up") != string::npos || dataSetName.find("Down") != string::npos ||
-            dataSetName.find("RareTT") != string::npos || dataSetName.find("ISR") != string::npos ||
-            dataSetName.find("FSR") != string::npos || dataSetName.find("TTUE") != string::npos ) {
+            dataSetName.find("Rare1TTZ") != string::npos ||
+            dataSetName.find("ISR") != string::npos ||
+            dataSetName.find("FSR") != string::npos || dataSetName.find("TTUE") != string::npos ||
+            dataSetName.find("Rare2TTW") != string::npos || dataSetName.find("Rare2TTZ") != string::npos ||
+            dataSetName.find("Rare2TTT") != string::npos || dataSetName.find("EW") != string::npos) {
             continue;
         } else if(dataSetName.find(otherTTbarsample) != string::npos || dataSetName.find("TTJets_aMCatNLO")!=string::npos) {
             continue;
         } else if(dataSetName.find(mainTTbarsample)!=string::npos){
             card<< "ttbarTTX           ";
-        } else if(dataSetName.find("TTZ") != string::npos) {
+        } else if(dataSetName.find("Rare1TTH") != string::npos) {
             card <<"TTRARE           ";
+        } else if(dataSetName.find("Rare2TTHH") != string::npos) {
+            card <<"TTRARE_plus           ";
+        } else if (dataSetName.find("DYJets") != string::npos){
+            card <<"EW           ";
         } else {
             card << dataSetName + "           ";
         }
@@ -4739,12 +4866,14 @@ void DataCardProducer(string VoI,
     for(int j = 0; j < nDatasets; j++) {
         dataSetName = datasets[j]->Name();
         if(dataSetName.find("Data") != string::npos || dataSetName.find("data") != string::npos ||
-            dataSetName.find("DATA") != string::npos) {
-            continue;
-        } else if(dataSetName.find("JER") != string::npos || dataSetName.find("JES") != string::npos ||
+            dataSetName.find("DATA") != string::npos || dataSetName.find("JER") != string::npos ||
+            dataSetName.find("JES") != string::npos || dataSetName.find("MLM") != string::npos ||
             dataSetName.find("Up") != string::npos || dataSetName.find("Down") != string::npos ||
-            dataSetName.find("RareTT") != string::npos || dataSetName.find("ISR") != string::npos ||
-            dataSetName.find("FSR") != string::npos || dataSetName.find("TTUE") != string::npos) {
+            dataSetName.find("Rare1TTZ") != string::npos ||
+            dataSetName.find("ISR") != string::npos ||
+            dataSetName.find("FSR") != string::npos || dataSetName.find("TTUE") != string::npos ||
+            dataSetName.find("Rare2TTW") != string::npos || dataSetName.find("Rare2TTZ") != string::npos ||
+            dataSetName.find("Rare2TTT") != string::npos || dataSetName.find("EW") != string::npos) {
             continue;
         } else if(dataSetName.find(otherTTbarsample) != string::npos || dataSetName.find("TTJets_aMCatNLO")!=string::npos) {
             continue;
@@ -4753,8 +4882,18 @@ void DataCardProducer(string VoI,
             tempHisto = (TH1F*)shapefile->Get(histoName.c_str());
             tempEntries = tempHisto->GetSumOfWeights();
             card << static_cast<ostringstream*>(&(ostringstream() << tempEntries))->str() + "               ";
-        } else if(dataSetName.find("TTZ") != string::npos) {
+        } else if(dataSetName.find("Rare1TTH") != string::npos) {
             histoName = channel + "__" + "TTRARE" + "__nominal";
+            tempHisto = (TH1F*)shapefile->Get(histoName.c_str());
+            tempEntries = tempHisto->GetSumOfWeights();
+            card << static_cast<ostringstream*>(&(ostringstream() << tempEntries))->str() + "               ";
+        } else if(dataSetName.find("Rare2TTHH") != string::npos) {
+            histoName = channel + "__" + "TTRARE_plus" + "__nominal";
+            tempHisto = (TH1F*)shapefile->Get(histoName.c_str());
+            tempEntries = tempHisto->GetSumOfWeights();
+            card << static_cast<ostringstream*>(&(ostringstream() << tempEntries))->str() + "               ";
+        } else if(dataSetName.find("DYJets") != string::npos) {
+            histoName = channel + "__" + "EW" + "__nominal";
             tempHisto = (TH1F*)shapefile->Get(histoName.c_str());
             tempEntries = tempHisto->GetSumOfWeights();
             card << static_cast<ostringstream*>(&(ostringstream() << tempEntries))->str() + "               ";
@@ -4788,13 +4927,16 @@ void DataCardProducer(string VoI,
     for(int d = 0; d < howmanyMC; d++) {
         dataSetName = MCdatasets[d];
         if(dataSetName.find("Data") != string::npos || dataSetName.find("data") != string::npos ||
-            dataSetName.find("DATA") != string::npos) {
-            continue;
-        } else if(dataSetName.find("JER") != string::npos || dataSetName.find("JES") != string::npos ||
+            dataSetName.find("DATA") != string::npos || dataSetName.find("JER") != string::npos ||
+            dataSetName.find("JES") != string::npos || dataSetName.find("MLM") != string::npos ||
             dataSetName.find("Up") != string::npos || dataSetName.find("Down") != string::npos ||
-            dataSetName.find("RareTT") != string::npos || dataSetName.find("ISR") != string::npos || 
-            dataSetName.find("FSR") != string::npos || dataSetName.find("TTUE") != string::npos) {
+            dataSetName.find("Rare1TTZ") != string::npos ||
+            dataSetName.find("ISR") != string::npos ||
+            dataSetName.find("FSR") != string::npos || dataSetName.find("TTUE") != string::npos ||
+            dataSetName.find("Rare2TTW") != string::npos || dataSetName.find("Rare2TTZ") != string::npos ||
+            dataSetName.find("Rare2TTT") != string::npos || dataSetName.find("EW") != string::npos) {
             continue;
+
         } else if(dataSetName.find("NP_overlay_ttttNLO") != string::npos) {
             card << "tttt_norm              lnN          ";
             for(int k = 0; k < nChannels; k++) {
@@ -4807,6 +4949,7 @@ void DataCardProducer(string VoI,
                 }
             }
             card << "\n";
+
         } else if(dataSetName.find(mainTTbarsample) != string::npos) {
             card << "TTJets_norm              lnN          ";
             for(int k = 0; k < nChannels; k++) {
@@ -4819,18 +4962,46 @@ void DataCardProducer(string VoI,
                 }
             }
             card << "\n";
-        } else if(dataSetName.find("TTZ") != string::npos) { 
+
+        } else if(dataSetName.find("Rare1TTH") != string::npos) { 
             card << "TTRARE_norm              lnN          ";
             for(int k = 0; k < nChannels; k++) {
                 for(int dash1 = 0; dash1 < d; dash1++) {
                     card << "-                  ";
                 }
-                card << "0.95/1.05                    ";
+                card << "1.50                    ";
                 for(int dash2 = howmanyMC; dash2 > d + 1; dash2--) {
                     card << "-                  ";
                 }
             }
             card << "\n";
+
+        } else if(dataSetName.find("Rare2TTHH") != string::npos) {
+            card << "TTRARE_plus_norm   lnN                     ";
+            for(int k = 0; k < nChannels; k++) {
+                for(int dash1 = 0; dash1 < d; dash1++) {
+                    card << "-                       ";
+                }
+                card << "1.50                   ";
+                for(int dash2 = howmanyMC; dash2 > d + 1; dash2--) {
+                    card << "-                        ";
+                }
+            }
+            card << "\n";
+
+        } else if(dataSetName.find("DYJets") != string::npos) {
+            card << "EW                 lnN                     ";
+            for(int k = 0; k < nChannels; k++) {
+                for(int dash1 = 0; dash1 < d; dash1++) {
+                    card << "-                       ";
+                }
+                card << "1.04                    ";
+                for(int dash2 = howmanyMC; dash2 > d + 1; dash2--) {
+                    card << "-                       ";
+                }
+            }
+            card << "\n";
+
         } else {
             card << dataSetName + "_norm      lnN           ";
             for(int k = 0; k < nChannels; k++) {
@@ -4955,6 +5126,18 @@ void DataCardProducer(string VoI,
     }
     card << "\n";
 
+    card << "SFjetnorm          shape                   ";
+    for(int d = 0; d < howmanyMC; d++) {
+            dataSetName = MCdatasets[d];
+            if(dataSetName.find(mainTTbarsample) != string::npos) {
+                card << "1                      ";
+            }
+            else {
+                 card << "-                     ";
+            }
+    }
+    card << "\n";
+/*
     card << "JES                shape           ";
     for(int d = 0; d < howmanyMC; d++) {
             dataSetName = MCdatasets[d];
@@ -4969,7 +5152,7 @@ void DataCardProducer(string VoI,
             }
         }
     card << "\n";
-
+*/
     card << "SubTotalPileUp                shape           ";
     for(int d = 0; d < howmanyMC; d++) {
             dataSetName = MCdatasets[d];
@@ -5026,6 +5209,20 @@ void DataCardProducer(string VoI,
             }
         }
     card << "\n";
+    card << "SubTotalFlavor             shape                   ";
+    for(int d = 0; d < howmanyMC; d++) {
+            dataSetName = MCdatasets[d];
+            if(dataSetName.find(mainTTbarsample) != string::npos) {
+                card << "1                       ";
+            }
+            else if(dataSetName.find("tttt") != string::npos) {
+                card << "1                       ";
+            }
+            else {
+                card << "-                       ";
+            }
+    }
+    card << "\n";
 
     card << "JER                shape           ";
     for(int d = 0; d < howmanyMC; d++) {
@@ -5053,7 +5250,7 @@ void DataCardProducer(string VoI,
             }
         }
     card << "\n";
-*/
+
     card << "TTUE                shape           ";
     for(int d = 0; d < howmanyMC; d++) {
             dataSetName = MCdatasets[d];
@@ -5084,6 +5281,7 @@ void DataCardProducer(string VoI,
             }
     }
     card << "\n";
+*/
     card << "TTJets_HDAMP                shape           ";
     for(int d = 0; d < howmanyMC; d++) {
             dataSetName = MCdatasets[d];
@@ -5093,6 +5291,7 @@ void DataCardProducer(string VoI,
                 card << "-                  ";
             }
     }
+    card << "\n";
     card << "TTJets_PDF                shape           ";
     for(int d = 0; d < howmanyMC; d++) {
             dataSetName = MCdatasets[d];
@@ -5102,6 +5301,8 @@ void DataCardProducer(string VoI,
                 card << "-                  ";
             }
     }
+    card << "\n";
+/*
     card << "ttttISR                shape           ";
     for(int d = 0; d < howmanyMC; d++) {
             dataSetName = MCdatasets[d];
@@ -5122,6 +5323,7 @@ void DataCardProducer(string VoI,
             }
     }
     card << "\n";
+*/
     card << "heavyFlav                shape           ";
     for(int d = 0; d < howmanyMC; d++) {
             dataSetName = MCdatasets[d];
@@ -6439,7 +6641,7 @@ void Split2_DataCardProducer(string VoI,
         }
     }
     card << "\n";
-
+/*
     card << "TTUE			lnN			";
     for(int c = 0; c < nChannels; c++) {
         for(int d = 0; d < howmanyMC; d++) {
@@ -6574,14 +6776,14 @@ void Split2_DataCardProducer(string VoI,
         }
     }
     card << "\n";
-
-    card << "TTJets_HDAMP		lnN			";
+*/
+    card << "TTJets_HDAMP		shape			";
     for(int c = 0; c < nChannels; c++) {
         for(int d = 0; d < howmanyMC; d++) {
             dataSetName = MCdatasets[d];
             if(dataSetName.find(mainTTbarsample) != string::npos) {
-               // card << "1                      ";
-                    if(channel == "ttttmumu"){ 
+                card << "1                      ";
+                    /*if(channel == "ttttmumu"){ 
                         if(c==0) card << "1.09054			";
                         if(c==1) card << "1.08724			";
                         if(c==2) card << "1.08472			";
@@ -6612,7 +6814,7 @@ void Split2_DataCardProducer(string VoI,
                         if(c==3) card << "1.09351                       ";
                         if(c==4) card << "1.08708                       ";
                         if(c==5) card << "1.09697                       ";
-                    }
+                    }*/
             } else {
                 card << "-			";
             }
@@ -6633,13 +6835,13 @@ void Split2_DataCardProducer(string VoI,
     }
     card << "\n";
 
-    card << "TTTTISR			lnN			";
+    card << "TTTTISR			shape			";
     for(int c = 0; c < nChannels; c++) {
         for(int d = 0; d < howmanyMC; d++) {
             dataSetName = MCdatasets[d];
             if(dataSetName.find("tttt") != string::npos) {
-                //card << "1                      ";
-                    if(channel == "ttttmumu"){ 
+                card << "1                      ";
+                    /*if(channel == "ttttmumu"){ 
                         if(c==0) card << "1.09294			";
                         if(c==1) card << "1.06523			";
                         if(c==2) card << "1.12732			";
@@ -6670,7 +6872,7 @@ void Split2_DataCardProducer(string VoI,
                         if(c==3) card << "1.04586                       ";
                         if(c==4) card << "1.07774                       ";
                         if(c==5) card << "1.06359                       ";
-                    }
+                    }*/
             } else {
                 card << "-			";
             }
@@ -6678,13 +6880,13 @@ void Split2_DataCardProducer(string VoI,
     }
     card << "\n";
 
-    card << "TTTTFSR			lnN			";
+    card << "TTTTFSR			shape			";
     for(int c = 0; c < nChannels; c++) {
         for(int d = 0; d < howmanyMC; d++) {
             dataSetName = MCdatasets[d];
             if(dataSetName.find("tttt") != string::npos) {
-                //card << "1                      ";
-                    if(channel == "ttttmumu"){ 
+                card << "1                      ";
+                    /*if(channel == "ttttmumu"){ 
                         if(c==0) card << "1.02357			";
                         if(c==1) card << "1.03794			";
                         if(c==2) card << "1.06037			";
@@ -6715,7 +6917,7 @@ void Split2_DataCardProducer(string VoI,
                         if(c==3) card << "1.12752                       ";
                         if(c==4) card << "1.09199                       ";
                         if(c==5) card << "1.15689                       ";
-                    }
+                    }*/
             } else {
                 card << "-			";
             }

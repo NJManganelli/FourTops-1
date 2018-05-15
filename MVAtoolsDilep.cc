@@ -248,8 +248,8 @@ int main(int argc, char** argv)
 
         string filepath_tttt, filepath_ttbar;
 
-        filepath_tttt = "/user/lowang/CMSSW_8_0_26_patch1/src/TopBrussels/FourTops/Craneens_Comb/2018_0213/NP_overlay_ttttNLO_Run2_TopTree_Study.root";
-        filepath_ttbar = "/user/lowang/CMSSW_8_0_26_patch1/src/TopBrussels/FourTops/TTJetsPowheg_powheg_Run2_TopTree_Study.root";
+        filepath_tttt = "/user/lowang/CMSSW_8_0_26_patch1/src/TopBrussels/FourTops/Craneens_Comb/NP_overlay_ttttNLO_Run2_TopTree_Study.root";
+        filepath_ttbar = "/user/lowang/CMSSW_8_0_26_patch1/src/TopBrussels/FourTops/Craneens_Comb/TTJetsPowheg_Run2_TopTree_Study.root";
 
         TFile* ttbar = new TFile(filepath_ttbar.c_str());
         TFile* tttt = new TFile(filepath_tttt.c_str());
@@ -569,14 +569,13 @@ int main(int argc, char** argv)
         string filepath_zz = "Craneens_Comb/EWZZ_Run2_TopTree_Study.root";
         string filepath_wz = "Craneens_Comb/EWWZ_Run2_TopTree_Study.root";
 
-        string powhegnew = "Craneens_Comb/TTJetsPowheg_new_Run2_TopTree_Study.root";
 
 
         vector<TFile*> files;
 
-
-        files.push_back(TFile::Open(filepath_data.c_str(), "UPDATE"));
 /*        files.push_back(TFile::Open(filepath_tttt.c_str(), "UPDATE"));
+        files.push_back(TFile::Open(filepath_data.c_str(), "UPDATE"));
+        files.push_back(TFile::Open(filepath_tttt.c_str(), "UPDATE"));
         files.push_back(TFile::Open(filepath_ttttJESUp.c_str(), "UPDATE"));
         files.push_back(TFile::Open(filepath_ttttJESDown.c_str(), "UPDATE"));
         files.push_back(TFile::Open(filepath_ttttJERUp.c_str(), "UPDATE"));
@@ -596,7 +595,7 @@ int main(int argc, char** argv)
         files.push_back(TFile::Open(ttttNLO_SubTotalScaleDown.c_str(), "UPDATE"));
         files.push_back(TFile::Open(ttttNLO_SubTotalFlavorUp.c_str(), "UPDATE"));
         files.push_back(TFile::Open(ttttNLO_SubTotalFlavorDown.c_str(), "UPDATE"));
-        files.push_back(TFile::Open(TTJets_SubTotalPileUpUp.c_str(), "UPDATE"));
+*/        files.push_back(TFile::Open(TTJets_SubTotalPileUpUp.c_str(), "UPDATE"));
         files.push_back(TFile::Open(TTJets_SubTotalPileUpDown.c_str(), "UPDATE"));
         files.push_back(TFile::Open(TTJets_SubTotalRelativeUp.c_str(), "UPDATE"));
         files.push_back(TFile::Open(TTJets_SubTotalRelativeDown.c_str(), "UPDATE"));
@@ -607,12 +606,12 @@ int main(int argc, char** argv)
         files.push_back(TFile::Open(TTJets_SubTotalFlavorUp.c_str(), "UPDATE"));
         files.push_back(TFile::Open(TTJets_SubTotalFlavorDown.c_str(), "UPDATE"));
 
-        files.push_back(TFile::Open(filepath_ttbarPowheg.c_str(), "UPDATE"));
+//        files.push_back(TFile::Open(filepath_ttbarPowheg.c_str(), "UPDATE"));
         files.push_back(TFile::Open(filepath_ttbarPowhegJESUp.c_str(), "UPDATE"));
         files.push_back(TFile::Open(filepath_ttbarPowhegJESDown.c_str(), "UPDATE"));
         files.push_back(TFile::Open(filepath_ttbarPowhegJERUp.c_str(), "UPDATE"));
         files.push_back(TFile::Open(filepath_ttbarPowhegJERDown.c_str(), "UPDATE"));
-        files.push_back(TFile::Open(filepath_ttbarUEUp.c_str(), "UPDATE"));
+/*        files.push_back(TFile::Open(filepath_ttbarUEUp.c_str(), "UPDATE"));
         files.push_back(TFile::Open(filepath_ttbarUEDown.c_str(), "UPDATE"));
         files.push_back(TFile::Open(filepath_TTISRUp.c_str(), "UPDATE"));
         files.push_back(TFile::Open(filepath_TTISRDown.c_str(), "UPDATE"));
@@ -632,9 +631,8 @@ int main(int argc, char** argv)
         files.push_back(TFile::Open(filepath_tttj.c_str(), "UPDATE"));
         files.push_back(TFile::Open(filepath_zz.c_str(), "UPDATE"));
         files.push_back(TFile::Open(filepath_wz.c_str(), "UPDATE"));
-
-        files.push_back(TFile::Open(powhegnew.c_str(), "UPDATE"));
 */
+
 
         for(int i = 0; i < files.size(); i++) { // loop through the samples
             TNtuple* tup = (TNtuple*)files[i]->Get(nTuplename.c_str());
